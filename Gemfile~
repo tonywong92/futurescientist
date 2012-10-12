@@ -5,8 +5,14 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-group :development, :test do
+<<<<<<< HEAD
+# for Heroku deployment - as described in Ap. A of ELLS book
+group :test do
   gem 'pg'
+=======
+group :development, :test do
+  gem 'sqlite3'
+>>>>>>> 4984ffbd8acc75d1f2dfea85c6c8e9d1e2039051
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'cucumber-rails'
   gem 'cucumber-rails-training-wheels'
