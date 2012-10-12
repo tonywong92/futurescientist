@@ -7,6 +7,19 @@ gem 'rails', '3.2.8'
 
 gem 'sqlite3'
 
+group :development, :test do
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'cucumber-rails'
+  gem 'cucumber-rails-training-wheels'
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'rspec-rails'
+end
+
+group :production do
+  gem 'pg'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -36,3 +49,4 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+gem 'haml'
