@@ -1,0 +1,9 @@
+.container {
+	width: 960px;
+}
+
+.header {
+	top: 0;
+	height: 40px;
+	background-color: black;
+}
