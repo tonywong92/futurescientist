@@ -8,4 +8,4 @@ Scenario: View the listings table
 Scenario: Enter the login page
 	Given I am on the "home" page
 	And I click on the "Login" button
-	Then I should be redirected to the login page
+	Then I should see the login dropdown menu
