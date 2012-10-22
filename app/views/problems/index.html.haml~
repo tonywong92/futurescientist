@@ -11,7 +11,7 @@
             %li
               %a#post{:href => "#"} Post
             %li
-              %a#sign_up{:href => "#"} Sign Up
+              %a#sign_up{:href => "accounts/new"} Sign Up
             %li
               %a#log_in{:href => "#"} Log In
     %br
@@ -27,13 +27,9 @@
                     %th Location
                     %th Wage
                 %tbody
-                  %tr
-                    %td Problem 1
-                    %td Skill 1
-                    %td Town 1
-                    %td 10
-                  %tr
-                    %td Problem 2
-                    %td Skill 2
-                    %td Town 2
-                    %td 50
+                  - @problems.each do |problem|
+                    %tr
+                      %td= problem.summary
+                      %td= problem.skills
+                      %td= problem.location
+                     %td= '50'
