@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
     @user.attributes = params[:user]
     @account = Account.new
     @account.attributes = params[:account]
+    @all_skills = Skill.find(:all)
     if request.post?
       @user.account = @account
       save_account
