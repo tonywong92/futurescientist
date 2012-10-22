@@ -421,3 +421,242 @@ ActionView::MissingTemplate (Missing template users/new with {:locale=>[:en], :f
 
 
   Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.4ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:26:55 -0700
+Connecting to database specified by database.yml
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.1ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (6.7ms)
+Completed 200 OK in 272ms (Views: 137.0ms | ActiveRecord: 31.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 21:26:57 -0700
+Served asset /application.css - 200 OK (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 21:26:57 -0700
+Served asset /application.js - 200 OK (17ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 21:26:57 -0700
+Served asset /jquery_ujs.js - 200 OK (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 21:26:57 -0700
+Served asset /jquery.js - 200 OK (12ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:27:00 -0700
+Processing by AccountsController#new as HTML
+Completed 500 Internal Server Error in 26ms
+
+ActionView::MissingTemplate (Missing template accounts/new with {:locale=>[:en], :formats=>[:html], :handlers=>[:erb, :builder, :coffee, :haml]}. Searched in:
+  * "/home/ubuntu/Dropbox/CS 169/futurescientists/app/views"
+  * "/home/ubuntu/Dropbox/CS 169/futurescientists"
+  * "/"
+):
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.5ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:30:06 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (0.8ms)
+Completed 500 Internal Server Error in 12ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    2: 
+    3: - unless @account.errors.empty?
+    4:   The following fields were missing:
+    5:     %ul
+    6:       - @account.errors.full_messages.each do |error|
+    7:         %li= error
+    8:         
+  app/views/accounts/new.html.haml:5
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.3ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (20.7ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:30:53 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (0.8ms)
+Completed 500 Internal Server Error in 16ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.7ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.2ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (20.3ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:30:57 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (9.0ms)
+Completed 500 Internal Server Error in 11ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (20.5ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:31:19 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (0.8ms)
+Completed 500 Internal Server Error in 21ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (3.4ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (20.5ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:31:23 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (0.5ms)
+Completed 500 Internal Server Error in 14ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (21.5ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:31:50 -0700
+Connecting to database specified by database.yml
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.1ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (6.5ms)
+Completed 200 OK in 270ms (Views: 127.0ms | ActiveRecord: 12.2ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 21:31:52 -0700
+Served asset /application.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 21:31:52 -0700
+Served asset /application.js - 304 Not Modified (17ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 21:31:52 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 21:31:52 -0700
+Served asset /jquery.js - 304 Not Modified (18ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:31:56 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (1.8ms)
+Completed 500 Internal Server Error in 71ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (18.6ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:33:17 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (0.7ms)
+Completed 500 Internal Server Error in 7ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.8ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (18.2ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:33:19 -0700
+Processing by AccountsController#new as HTML
+  Rendered accounts/new.html.haml within layouts/application (0.6ms)
+Completed 500 Internal Server Error in 13ms
+
+ActionView::Template::Error (Illegal nesting: nesting within plain text is illegal.):
+    8:         
+    9: - unless @user.errors.empty?
+    10:   The following fields were missing:
+    11:     %ul
+    12:       - @user.errors.full_messages.each do |error|
+    13:         %li= error
+    14: 
+  app/views/accounts/new.html.haml:11
+  app/controllers/accounts_controller.rb:13:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (14.2ms)
