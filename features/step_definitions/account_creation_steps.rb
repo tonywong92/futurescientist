@@ -1,11 +1,11 @@
 When /^I fill in the following fields:$/ do |table|
   table.hashes.each do |account|
-    step "I fill in \"email\" with \"#{account[:email]}\""
-    step "I fill in \"account_name\" with \"#{account[:account_name]}\""
-    step "I fill in \"password\" with \"#{account[:password]}\""
-    step "I fill in \"name\" with \"#{account[:name]}\""
-    step "I fill in \"email\" with \"#{account[:phone_number]}\""
-    step "I fill in \"location\" with \"#{account[:location]}\"" 
+    step "I fill in \"email\" with \"#{account['Email']}\""
+    step "I fill in \"account_name\" with \"#{account['Account Name']}\""
+    step "I fill in \"password\" with \"#{account['Password']}\""
+    step "I fill in \"name\" with \"#{account['Name']}\""
+    step "I fill in \"phone_number\" with \"#{account['Phone Number']}\""
+    step "I fill in \"location\" with \"#{account['Location']}\"" 
   end
 end
 

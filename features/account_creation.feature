@@ -13,7 +13,7 @@ Scenario: Happy Path - User successfully creates an account and submits skills
         | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
     And I check "water"
     And I press "Create Account"
-    Then I should be on the home page
+    Then I should be on the problems page
     When I click on "Log In"
     And I log in with email "tester@something.com" and password "password"
     Then I should be on the "List View Page"
@@ -24,7 +24,7 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
         | Email                | Account Name | Password | Name | Phone Number | Location |
         | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
     And I press "Create Account"
-    Then I should be on the home page
+    Then I should be on the problems page
     
 Scenario: User tries to create an account with an existing account name
     When I fill in the following fields:
