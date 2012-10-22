@@ -22,7 +22,7 @@ class ProblemsController < ApplicationController
         @user = User.new
         @user.attributes = params[:user]
       end
-      @user.problems << @problems
+      @user.problems << @problem
       save_problem
       return
     end
