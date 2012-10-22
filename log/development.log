@@ -259,3 +259,107 @@ Served asset /application.js - 200 OK (30ms)
 
 Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 20:04:24 -0700
 Served asset /jquery_ujs.js - 200 OK (2ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:02:23 -0700
+Connecting to database specified by database.yml
+Processing by ProblemsController#index as HTML
+Completed 500 Internal Server Error in 2ms
+
+NameError (uninitialized constant ProblemsController::Problems):
+  app/controllers/problems_controller.rb:4:in `index'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.9ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.2ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (13.7ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:08:50 -0700
+Connecting to database specified by database.yml
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (4.8ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (2.4ms)
+Completed 500 Internal Server Error in 232ms
+
+ActionView::Template::Error (Inconsistent indentation: "    \t\t  " was used for indentation, but the rest of the document was indented using 2 spaces.):
+    27:                     %th Location
+    28:                     %th Wage
+    29:                 %tbody
+    30:     		  - @problems.each do |problem|
+    31:         	    %tr
+    32:         	      %td= problem.summary
+    33:                       %td= problem.skills
+  app/views/problems/index.html.haml:30
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.3ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (6.3ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:10:54 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.3ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (2.7ms)
+Completed 500 Internal Server Error in 14ms
+
+ActionView::Template::Error (Inconsistent indentation: "\t\t  " was used for indentation, but the rest of the document was indented using 2 spaces.):
+    27:                     %th Location
+    28:                     %th Wage
+    29:                 %tbody
+    30: 		  - @problems.each do |problem|
+    31:         	    %tr
+    32:         	      %td= problem.summary
+    33:                       %td= problem.skills
+  app/views/problems/index.html.haml:30
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.5ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (8.0ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:11:19 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.3ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (2.2ms)
+Completed 500 Internal Server Error in 9ms
+
+ActionView::Template::Error (Inconsistent indentation: "        \t    " was used for indentation, but the rest of the document was indented using 2 spaces.):
+    28:                     %th Wage
+    29:                 %tbody
+    30:                   - @problems.each do |problem|
+    31:         	    %tr
+    32:         	      %td= problem.summary
+    33:                       %td= problem.skills
+    34:                       %td= problem.location
+  app/views/problems/index.html.haml:31
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.8ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (12.3ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:12:29 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (17.8ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (9.0ms)
+Completed 200 OK in 105ms (Views: 80.4ms | ActiveRecord: 17.8ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 21:12:30 -0700
+Served asset /application.css - 304 Not Modified (42ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 21:12:30 -0700
+Served asset /jquery.js - 304 Not Modified (15ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 21:12:30 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 21:12:30 -0700
+Served asset /application.js - 304 Not Modified (32ms)
