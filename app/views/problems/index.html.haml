@@ -29,7 +29,7 @@
                 %tbody
                   - @problems.each do |problem|
                     %tr
-                      %td= problem.summary
+                      %td= link_to "#{problem.summary}", problem_path(problem)
                       %td= problem.skills
                       %td= problem.location
                       %td= '50'
