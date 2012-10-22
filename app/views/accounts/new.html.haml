@@ -8,9 +8,9 @@
         
 - unless @user.errors.empty?
   The following fields were missing:
-    %ul
-      - @user.errors.full_messages.each do |error|
-        %li= error
+  %ul
+    - @user.errors.full_messages.each do |error|
+      %li= error
 
 = form_tag accounts_path do
 
@@ -29,7 +29,7 @@
   = label :user, :location, 'Location'
   = text_field :user, :location
   
-  = label :account :skills 'Skills'
+  = label :account, :skills, 'Skills'
   - @all_skills.each do |skill|
     = skill
     = check_box_tag "skills[#{skill}]", 1
