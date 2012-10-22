@@ -1,6 +1,6 @@
 # Add a declarative step here for populating the DB with movies.
 
-Given /the following problems exists for "(.*")/ do |name, problems_table|
+Given /^"(.*?)" created the following problems:$/ do |name, problems_table|
   user = User.find_by_name(name)
   problems_table.hashes.each do |problem|
     # each returned element will be a hash whose key is the table header.
