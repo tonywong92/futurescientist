@@ -11,7 +11,7 @@
 					<ul class="nav pull-right">
 						<li><a id="post" href="#">Post</li>
 						<li><a id="sign_up" href="#">Sign Up</li>
-						<li><a id="log_in" href="#">Log In</a></li>
+						<li><a id="sign_up" href="#">Log In</a></li>
 					</ul>
 				</div>
 			</div>
