@@ -13,9 +13,7 @@ class ProblemsController < ApplicationController
   def new
     @all_skills = Skill.find(:all)
     if request.post?
-      @problem = Problem.new
-      @problem.attributes = params[:problem]
-      @problem.attributes[params[:user][:location]]
+      @problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:problem][:skills])
 
       @user = User.find_by_phone_number(params[:user][:phone_number])
       if @user.nil?
@@ -35,7 +33,7 @@ class ProblemsController < ApplicationController
     else
       flash[:error] = 'There was a problem with creating the problem.'
     end
-    render '/'
+    redirect_to problems_path
   end
 
   def show
