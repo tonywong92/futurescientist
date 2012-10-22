@@ -1,11 +1,11 @@
 Feature: users should be able to see the front page
 
+Scenario: View the header
+	Given I am on the home page
+	Then I should see an element "#log_in"
+	And I should see an element "#sign_up"
+	And I should see an element "#post"
+
 Scenario: View the listings table
-	Given I am on the "home"
-  When I go to the edit page for "Alien"
-  Then I should see the "listings_table"
-  
-Scenario: Enter the login page
-	Given I am on the "home" page
-	And I click on the "Login" button
-	Then I should see the login dropdown menu
+	Given I am on the home page
+  Then I should see an element "#listings_table"
