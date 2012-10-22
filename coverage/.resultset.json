@@ -10,6 +10,10 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
         null,
         0,
         null,
@@ -55,6 +59,25 @@
         null,
         null,
         null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
         null
       ],
       "/home/ubuntu/Desktop/futurescientists/futurescientists/app/models/problem.rb": [
@@ -66,6 +89,7 @@
         1,
         1,
         1,
+        null,
         null,
         null
       ],
@@ -87,6 +111,6 @@
         null
       ]
     },
-    "timestamp": 1350883091
+    "timestamp": 1350885400
   }
 }

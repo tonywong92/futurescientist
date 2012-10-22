@@ -32,4 +32,4 @@
                       %td= problem.summary
                       %td= problem.skills
                       %td= problem.location
-                     %td= '50'
+                      %td= '50'
