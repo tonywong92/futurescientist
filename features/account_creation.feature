@@ -17,10 +17,9 @@ Scenario: Happy Path - User successfully creates an account and submits skills
     And I click on "Submit"
     Then I should be on the "List View Page"
     When I click on "Log In"
-    And I log in with email "tester@something.com" and "password"
+    And I log in with email "tester@something.com" and password "password"
     Then I should be on the "List View Page"
     And I should be successfully logged in
-    And I should delete the "Tester" account
     
 Scenario: Happy Path - User successfully creates an account and doesn't submit skills
     When I fill in the following fields:
@@ -29,10 +28,9 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
     And I click on "Submit"
     Then I should be on the "List View Page"
     When I click on "Log In"
-    And I log in with email "tester@something.com" and "password"
+    And I log in with email "tester@something.com" and password "password"
     Then I should be on the "List View Page"
     And I should be successfully logged in
-    And I should delete the "Tester" account
     
 Scenario: User tries to create an account with an existing account name
     When I fill in the following fields:

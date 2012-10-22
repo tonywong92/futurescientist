@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  attr_accessible :admin, :email, :name, :password
+  attr_accessible :admin, :email, :name, :password, :skills, :verified_skills
   
   belongs_to :user
   has_many :problems, :through => :users
