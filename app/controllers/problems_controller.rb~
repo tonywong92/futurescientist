@@ -1,0 +1,9 @@
+class ProblemsController < ApplicationController
+
+  def index
+    @problems = Problems.find(
+	:all,
+	:order => "id ASC")
+end
+
+end
