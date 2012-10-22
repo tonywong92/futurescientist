@@ -15,4 +15,3 @@ puts problem.user
 puts problem.user.name
 puts problem.user.phone_number
 puts problem.user_id
-problem.save!
