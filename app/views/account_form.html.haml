@@ -4,13 +4,13 @@
 
   = label :account, :account_name, 'Account Name'
   = text_field :account, :name
-  
+
   = label :account, :password, 'Password'
   = text_field :account, :password
-  
+
   = label :user, :name, 'Name'
   = text_field :user, :name
-  
+
   = label :user, :phone_number, 'Phone Number'
   = text_field :user, :phone_number
   
@@ -18,4 +18,10 @@
   = text_field :user, :location
   
   = label :account :skills 'Skills'
-  = check_box_tag 
+  - @all_skills.each do |skill|
+    = skill
+    = check_box_tag "skills[#{skill}]", 1
+    
+  %p NOTE: Skills will be verified by an admin
+    
+  = submit_tag 'Create Account'
