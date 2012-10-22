@@ -5,19 +5,30 @@ Feature: allow problems to be edited or deleted by the poster
  I want to be able to edit or delete my post.
 
 Background: problems have been created by some requester
+  
+  Given the following users exists:
+  | name   | phone_number   | location   |
+  | Bob    | 6265559999     | Address1   |
+  | John   | 6264539999     | Address2   |
 
-  Given the following problems exists:
-  | name | location | skills relevant | problem summary   | description       |
-  | Bob  | Address1 | water           | broken water pipe | water pipe broken |
-  | John | Address2 | water           | broken water pipe |                   |
-  | Bob  | Address1 | electricity     | wire broken       | wire broken       |
-  | Bob  | Address3 | water, mold     | roof is leaking   | roof is leaking   |
+  Given "Bob" has an account with name "Account1" and password "password1"
+  Given "John" has an account with name "Account2" and password "password2"
 
-  And I am logged in as Bob
+  Given the following problems exists for "Bob":
+  | location | skills          | summary           | description       |
+  | Address1 | water           | broken water pipe | water pipe broken |
+  | Address1 | electricity     | wire broken       | wire broken       |
+  | Address3 | water, mold     | roof is leaking   | roof is leaking   |
+
+  And the following problems exists for "John": 
+  | location | skills          | summary           | description       |
+  | Address2 | water           | broken water pipe |                   |
+
+  And I am logged in as "Bob"
   And I am on the FutureScientists home page
   
 Scenario: successfully edit a problem that was created by the poster
-  When I click on the 'broken water pipe' problem by 'Bob' at 'Address1'
+  When I click on the "broken water pipe" problem by "Bob" at "Address1"
   And I press 'edit'
   And I change 'water' to 'water, mold' in the 'skills relevant' field
   And I change 'water pipe broken' to 'water pipe broken and is causing mold' in the 'description' field

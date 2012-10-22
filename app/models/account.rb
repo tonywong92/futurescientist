@@ -5,6 +5,6 @@ class Account < ActiveRecord::Base
   has_many :problems, :through => :users
 
   validates :account_name, :presence => true
-  validates :password, :presence => true  
+  validates :password, :presence => true
 
 end
