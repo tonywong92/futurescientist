@@ -164,3 +164,924 @@ Connecting to database specified by database.yml
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (1.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (34.1ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:50:17 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:50:17 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:50:17 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:50:17 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:50:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:50:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (54.9ms)
+Completed 200 OK in 181ms (Views: 178.4ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:50:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:50:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:50:18 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:50:18 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:50:18 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:50:18 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (1.6ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.7ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (23.9ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:52:31 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:52:31 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:52:31 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:52:31 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:52:32 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:52:32 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (52.3ms)
+Completed 200 OK in 168ms (Views: 166.5ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:52:32 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:52:32 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users" WHERE "users"."name" = 'Bob"' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:52:32 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 04:52:32 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (1.7ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (26.7ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:55:18 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:55:18 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:55:18 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:55:18 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:55:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:55:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (10.0ms)
+Completed 200 OK in 159ms (Views: 155.4ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:55:19 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:55:19 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.0ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (1.6ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (23.1ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:56:03 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:56:03 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:56:03 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:56:03 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:56:03 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:56:03 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (6.2ms)
+Completed 200 OK in 127ms (Views: 122.8ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:56:04 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:56:04 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 7ms (Views: 2.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:56:04 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 04:56:04 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:56:04 UTC +00:00], ["description", "wire broken"], ["location", "Address1"], ["skills", "electricity"], ["summary", "wire broken"], ["updated_at", Mon, 22 Oct 2012 04:56:04 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:56:04 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 04:56:04 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (12.3ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (22.0ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:58:19 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:58:19 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:58:19 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:58:19 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:58:19 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:58:19 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (7.1ms)
+Completed 200 OK in 125ms (Views: 120.9ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:58:20 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:58:20 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 6ms (Views: 1.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (10.6ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:58:20 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 04:58:20 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:58:20 UTC +00:00], ["description", "wire broken"], ["location", "Address1"], ["skills", "electricity"], ["summary", "wire broken"], ["updated_at", Mon, 22 Oct 2012 04:58:20 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:58:20 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 04:58:20 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (1.4ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (25.3ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:59:56 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:59:56 UTC +00:00]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:59:56 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:59:56 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.6ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:59:56 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:59:56 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (7.5ms)
+Completed 200 OK in 131ms (Views: 130.1ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:59:57 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:59:57 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.3ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:59:57 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 04:59:57 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:59:57 UTC +00:00], ["description", "wire broken"], ["location", "Address1"], ["skills", "electricity"], ["summary", "wire broken"], ["updated_at", Mon, 22 Oct 2012 04:59:57 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:59:57 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 04:59:57 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:59:57 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:59:57 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.3ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.8ms)
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.5ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (2.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (2.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (23.3ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:00:29 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:00:29 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:00:29 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:00:29 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.6ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:00:29 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:00:29 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (6.6ms)
+Completed 200 OK in 130ms (Views: 127.2ms | ActiveRecord: 0.5ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:00:30 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:00:30 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.4ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:00:30 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:00:30 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:00:30 UTC +00:00], ["description", "wire broken"], ["location", "Address1"], ["skills", "electricity"], ["summary", "wire broken"], ["updated_at", Mon, 22 Oct 2012 05:00:30 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:00:30 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:00:30 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:00:30 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:00:30 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.5ms)
+Completed 200 OK in 4ms (Views: 2.3ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (23.8ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:02:17 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:02:17 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:02:17 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:02:17 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.7ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:02:17 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:02:17 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (8.3ms)
+Completed 200 OK in 139ms (Views: 136.2ms | ActiveRecord: 0.5ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:02:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:02:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (6.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (5.5ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:02:18 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:02:18 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:02:18 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:02:18 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:02:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:02:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.2ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.5ms)
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (7.6ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (23.8ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:03:27 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:03:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:03:27 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:03:27 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:03:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:03:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (4.4ms)
+Completed 200 OK in 121ms (Views: 118.1ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:03:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:03:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:03:28 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:03:28 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:03:28 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:03:28 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:03:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:03:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.2ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (1.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (24.8ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:05:27 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:05:27 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:05:27 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:05:27 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:05:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:05:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (6.9ms)
+Completed 200 OK in 123ms (Views: 120.9ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:05:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:05:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.8ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:05:28 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:05:28 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:05:28 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:05:28 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:05:29 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:05:29 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.3ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.1ms)
+Completed 200 OK in 6ms (Views: 2.0ms | ActiveRecord: 0.3ms)
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (1.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (24.2ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:06:09 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:06:09 UTC +00:00]]
+  [1m[35m (0.8ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:06:09 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:06:09 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:06:09 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:06:10 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (7.8ms)
+Completed 200 OK in 122ms (Views: 119.5ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:06:10 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:06:10 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.4ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.4ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:06:10 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:06:10 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (3.8ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:06:10 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:06:10 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:06:10 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:06:10 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.4ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.5ms)
+Completed 200 OK in 4ms (Views: 2.1ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (1.4ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (25.6ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:08:31 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:08:31 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:08:31 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:08:31 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:08:32 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:08:32 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (8.7ms)
+Completed 200 OK in 121ms (Views: 118.8ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:08:33 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:08:33 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (8.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.5ms)
+Completed 200 OK in 13ms (Views: 2.7ms | ActiveRecord: 8.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:08:33 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:08:33 UTC +00:00], ["users_id", nil]]
+  [1m[35m (4.5ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.7ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:08:33 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:08:33 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:08:33 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:08:33 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.3ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 7ms (Views: 5.8ms | ActiveRecord: 0.3ms)
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (34.3ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:09:56 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:09:56 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:09:56 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:09:56 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:09:57 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:09:57 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.2ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (11.2ms)
+Completed 200 OK in 147ms (Views: 142.3ms | ActiveRecord: 0.9ms)
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:09:58 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:09:58 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 7ms (Views: 2.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:09:58 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:09:58 UTC +00:00], ["users_id", nil]]
+  [1m[35m (7.8ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:09:58 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:09:58 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:09:58 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:09:58 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.2ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 11ms (Views: 2.1ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (1.6ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (75.8ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:18:09 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:18:09 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:18:09 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:18:09 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.8ms)[0m  rollback transaction
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (9.4ms)
+Completed 200 OK in 148ms (Views: 144.8ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.3ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 5ms (Views: 3.9ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.6ms)[0m  [1mINSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:18:10 UTC +00:00], ["description", "water pipe broken"], ["location", "Address1"], ["skills", "water"], ["summary", "broken water pipe"], ["updated_at", Mon, 22 Oct 2012 05:18:10 UTC +00:00], ["users_id", nil]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "problems" ("created_at", "description", "location", "skills", "summary", "updated_at", "users_id") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:18:10 UTC +00:00], ["description", "roof is leaking"], ["location", "Address3"], ["skills", "water, mold"], ["summary", "roof is leaking"], ["updated_at", Mon, 22 Oct 2012 05:18:10 UTC +00:00], ["users_id", nil]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 4ms (Views: 2.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m

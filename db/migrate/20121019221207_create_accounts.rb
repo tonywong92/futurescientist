@@ -7,7 +7,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :email
       t.string :skills
       t.string :verified_skills
-      t.references 'users'
+      t.references 'user'
 
       t.timestamps
     end

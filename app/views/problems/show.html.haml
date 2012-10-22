@@ -1,0 +1,17 @@
+-# in app/views/show.html.haml
+
+%h2 Details about #{@problem.summary}
+
+by #{@user.name}
+
+location: #{@problem.location}
+
+skills: #{@problem.skills}
+
+description: #{@problem.description}
+
+phone number: #{@user.phone_number}
+
+= link_to 'Edit', edit_problem_path(@problem)
+= button_to 'Delete', problems_path(@problem), :method => :delete, :confirm => 'Are you sure?'
+= link_to 'Back to problem list', problems_path
