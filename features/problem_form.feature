@@ -5,7 +5,7 @@ Feature: allow submission of problems
   I want to be able to fill out and submit a problem form
 
 Background: Go to the Problem Submission view
-  Given I am on the Future Scientists home page
+  Given I am on the home page
   When I follow "Submit New Problem"
   Then I should be on the problem submission page
   
@@ -14,7 +14,6 @@ Scenario: problem submission form renders correctly
   Then I should see a "Name" text box
   Then I should see a "Phone Number" text box
   And I should see a "Location" text box
-  And I should see a "Price" text box
   And I should see a "Problem Summary" text box
   And I should see an optional "Description" text box
   
