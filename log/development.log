@@ -2944,3 +2944,181 @@ Connecting to database specified by database.yml
   [1m[35m (9.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20121019221207')
   [1m[36m (9.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20121019221036')[0m
   [1m[35m (10.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20121019210212')
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:44:49 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.9ms)
+Completed 200 OK in 74ms (Views: 9.0ms | ActiveRecord: 10.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 23:44:49 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 23:44:49 -0700
+Served asset /jquery.js - 304 Not Modified (8ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 23:44:49 -0700
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 23:44:49 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:46:24 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (15.8ms)
+Completed 200 OK in 102ms (Views: 27.7ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 23:46:25 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:25 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:25 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:25 -0700
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:46:33 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TIeJI35RPZTu3rTVsZow4wWX2cHxQTyRQA5WAkoL9d8=", "account"=>{"email"=>"sldfkj", "account_name"=>"sdfj", "password"=>"[FILTERED]"}, "user"=>{"name"=>"sdflkj", "phone_number"=>"sdflkj", "location"=>"sdfkljl"}, "commit"=>"Create Account"}
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  [1m[35m (0.1ms)[0m  begin transaction
+DEPRECATION WARNING: You're trying to create an attribute `user_id'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from new at /home/ubuntu/Dropbox/CS 169/futurescientists/app/controllers/accounts_controller.rb:18)
+  [1m[36m (0.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "accounts" ("account_name", "admin", "created_at", "email", "password", "skills", "updated_at", "users_id", "verified_skills") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["account_name", "sdfj"], ["admin", nil], ["created_at", Mon, 22 Oct 2012 06:46:33 UTC +00:00], ["email", "sldfkj"], ["password", "sdfklj"], ["skills", nil], ["updated_at", Mon, 22 Oct 2012 06:46:33 UTC +00:00], ["users_id", nil], ["verified_skills", nil]]
+  [1m[35m (82.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 06:46:33 UTC +00:00], ["location", "sdfkljl"], ["name", "sdflkj"], ["phone_number", 0], ["updated_at", Mon, 22 Oct 2012 06:46:33 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mUPDATE "accounts" SET "updated_at" = '2012-10-22 06:46:33.866047' WHERE "accounts"."id" = 17[0m
+  [1m[35m (21.9ms)[0m  commit transaction
+  Rendered accounts/new.html.haml within layouts/application (12.5ms)
+Completed 200 OK in 151ms (Views: 21.2ms | ActiveRecord: 105.6ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 23:46:33 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:33 -0700
+Served asset /application.js - 304 Not Modified (14ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:33 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (8ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:34 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:46:38 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TIeJI35RPZTu3rTVsZow4wWX2cHxQTyRQA5WAkoL9d8=", "account"=>{"email"=>"sldfkj", "account_name"=>"sdfj", "password"=>"[FILTERED]"}, "user"=>{"name"=>"sdflkj", "phone_number"=>"sdflkj", "location"=>"sdfkljl"}, "commit"=>"Create Account"}
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  [1m[35m (0.1ms)[0m  begin transaction
+DEPRECATION WARNING: You're trying to create an attribute `user_id'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from new at /home/ubuntu/Dropbox/CS 169/futurescientists/app/controllers/accounts_controller.rb:18)
+  [1m[36m (0.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "accounts" ("account_name", "admin", "created_at", "email", "password", "skills", "updated_at", "users_id", "verified_skills") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["account_name", "sdfj"], ["admin", nil], ["created_at", Mon, 22 Oct 2012 06:46:38 UTC +00:00], ["email", "sldfkj"], ["password", "sdfklj"], ["skills", nil], ["updated_at", Mon, 22 Oct 2012 06:46:38 UTC +00:00], ["users_id", nil], ["verified_skills", nil]]
+  [1m[35m (41.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.5ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 06:46:38 UTC +00:00], ["location", "sdfkljl"], ["name", "sdflkj"], ["phone_number", 0], ["updated_at", Mon, 22 Oct 2012 06:46:38 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mUPDATE "accounts" SET "updated_at" = '2012-10-22 06:46:38.816447' WHERE "accounts"."id" = 18[0m
+  [1m[35m (58.7ms)[0m  commit transaction
+  Rendered accounts/new.html.haml within layouts/application (3.8ms)
+Completed 200 OK in 127ms (Views: 10.5ms | ActiveRecord: 102.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 23:46:38 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:38 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:38 -0700
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 23:46:38 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:48:47 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TIeJI35RPZTu3rTVsZow4wWX2cHxQTyRQA5WAkoL9d8=", "account"=>{"email"=>"sldfkj", "account_name"=>"sdfj", "password"=>"[FILTERED]"}, "user"=>{"name"=>"sdflkj", "phone_number"=>"sdflkj", "location"=>"sdfkljl"}, "commit"=>"Create Account"}
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  [1m[35m (0.1ms)[0m  begin transaction
+DEPRECATION WARNING: You're trying to create an attribute `user_id'. Writing arbitrary attributes on a model is deprecated. Please just use `attr_writer` etc. (called from new at /home/ubuntu/Dropbox/CS 169/futurescientists/app/controllers/accounts_controller.rb:19)
+  [1m[36m (0.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (7.9ms)[0m  [1mINSERT INTO "accounts" ("account_name", "admin", "created_at", "email", "password", "skills", "updated_at", "users_id", "verified_skills") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["account_name", "sdfj"], ["admin", nil], ["created_at", Mon, 22 Oct 2012 06:48:47 UTC +00:00], ["email", "sldfkj"], ["password", "sdfklj"], ["skills", nil], ["updated_at", Mon, 22 Oct 2012 06:48:47 UTC +00:00], ["users_id", nil], ["verified_skills", nil]]
+  [1m[35m (30.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 06:48:47 UTC +00:00], ["location", "sdfkljl"], ["name", "sdflkj"], ["phone_number", 0], ["updated_at", Mon, 22 Oct 2012 06:48:47 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mUPDATE "accounts" SET "updated_at" = '2012-10-22 06:48:47.999411' WHERE "accounts"."id" = 19[0m
+  [1m[35m (32.9ms)[0m  commit transaction
+  Rendered accounts/new.html.haml within layouts/application (6.1ms)
+Completed 200 OK in 160ms (Views: 16.2ms | ActiveRecord: 75.7ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 23:48:48 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 23:48:48 -0700
+Served asset /application.js - 304 Not Modified (8ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 23:48:48 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 23:48:48 -0700
+Served asset /jquery.js - 304 Not Modified (2ms)
+Connecting to database specified by database.yml
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (46.7ms)[0m  [1mCREATE TABLE "accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "account_name" varchar(255), "password" varchar(255), "admin" boolean, "email" varchar(255), "skills" varchar(255), "verified_skills" varchar(255), "users_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (13.8ms)[0m  CREATE TABLE "problems" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "location" varchar(255), "skills" varchar(255), "summary" varchar(255), "description" text, "users_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (14.8ms)[0m  [1mCREATE TABLE "skills" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "skill_name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (18.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "phone_number" integer, "location" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (17.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36m (10.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (16.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20121022010806')[0m
+  [1m[35m (7.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20121019221207')
+  [1m[36m (9.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20121019221036')[0m
+  [1m[35m (8.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20121019210212')
+Connecting to database specified by database.yml
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (16.5ms)[0m  [1mCREATE TABLE "accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "account_name" varchar(255), "password" varchar(255), "admin" boolean, "email" varchar(255), "skills" varchar(255), "verified_skills" varchar(255), "users_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (8.6ms)[0m  CREATE TABLE "problems" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "location" varchar(255), "skills" varchar(255), "summary" varchar(255), "description" text, "users_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (15.0ms)[0m  [1mCREATE TABLE "skills" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "skill_name" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (12.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "phone_number" integer, "location" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (43.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36m (8.4ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (8.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20121022010806')[0m
+  [1m[35m (9.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20121019221207')
+  [1m[36m (7.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20121019221036')[0m
+  [1m[35m (8.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20121019210212')
