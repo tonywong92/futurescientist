@@ -10,7 +10,7 @@ class AccountsController < ApplicationController
       save_account
       return
     end
-    render 'users/new'
+    render 'accounts/new'
   end
   
   def save_account
@@ -19,7 +19,7 @@ class AccountsController < ApplicationController
     else
       flash[:error] = 'There was a problem with creating your account'
     end
-    render 'index'
+    render '/'
   end
   
 end

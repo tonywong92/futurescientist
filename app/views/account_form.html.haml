@@ -1,5 +1,17 @@
 %h1 Create New Account
 
+- unless @account.errors.empty?
+  The following fields were missing:
+    %ul
+      - @account.errors.full_messages.each do |error|
+        %li= error
+        
+- unless @user.errors.empty?
+  The following fields were missing:
+    %ul
+      - @user.errors.full_messages.each do |error|
+        %li= error
+
 = form_tag accounts_path do
 
   = label :account, :account_name, 'Account Name'
