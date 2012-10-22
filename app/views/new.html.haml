@@ -1,0 +1,20 @@
+%h1 Problem Submission
+
+= form_tag problem_submission_path do
+
+  = label :user, :name, 'Name'
+  = text_field :user, :name
+  
+  = label :user, :phone_number, 'Phone Number'
+  = text_field :user, :phone_number
+  
+  = label :user, :location, 'Location'
+  = text_field :user, :location
+
+  = label :problem, :summary, 'Problem Summary'
+  = text_field :problem, :summary
+
+  = label :problem, :description, 'Description'
+  = text_area :problem, :description
+
+  = submit_tag 'Submit Problem'
