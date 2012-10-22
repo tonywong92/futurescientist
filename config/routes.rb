@@ -14,6 +14,7 @@ Futurescientist::Application.routes.draw do
   #   resources :products
   resources :accounts
   resources :problems
+  root :to => redirect('/problems')
 
   # Sample resource route with options:
   #   resources :products do
