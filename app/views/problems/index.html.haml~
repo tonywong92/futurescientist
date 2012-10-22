@@ -11,7 +11,7 @@
             %li
               %a#post{:href => "#"} Post
             %li
-              %a#sign_up{:href => "#"} Sign Up
+              %a#sign_up{:href => "accounts/new"} Sign Up
             %li
               %a#log_in{:href => "#"} Log In
     %br
@@ -32,4 +32,4 @@
                       %td= problem.summary
                       %td= problem.skills
                       %td= problem.location
-                      %td= '50'
+                     %td= '50'

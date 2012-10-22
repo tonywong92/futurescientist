@@ -363,3 +363,61 @@ Served asset /jquery_ujs.js - 304 Not Modified (4ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 21:12:30 -0700
 Served asset /application.js - 304 Not Modified (32ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:17:33 -0700
+Connecting to database specified by database.yml
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.1ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (3.5ms)
+Completed 500 Internal Server Error in 383ms
+
+ActionView::Template::Error (Inconsistent indentation: 21 spaces were used for indentation, but the rest of the document was indented using 2 spaces.):
+    32:                       %td= problem.summary
+    33:                       %td= problem.skills
+    34:                       %td= problem.location
+    35:                      %td= '50'
+  app/views/problems/index.html.haml:35
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.7ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.1ms)
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (6.6ms)
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:18:06 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.4ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (13.6ms)
+Completed 200 OK in 50ms (Views: 42.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-10-21 21:18:06 -0700
+Served asset /application.css - 304 Not Modified (38ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-10-21 21:18:06 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (26ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-10-21 21:18:06 -0700
+Served asset /jquery.js - 304 Not Modified (12ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-10-21 21:18:06 -0700
+Served asset /application.js - 304 Not Modified (26ms)
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 21:18:15 -0700
+Processing by AccountsController#new as HTML
+Completed 500 Internal Server Error in 14ms
+
+ActionView::MissingTemplate (Missing template users/new with {:locale=>[:en], :formats=>[:html], :handlers=>[:erb, :builder, :coffee, :haml]}. Searched in:
+  * "/home/ubuntu/Desktop/futurescientists/futurescientists/app/views"
+  * "/home/ubuntu/Desktop/futurescientists/futurescientists"
+  * "/"
+):
+  app/controllers/accounts_controller.rb:10:in `new'
+
+
+  Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.4ms)
