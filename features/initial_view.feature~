@@ -7,7 +7,7 @@ Scenario: View the header
 	And I should see an element "#post"
 	And I should see "Post"
         And I should see "Sign Up"
-	And I should see "Log in"
+	And I should see "Log In"
         And I should see "Future Scientists"
 
 Scenario: View the listings table
