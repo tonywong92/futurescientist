@@ -24,11 +24,11 @@ Background: problems have been created by some requester
   | location | skills          | summary           | description       |
   | Address2 | water           | broken water pipe |                   |
 
-  And I am logged in as Bob
+  And I am logged in as "Bob"
   And I am on the FutureScientists home page
   
 Scenario: successfully edit a problem that was created by the poster
-  When I click on the 'broken water pipe' problem by 'Bob' at 'Address1'
+  When I click on the "broken water pipe" problem by "Bob" at "Address1"
   And I press 'edit'
   And I change 'water' to 'water, mold' in the 'skills relevant' field
   And I change 'water pipe broken' to 'water pipe broken and is causing mold' in the 'description' field
