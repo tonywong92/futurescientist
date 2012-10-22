@@ -1,7 +1,7 @@
 %h1 Create New Account
 
 - unless @account.errors.empty?
-  The following fields were missing:
+  The following errors occurred:
   %ul
     - @account.errors.full_messages.each do |error|
       %li= error
@@ -12,7 +12,7 @@
     - @user.errors.full_messages.each do |error|
       %li= error
 
-= form_tag accounts_path do
+= form_tag '/accounts/new' do
 
   = label :account, :email, 'Email'
   = text_field :account, :email, :id => 'email'
@@ -34,7 +34,7 @@
   
   = label :account, :skills, 'Skills'
   - @all_skills.each do |skill|
-    = label :water, skill.skill_name
+    = label :skill, skill.skill_name
     = check_box_tag "skills[#{skill.skill_name}]", 1, false, :id => skill.skill_name
     
   %p NOTE: Skills will be verified by an admin
