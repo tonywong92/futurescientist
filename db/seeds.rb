@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Skill.create!(:skill_name => 'water')
 
 user = User.new({ :name => "dummy1", :phone_number=> 1231231234, :location => "Address1"})
 user.save!
