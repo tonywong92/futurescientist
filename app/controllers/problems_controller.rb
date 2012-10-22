@@ -6,6 +6,10 @@ class ProblemsController < ApplicationController
 	    :order => "id ASC")
   end
 
+  def create
+    new
+  end
+
   def new
     @all_skills = Skill.find(:all)
     if request.post?
@@ -18,7 +22,7 @@ class ProblemsController < ApplicationController
         @user = User.new
         @user.attributes = params[:user]
       end
-      @user.problems << @problems
+      @user.problems << @problem
       save_problem
       return
     end
