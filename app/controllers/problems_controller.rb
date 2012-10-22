@@ -6,6 +6,10 @@ class ProblemsController < ApplicationController
 	    :order => "id ASC")
   end
 
+  def create
+    new
+  end
+
   def new
     @all_skills = Skill.find(:all)
     if request.post?
