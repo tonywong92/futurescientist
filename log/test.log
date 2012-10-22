@@ -165,6 +165,15 @@ Connecting to database specified by database.yml
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
 Connecting to database specified by database.yml
+<<<<<<< HEAD
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+=======
   [1m[36m (1.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.2ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
@@ -172,6 +181,7 @@ Connecting to database specified by database.yml
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.2ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
@@ -182,6 +192,26 @@ Connecting to database specified by database.yml
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+<<<<<<< HEAD
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (88.5ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:54:51 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:54:51 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:54:51 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:54:51 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:54:52 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:54:52 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (68.9ms)
+Completed 200 OK in 290ms (Views: 286.7ms | ActiveRecord: 0.4ms)
+=======
   [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
   [1m[36mSQL (34.1ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:50:17 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:50:17 UTC +00:00]]
   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
@@ -200,10 +230,38 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (54.9ms)
 Completed 200 OK in 181ms (Views: 178.4ms | ActiveRecord: 0.6ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:54:53 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:54:53 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.0ms)
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 21:50:18 -0700
 
 
@@ -237,10 +295,31 @@ Connecting to database specified by database.yml
   [1m[36m (0.7ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.0ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+<<<<<<< HEAD
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (35.5ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:57:16 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:57:16 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 04:57:16 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 04:57:16 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:57:17 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:57:17 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.4ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (81.4ms)
+Completed 200 OK in 227ms (Views: 222.7ms | ActiveRecord: 0.7ms)
+=======
   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
   [1m[36mSQL (23.9ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:52:31 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:52:31 UTC +00:00]]
   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
@@ -259,10 +338,35 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (52.3ms)
 Completed 200 OK in 168ms (Views: 166.5ms | ActiveRecord: 0.1ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 21:57:17 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 21:57:17 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/new" for 127.0.0.1 at 2012-10-21 22:24:35 -0700
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 21:52:32 -0700
 
 
@@ -287,6 +391,7 @@ Connecting to database specified by database.yml
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
@@ -298,6 +403,151 @@ Connecting to database specified by database.yml
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+<<<<<<< HEAD
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (64.4ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:24:36 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:24:36 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:24:36 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:24:36 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:24:36 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:24:36 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (7.1ms)
+Completed 200 OK in 107ms (Views: 103.1ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:24:36 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:24:36 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.3ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 15ms (Views: 11.3ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:25:59 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (4.3ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (6.4ms)
+Completed 200 OK in 357ms (Views: 153.9ms | ActiveRecord: 17.5ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.3ms)
+Completed 200 OK in 12ms (Views: 10.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (1.9ms)
+Completed 200 OK in 6ms (Views: 4.0ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (6.2ms)
+Completed 200 OK in 16ms (Views: 10.4ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.5ms)
+Completed 200 OK in 7ms (Views: 4.8ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (15.2ms)
+Completed 200 OK in 21ms (Views: 18.6ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.1ms)
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (13.0ms)
+Completed 200 OK in 21ms (Views: 19.8ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 5ms (Views: 3.6ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:26:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.7ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (4.5ms)
+Completed 200 OK in 14ms (Views: 8.7ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (58.6ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:26:01 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:26:01 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:26:01 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:26:01 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:26:01 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:26:01 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.2ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (12.3ms)
+Completed 200 OK in 25ms (Views: 16.0ms | ActiveRecord: 1.1ms)
+=======
   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
   [1m[36mSQL (26.7ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 04:55:18 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 04:55:18 UTC +00:00]]
   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
@@ -369,10 +619,259 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (6.2ms)
 Completed 200 OK in 127ms (Views: 122.8ms | ActiveRecord: 0.6ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:26:01 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:26:01 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.2ms)
+Completed 200 OK in 4ms (Views: 2.0ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:16 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.5ms)
+Completed 200 OK in 398ms (Views: 171.1ms | ActiveRecord: 16.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 4.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.6ms)
+Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (6.2ms)
+Completed 200 OK in 11ms (Views: 10.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.3ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (10.5ms)
+Completed 200 OK in 19ms (Views: 15.9ms | ActiveRecord: 0.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.3ms)
+Completed 200 OK in 5ms (Views: 3.7ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (3.9ms)
+Completed 200 OK in 20ms (Views: 17.9ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (14.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (4.4ms)
+Completed 200 OK in 74ms (Views: 6.5ms | ActiveRecord: 14.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.7ms)
+Completed 200 OK in 18ms (Views: 15.5ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:27:17 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (14.2ms)
+Completed 200 OK in 21ms (Views: 15.8ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (145.1ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:27:17 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:27:17 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:27:17 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:27:17 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (4.7ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:27:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:27:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (8.6ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (10.7ms)
+Completed 200 OK in 37ms (Views: 14.8ms | ActiveRecord: 8.9ms)
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:27:18 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:27:18 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 5ms (Views: 2.9ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.6ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:26 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (17.6ms)
+Completed 200 OK in 354ms (Views: 111.9ms | ActiveRecord: 16.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:27 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (4.7ms)
+Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:27 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.6ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.8ms)
+Completed 200 OK in 29ms (Views: 27.8ms | ActiveRecord: 0.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:27 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (4.9ms)
+Completed 200 OK in 37ms (Views: 35.8ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:27 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 22ms (Views: 21.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:27 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (8.5ms)
+Completed 200 OK in 11ms (Views: 10.2ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.6ms)
+Completed 200 OK in 12ms (Views: 10.0ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.0ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.0ms)
+Completed 200 OK in 12ms (Views: 7.9ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 6ms (Views: 4.0ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.3ms)
+Completed 200 OK in 9ms (Views: 5.7ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (41.7ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:35:28 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:35:28 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:35:28 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:35:28 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (11.2ms)
+Completed 200 OK in 32ms (Views: 20.9ms | ActiveRecord: 0.4ms)
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 21:56:04 -0700
 
 
@@ -493,10 +992,259 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (7.5ms)
 Completed 200 OK in 131ms (Views: 130.1ms | ActiveRecord: 0.2ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:35:28 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (9.9ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 13ms (Views: 2.5ms | ActiveRecord: 9.9ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:18 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (5.9ms)
+Completed 200 OK in 366ms (Views: 175.6ms | ActiveRecord: 15.8ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:18 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.1ms)
+Completed 200 OK in 8ms (Views: 6.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:18 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (5.7ms)
+Completed 200 OK in 11ms (Views: 10.1ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (1.9ms)
+Completed 200 OK in 8ms (Views: 5.3ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (9.5ms)
+Completed 200 OK in 16ms (Views: 14.8ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (8.8ms)
+Completed 200 OK in 24ms (Views: 14.3ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.0ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 8ms (Views: 4.5ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.0ms)
+Completed 200 OK in 8ms (Views: 5.8ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (3.0ms)
+Completed 200 OK in 15ms (Views: 6.0ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (10.5ms)
+Completed 200 OK in 15ms (Views: 13.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (41.7ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:37:19 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:37:19 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:37:19 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:37:19 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (19.3ms)
+Completed 200 OK in 27ms (Views: 25.3ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:37:19 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.2ms)
+Completed 200 OK in 4ms (Views: 2.1ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:44:58 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (9.2ms)
+Completed 200 OK in 846ms (Views: 309.6ms | ActiveRecord: 101.4ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.1ms)
+Completed 200 OK in 14ms (Views: 10.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.3ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.4ms)
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.0ms)
+Completed 200 OK in 17ms (Views: 15.8ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (12.4ms)
+Completed 200 OK in 16ms (Views: 14.0ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (11.3ms)
+Completed 200 OK in 19ms (Views: 18.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.5ms)
+Completed 200 OK in 11ms (Views: 6.0ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (11.3ms)
+Completed 200 OK in 16ms (Views: 15.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (3.0ms)
+Completed 200 OK in 10ms (Views: 5.4ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:00 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (7.4ms)
+Completed 200 OK in 10ms (Views: 9.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (114.4ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:45:00 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:45:00 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:45:00 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:45:00 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.4ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:45:01 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:45:01 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (8.4ms)
+Completed 200 OK in 17ms (Views: 12.9ms | ActiveRecord: 0.5ms)
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 21:59:57 -0700
 
 
@@ -637,10 +1385,247 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (8.3ms)
 Completed 200 OK in 139ms (Views: 136.2ms | ActiveRecord: 0.5ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:45:01 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:45:01 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.3ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.9ms | ActiveRecord: 0.3ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:24 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.8ms)
+Completed 200 OK in 406ms (Views: 143.3ms | ActiveRecord: 14.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (5.1ms)
+Completed 200 OK in 14ms (Views: 13.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (3.1ms)
+Completed 200 OK in 14ms (Views: 11.9ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.3ms)
+Completed 200 OK in 8ms (Views: 5.1ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.8ms)
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.1ms)
+Completed 200 OK in 6ms (Views: 4.4ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.3ms)
+Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.7ms)
+Completed 200 OK in 7ms (Views: 5.0ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 7ms (Views: 4.5ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (3.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.1ms)
+Completed 200 OK in 10ms (Views: 5.8ms | ActiveRecord: 3.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (77.5ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:45:25 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:45:25 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:45:25 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:45:25 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (6.3ms)
+Completed 200 OK in 14ms (Views: 10.2ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:45:25 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 12ms (Views: 9.6ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.7ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:14 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (6.6ms)
+Completed 200 OK in 279ms (Views: 102.4ms | ActiveRecord: 14.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.8ms)
+Completed 200 OK in 7ms (Views: 5.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.1ms)
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (10.0ms)
+Completed 200 OK in 13ms (Views: 11.6ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (2.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (11.1ms)
+Completed 200 OK in 24ms (Views: 12.7ms | ActiveRecord: 2.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.3ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.8ms)
+Completed 200 OK in 11ms (Views: 5.9ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.9ms)
+Completed 200 OK in 9ms (Views: 6.9ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (12.9ms)
+Completed 200 OK in 19ms (Views: 14.8ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.9ms)
+Completed 200 OK in 13ms (Views: 4.4ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:49:15 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 7ms (Views: 4.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (54.9ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:49:15 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:49:15 UTC +00:00]]
+  [1m[35m (1.8ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:49:16 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:49:16 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 22:02:18 -0700
 
 
@@ -763,10 +1748,21 @@ Connecting to database specified by database.yml
   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
   [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:05:27 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:05:27 UTC +00:00]]
   [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[35m (0.2ms)[0m  rollback transaction
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:49:16 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:49:16 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (7.0ms)
+Completed 200 OK in 63ms (Views: 53.6ms | ActiveRecord: 0.4ms)
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 22:05:28 -0700
 
 
@@ -775,10 +1771,142 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (6.9ms)
 Completed 200 OK in 123ms (Views: 120.9ms | ActiveRecord: 0.4ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:49:16 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:49:16 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 5ms (Views: 2.3ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:54 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.0ms)
+Completed 200 OK in 386ms (Views: 137.1ms | ActiveRecord: 13.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:54 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (9.0ms)
+Completed 200 OK in 19ms (Views: 17.5ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (1.0ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (3.4ms)
+Completed 200 OK in 24ms (Views: 20.1ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (10.1ms)
+Completed 200 OK in 23ms (Views: 21.9ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 11ms (Views: 9.5ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.3ms)
+Completed 200 OK in 7ms (Views: 4.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.5ms)
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (9.1ms)
+Completed 200 OK in 24ms (Views: 21.6ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (4.0ms)
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.1ms)
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (103.8ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:50:55 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:50:55 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:50:55 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:50:55 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.5ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (17.0ms)
+Completed 200 OK in 33ms (Views: 26.1ms | ActiveRecord: 0.9ms)
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 22:05:28 -0700
 
 
@@ -844,10 +1972,367 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (7.8ms)
 Completed 200 OK in 122ms (Views: 119.5ms | ActiveRecord: 0.6ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:50:55 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 3ms (Views: 1.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:33 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (6.1ms)
+Completed 200 OK in 287ms (Views: 99.3ms | ActiveRecord: 14.4ms)
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (5.4ms)
+Completed 200 OK in 12ms (Views: 8.0ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "account"=>{"email"=>"", "account_name"=>"", "password"=>"[FILTERED]"}, "user"=>{"name"=>"", "phone_number"=>"", "location"=>""}, "commit"=>"Create Account"}
+  [1m[35mSkill Load (1.9ms)[0m  SELECT "skills".* FROM "skills" 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 141ms
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.4ms)
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "account"=>{"email"=>"", "account_name"=>"", "password"=>"[FILTERED]"}, "user"=>{"name"=>"", "phone_number"=>"", "location"=>""}, "commit"=>"Create Account"}
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.9ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 14ms
+  [1m[36m (0.7ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.0ms)
+Completed 200 OK in 10ms (Views: 7.8ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (4.8ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (3.2ms)
+Completed 200 OK in 12ms (Views: 5.9ms | ActiveRecord: 4.8ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.4ms)
+Completed 200 OK in 7ms (Views: 4.6ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.4ms)
+Completed 200 OK in 14ms (Views: 7.7ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.0ms)
+Completed 200 OK in 15ms (Views: 13.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (10.5ms)
+Completed 200 OK in 15ms (Views: 13.2ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 22:53:34 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 7ms (Views: 4.9ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (72.6ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 05:53:34 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 05:53:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 05:53:35 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 05:53:35 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:53:35 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:53:35 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (6.5ms)
+Completed 200 OK in 22ms (Views: 18.0ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 22:53:35 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 22:53:35 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.6ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.4ms)
+Completed 200 OK in 5ms (Views: 2.5ms | ActiveRecord: 0.6ms)
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.4ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:55 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.0ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (8.1ms)
+Completed 200 OK in 411ms (Views: 168.3ms | ActiveRecord: 17.6ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:56 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.3ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (3.1ms)
+Completed 200 OK in 12ms (Views: 9.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:01:56 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "account"=>{"email"=>"", "account_name"=>"", "password"=>"[FILTERED]"}, "user"=>{"name"=>"", "phone_number"=>"", "location"=>""}, "commit"=>"Create Account"}
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 167ms
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:56 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.7ms)
+Completed 200 OK in 6ms (Views: 4.7ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:01:56 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "account"=>{"email"=>"", "account_name"=>"", "password"=>"[FILTERED]"}, "user"=>{"name"=>"", "phone_number"=>"", "location"=>""}, "commit"=>"Create Account"}
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 24ms
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (14.4ms)
+Completed 200 OK in 24ms (Views: 16.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (11.9ms)
+Completed 200 OK in 18ms (Views: 17.5ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (5.0ms)
+Completed 200 OK in 10ms (Views: 8.1ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.6ms)
+Completed 200 OK in 10ms (Views: 9.3ms | ActiveRecord: 0.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.6ms)
+Completed 200 OK in 18ms (Views: 17.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (9.8ms)
+Completed 200 OK in 15ms (Views: 11.9ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (12.6ms)
+Completed 200 OK in 19ms (Views: 15.0ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (113.7ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 06:01:57 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 06:01:57 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 06:01:57 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 06:01:57 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.0ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (26.6ms)
+Completed 200 OK in 33ms (Views: 31.6ms | ActiveRecord: 0.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 23:01:57 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 4ms (Views: 1.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+Connecting to database specified by database.yml
+  [1m[36m (0.5ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:28 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.3ms)
+Completed 200 OK in 372ms (Views: 151.4ms | ActiveRecord: 14.1ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:29 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (8.2ms)
+Completed 200 OK in 13ms (Views: 12.0ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:40:29 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "account"=>{"email"=>"", "account_name"=>"", "password"=>"[FILTERED]"}, "user"=>{"name"=>"", "phone_number"=>"", "location"=>""}, "commit"=>"Create Account"}
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 145ms
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:29 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (5.2ms)
+Completed 200 OK in 11ms (Views: 7.6ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/accounts" for 127.0.0.1 at 2012-10-21 23:40:29 -0700
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "account"=>{"email"=>"", "account_name"=>"", "password"=>"[FILTERED]"}, "user"=>{"name"=>"", "phone_number"=>"", "location"=>""}, "commit"=>"Create Account"}
+  [1m[35mSkill Load (0.1ms)[0m  SELECT "skills".* FROM "skills" 
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.0ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 4ms
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 22:06:10 -0700
 
 
@@ -1052,10 +2537,107 @@ Processing by ProblemsController#index as HTML
   [1m[35mProblem Load (0.1ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
   Rendered problems/index.html.haml within layouts/application (9.4ms)
 Completed 200 OK in 148ms (Views: 144.8ms | ActiveRecord: 0.7ms)
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
 
 
+<<<<<<< HEAD
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:29 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (4.2ms)
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (11.1ms)
+Completed 200 OK in 14ms (Views: 12.6ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.0ms)
+Completed 200 OK in 24ms (Views: 5.3ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (6.3ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (2.2ms)
+Completed 200 OK in 11ms (Views: 3.6ms | ActiveRecord: 6.3ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.2ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.1ms)
+Completed 200 OK in 12ms (Views: 4.7ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by AccountsController#new as HTML
+  [1m[35mSkill Load (0.2ms)[0m  SELECT "skills".* FROM "skills" 
+  Rendered accounts/new.html.haml within layouts/application (7.2ms)
+Completed 200 OK in 20ms (Views: 8.7ms | ActiveRecord: 0.2ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.4ms)[0m  begin transaction
+
+
+Started GET "/accounts/new" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by AccountsController#new as HTML
+  [1m[36mSkill Load (0.1ms)[0m  [1mSELECT "skills".* FROM "skills" [0m
+  Rendered accounts/new.html.haml within layouts/application (2.9ms)
+Completed 200 OK in 10ms (Views: 7.0ms | ActiveRecord: 0.1ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (104.3ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 06:40:30 UTC +00:00], ["location", "Address1"], ["name", "Bob"], ["phone_number", 6265559999], ["updated_at", Mon, 22 Oct 2012 06:40:30 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.0ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)  [["created_at", Mon, 22 Oct 2012 06:40:30 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 06:40:30 UTC +00:00]]
+  [1m[36m (0.0ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.7ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by ProblemsController#index as HTML
+  [1m[35mProblem Load (0.0ms)[0m  SELECT "problems".* FROM "problems" ORDER BY id ASC
+  Rendered problems/index.html.haml within layouts/application (8.0ms)
+Completed 200 OK in 26ms (Views: 12.0ms | ActiveRecord: 11.7ms)
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+
+
+Started GET "/" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+
+
+Started GET "/problems" for 127.0.0.1 at 2012-10-21 23:40:30 -0700
+Processing by ProblemsController#index as HTML
+  [1m[36mProblem Load (0.2ms)[0m  [1mSELECT "problems".* FROM "problems" ORDER BY id ASC[0m
+  Rendered problems/index.html.haml within layouts/application (0.3ms)
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.2ms)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+=======
 Started GET "/" for 127.0.0.1 at 2012-10-21 22:18:10 -0700
 
 
@@ -1154,6 +2736,7 @@ Completed 200 OK in 4ms (Views: 2.5ms | ActiveRecord: 0.3ms)
   [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
   [1m[35m (0.1ms)[0m  begin transaction
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+<<<<<<< HEAD
 Connecting to database specified by database.yml
   [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.0ms)[0m  rollback transaction
@@ -1951,3 +3534,6 @@ Completed 500 Internal Server Error in 259ms
   [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "location", "name", "phone_number", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["created_at", Mon, 22 Oct 2012 06:52:37 UTC +00:00], ["location", "Address2"], ["name", "John"], ["phone_number", 6264539999], ["updated_at", Mon, 22 Oct 2012 06:52:37 UTC +00:00]]
   [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
   [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+=======
+>>>>>>> e0f690dc940a9929b8c9e2711f150a403bc2a29a
+>>>>>>> cf05d489986c5172cc8e3bb9ed2d0c49095b8588
