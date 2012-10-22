@@ -9,7 +9,7 @@
           %a#nav-left.brand.pull-left Future Scientists
           %ul.nav.pull-right
             %li
-              %a#post{:href => "#"} Post
+              %a#submit_new_problem{:href => "problems/new"} Submit New Problem
             %li
               %a#sign_up{:href => "accounts/new"} Sign Up
             %li
@@ -29,7 +29,7 @@
                 %tbody
                   - @problems.each do |problem|
                     %tr
-                      %td= problem.summary
+                      %td= link_to "#{problem.summary}", problem_path(problem)
                       %td= problem.skills
                       %td= problem.location
                       %td= '50'

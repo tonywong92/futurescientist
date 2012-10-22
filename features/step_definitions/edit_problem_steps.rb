@@ -43,6 +43,9 @@ Given /^I am logged in as "(.*)"$/ do |user|
 end
 
 
+
+
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
