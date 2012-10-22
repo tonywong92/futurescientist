@@ -4,8 +4,8 @@ Scenario: View the header
 	Given I am on the home page
 	Then I should see an element "#log_in"
 	And I should see an element "#sign_up"
-	And I should see an element "#post"
-	And I should see "Post"
+	And I should see an element "#submit_new_problem"
+	And I should see "Submit New Problem"
         And I should see "Sign Up"
 	And I should see "Log In"
         And I should see "Future Scientists"
