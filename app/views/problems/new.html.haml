@@ -1,6 +1,6 @@
 %h1 Problem Submission
 
-= form_tag problem_submission_path do
+= form_tag problems_path do
 
   = label :user, :name, 'Name'
   = text_field :user, :name
@@ -10,6 +10,9 @@
   
   = label :user, :location, 'Location'
   = text_field :user, :location
+
+  = label :problem, :skills, 'Skills Required'
+  = label :problem, :skills
 
   = label :problem, :summary, 'Problem Summary'
   = text_field :problem, :summary

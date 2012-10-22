@@ -5,7 +5,8 @@ class CreateProblems < ActiveRecord::Migration
       t.string :skills
       t.string :summary
       t.text :description
-      t.references 'users' 
+      t.integer :price
+      t.references 'user' 
      
       t.timestamps
     end

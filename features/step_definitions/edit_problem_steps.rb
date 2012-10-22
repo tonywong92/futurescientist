@@ -1,6 +1,6 @@
 # Add a declarative step here for populating the DB with movies.
 
-Given /the following problems exists for "(.*")/ do |name, problems_table|
+Given /^"(.*?)" created the following problems:$/ do |name, problems_table|
   user = User.find_by_name(name)
   problems_table.hashes.each do |problem|
     # each returned element will be a hash whose key is the table header.
@@ -41,6 +41,9 @@ Given /^I am logged in as "(.*)"$/ do |user|
     assert page.has_content?('Login successful')
   end
 end
+
+
+
 
 
 # Make sure that one string (regexp) occurs before or after another one

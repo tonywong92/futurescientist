@@ -1,0 +1,15 @@
+-# in app/views/show.html.haml
+
+%h2 Details about #{@problem.summary}
+
+by #{@user.name}
+
+location: #{@problem.location}
+
+skills: #{@problem.skills}
+
+description: #{@problem.description}
+
+phone number: #{@user.phone_number}
+
+= link_to 'Back to problems list', problems_path
