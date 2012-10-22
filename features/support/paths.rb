@@ -15,6 +15,9 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+    when /^the problems page$/
+      '/problems'
+    
     when /^the create account page$/
       '/accounts/new'
 
