@@ -2,7 +2,7 @@ Feature: Edit accounts skills/emails/phone numbers
 
 Scenario: Add skill
 Given I am on the accounts page
-and I click "edit account"
+And I click "edit account"
 I should be able to add a skill
 
 Scenario: Delete skill
