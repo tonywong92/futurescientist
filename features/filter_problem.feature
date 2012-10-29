@@ -14,6 +14,7 @@ Background: problems have been created by some requester
   | Bob  | Address3 | water, mold     | roof is leaking   | roof is leaking   |
 
   And I am logged in as Bob
+  And I add the "water" skill to the database
   And I am on the FutureScientists home page
   
 Scenario: successfully show only problems with the skill 'water'
@@ -21,3 +22,7 @@ Scenario: successfully show only problems with the skill 'water'
   And I select "water"
   Then I should see only "two" problems of "broken water pipe"
 
+Scenario: 
+  When I click on the dropdown menu
+  Then "water" should show up
+  And "All" should show up
