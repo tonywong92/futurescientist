@@ -6,5 +6,6 @@ class Account < ActiveRecord::Base
 
   validates :account_name, :presence => true
   validates :password, :presence => true
+  validates_uniqueness_of :account_name
 
 end

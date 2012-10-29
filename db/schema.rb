@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20121022010806) do
     t.string   "email"
     t.string   "skills"
     t.string   "verified_skills"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -30,7 +30,8 @@ ActiveRecord::Schema.define(:version => 20121022010806) do
     t.string   "skills"
     t.string   "summary"
     t.text     "description"
-    t.integer  "users_id"
+    t.integer  "price"
+    t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
