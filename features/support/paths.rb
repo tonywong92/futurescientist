@@ -23,6 +23,12 @@ module NavigationHelpers
 
     when /^the problem submission page$/
       '/problems/new'
+      
+    when /^the login page$/
+      '/accounts/login_form'
+      
+    when /^log out$/
+      '/accounts/logout'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
