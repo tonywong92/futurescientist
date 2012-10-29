@@ -17,6 +17,8 @@ Scenario: Happy Path - User successfully creates an account and submits skills
     And I check "water"
     And I press "Create Account"
     Then I should be on the problems page
+    When I login with "tester@something.com" and "password"
+    Then I should see "Welcome, Test"
     
 Scenario: Happy Path - User successfully creates an account and doesn't submit skills
     When I fill in the following fields:
@@ -24,6 +26,17 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
         | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
     And I press "Create Account"
     Then I should be on the problems page
+    When I login with "tester@something.com" and "password"
+    Then I should see "Welcome, Test"
+    
+Scenario: User tries to logout
+    When I fill in the following fields:
+        | Email                | Account Name | Password | Name | Phone Number | Location |
+        | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
+    And I press "Create Account"
+    And I login with "tester@something.com" and "password"
+    And I log out
+    Then I should see "You have successfully logged out"
     
 Scenario: User tries to create an account with an existing account name
     When I fill in the following fields:
