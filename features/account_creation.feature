@@ -31,7 +31,7 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
 
 Scenario: User should not see admin checkbox
     When I goto the create account page
-    THen I should not see "admin"
+    Then I should not see "admin"
     
 Scenario: User tries to logout
     When I fill in the following fields:
