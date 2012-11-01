@@ -7,23 +7,20 @@ class ProblemsController < ApplicationController
   end
 
   def create
-    new
+	@problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:problem][:skills])
+
+	@user = User.find_by_phone_number(params[:user][:phone_number])
+	if @user.nil?
+	@user = User.new
+	@user.attributes = params[:user]
+	end
+	@user.problems << @problem
+	save_problem
+	return
   end
 
   def new
     @all_skills = Skill.find(:all)
-    if request.post?
-      @problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:problem][:skills])
-
-      @user = User.find_by_phone_number(params[:user][:phone_number])
-      if @user.nil?
-        @user = User.new
-        @user.attributes = params[:user]
-      end
-      @user.problems << @problem
-      save_problem
-      return
-    end
     render 'problems/new'
   end
 
