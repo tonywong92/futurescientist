@@ -12,7 +12,7 @@
   = text_field :user, :location
 
   = label :problem, :skills, 'Skills Required'
-  = select_tag('skills', options_from_collection_for_select(@all_skills, 'id', 'skill_name'))
+  = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name'))
 
   = label :problem, :summary, 'Problem Summary'
   = text_field :problem, :summary
