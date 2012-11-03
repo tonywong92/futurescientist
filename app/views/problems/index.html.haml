@@ -22,7 +22,7 @@
     %br
       .container
         .row
-          .span8.offset2
+          .span8.offset1
             .well
               %table#listings_table.table.table-striped.table-bordered
                 %thead
@@ -38,3 +38,18 @@
                       %td= problem.skills
                       %td= problem.location
                       %td= '50'
+          .filter
+            = form_tag problems_path, :method => :get, :id => "problems_form" do
+              .filter_skills
+                Filter by skill:
+                - if @sessionSkills.include? "All"
+                  = select_tag('skills', "<option selected=\"\">All</option>".html_safe<<options_from_collection_for_select(@curr_skills, 'skills', 'skills', {:selected => @sessionSkills}), :multiple => true)
+                - else
+                  = select_tag('skills', "<option>All</option>".html_safe<<options_from_collection_for_select(@curr_skills, 'skills', 'skills', {:selected => @sessionSkills}), :multiple => true)
+              .filter_region
+                Filter by region:
+                - if @sessionAddresses.include? "All"
+                  = select_tag('address', "<option value=\"All2\" selected=\"\">All</option>".html_safe<<options_from_collection_for_select(@curr_addresses, 'location', 'location', {:selected => @sessionAddresses}), :multiple => true)
+                - else
+                  = select_tag('address', "<option>All</option>".html_safe<<options_from_collection_for_select(@curr_addresses, 'location', 'location', {:selected => @sessionAddresses}), :multiple => true)
+              = submit_tag 'Refresh', :id=> "problems_submit"
