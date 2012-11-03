@@ -1,6 +1,6 @@
-%h1 Problem Submission
+%h1 Edit Existing Problem
 
-= form_tag problems_path do
+= form_tag problem_path(@problem), :method => :put  do
 
   = label :user, :name, 'Name'
   = text_field :user, :name
@@ -8,7 +8,7 @@
   = label :user, :phone_number, 'Phone Number'
   = text_field :user, :phone_number
   
-  = label :user, :location, 'Location'
+  = label :problem, :location, 'Location'
   = text_field :problem, :location
 
   = label :problem, :skills, 'Skills Required'
@@ -20,4 +20,4 @@
   = label :problem, :description, 'Description'
   = text_area :problem, :description
 
-  = submit_tag 'Submit Problem'
+  = submit_tag 'Update Problem'

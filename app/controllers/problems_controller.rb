@@ -40,7 +40,16 @@ class ProblemsController < ApplicationController
   end
 
   def edit
+    @problem = Problem.find(params[:id])
+    @all_skills = Skill.find(:all)
+    @user = @problem.user
+  end
 
+  def update
+    @problem = Problem.find(params[:id])
+    @problem.update_attributes!(params[:problem])
+    flash[:notice] = "#{@problem.summary} was successfully updated."
+    redirect_to problem_path(@problem)
   end
 
   def destroy
