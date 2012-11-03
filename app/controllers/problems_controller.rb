@@ -7,7 +7,7 @@ class ProblemsController < ApplicationController
   end
 
   def create
-	@problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:problem][:skills])
+	@problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
 
 	@user = User.find_by_phone_number(params[:user][:phone_number])
 	if @user.nil?
