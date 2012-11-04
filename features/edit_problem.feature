@@ -8,21 +8,19 @@ Background: problems have been created by some requester
 
   Given the following users exists:
   | name   | phone_number   | location   |
-  | Bob    | 6265559999     | Address1   |
   | John   | 6264539999     | Address2   |
 
   And I add the "electronics" skill to the database
   And I add the "water" skill to the database
   And I add the "electricity" skill to the database
-  Given I am on the create account page
+  Given I go to the create account page
   When I fill in the following fields:
         | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Bob | 6265559999    | Panama   |
+        | tester@something.com | Tester       | password | Bob | 6265559999     | Panama   |
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
     Then I should be on the problems page
-    When I login with "tester@something.com" and "password"
  
   Given "Bob" created the following problems:
   | location | skills          | summary           | description       |
@@ -36,16 +34,15 @@ Background: problems have been created by some requester
   | location | skills          | summary           | description       |
   | Address3 | electricity     | outlet exploded   |                   |
 
-  And I add the "electronics" skill to the database
-  And I add the "water" skill to the database
-  And I add the "electricity" skill to the database
-  And I login with "bleh" and "bleh"
   And I am on the home page
+  When I login with "Tester" and "password"
+  Given I am on the home page
   
 Scenario: successfully edit a problem that was created by the poster
   When I follow "broken water pipe"
   And I follow "Edit"
-  And I select "electronics" from "skills"
+  Then I should see "water"
+  When I select "electronics" from "skills"
   And I fill in "problem_summary" with "laptop broke"
   And I press "Update Problem"
   Then I should see "laptop broke was successfully updated."

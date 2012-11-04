@@ -27,9 +27,9 @@ Then /^I should see the "(.*?)" error$/ do |error_message|
   step "I should see \"#{message}\""
 end
 
-When /^I login with "(.*)" and "(.*)"$/ do |name, password|
+When /^I login with "(.*)" and "(.*)"$/ do |account_name, password|
   step "I go to the login page"
-  step "I fill in \"account_name\" with \"#{name}\""
+  step "I fill in \"account_account_name\" with \"#{account_name}\""
   step "I fill in \"account_password\" with \"#{password}\""
   step "I press \"Login\""
 end
