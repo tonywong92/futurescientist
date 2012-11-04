@@ -36,8 +36,8 @@ class ProblemsController < ApplicationController
     else
       @problems = Problem.where(:skills => skills, :location => addresses).order("created_at DESC")
     end
-    @curr_skills = Problem.select("*").group("skills")
-    @curr_addresses = Problem.select("*").group("location")
+    @curr_skills = Problem.select(:skills).uniq
+    @curr_addresses = Problem.select(:location).uniq
   end
 
   def create
