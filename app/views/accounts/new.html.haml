@@ -1,37 +1,72 @@
-%h1 Create New Account
+%html
+  %head
+    %link{:href => "/bootstrap/css/bootstrap.css", :rel => "stylesheet", :type => "text/css"}
+  %body
+    .navbar.navbar-static-top
+      .navbar-inner
+        .container
+          %a#nav-left.brand.pull-left{:href => "/"} Future Scientists
+          - unless flash[:notice].nil?
+            = flash[:notice]
+          %ul.nav.pull-right
+            %li
+              %a#submit_new_problem{:href => "/problems/new"} Submit New Problem
+            %li
+              %a#sign_up{:href => "/accounts/new"} Sign Up
+            %li
+              - if session[:account].nil?
+                %a#log_in{:href => "/accounts/login_form"} Log In
+              - else
+                %a#log_out{:href => "/accounts/logout"} Log Out
+    %br
+      .span9.offset1
+        .well
+          .container
+            .span8
+              %legend Create New Account
 
-- unless @account.errors.empty?
-  The following errors occurred:
-  %ul
-    - @account.errors.full_messages.each do |error|
-      %li= error
+              - unless @account.errors.empty?
+                The following errors occurred:
+                %ul
+                  - @account.errors.full_messages.each do |error|
+                    %li= error
         
-- unless @user.errors.empty?
-  The following fields were missing:
-  %ul
-    - @user.errors.full_messages.each do |error|
-      %li= error
+              - unless @user.errors.empty?
+                The following fields were missing:
+                %ul
+                  - @user.errors.full_messages.each do |error|
+                    %li= error
 
-= form_tag '/accounts/new' do
+              = form_tag '/accounts/new' do
 
-  = label :account, :email, 'Email'
-  = text_field :account, :email, :id => 'email'
+                = label :account, :email, 'Email'
+                = text_field :account, :email, :id => 'email', :type=>"email"
 
-  = label :account, :account_name, 'Account Name'
-  = text_field :account, :account_name, :id => 'account_name'
+                = label :account, :account_name, 'Account Name'
+                = text_field :account, :account_name, :id => 'account_name'
 
-  = label :account, :password, 'Password'
-  = text_field :account, :password, :id => 'password'
+                = label :account, :password, 'Password'
+                = text_field :account, :password, :id => 'password', :type=>"password"
 
-  = label :user, :name, 'Name'
-  = text_field :user, :name, :id => 'name'
+                = label :user, :name, 'Name'
+                = text_field :user, :name, :id => 'name'
 
-  = label :user, :phone_number, 'Phone Number'
-  = text_field :user, :phone_number, :id => 'phone_number'
+                = label :user, :phone_number, 'Phone Number'
+                = text_field :user, :phone_number, :id => 'phone_number'
   
-  = label :user, :location, 'Location'
-  = text_field :user, :location, :id => 'location'
+                = label :user, :location, 'Location'
+                = text_field :user, :location, :id => 'location'
   
+<<<<<<< HEAD
+                = label :account, :skills, 'Skills'
+                - @all_skills.each do |skill|
+                  = label :skill, skill.skill_name
+                  = check_box_tag "skills[#{skill.skill_name}]", 1, false, :id => skill.skill_name
+    
+                %p NOTE: Skills will be verified by an admin
+    
+                = submit_tag 'Create Account', :class=>"btn btn-primary span3"
+=======
   = label :account, :skills, 'Skills'
   - @all_skills.each do |skill|
     = label :skill, skill.skill_name
@@ -49,3 +84,4 @@
 
 
 
+>>>>>>> 4471104736c6d43f6021329a48d6464ce0360068
