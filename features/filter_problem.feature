@@ -64,12 +64,3 @@ Scenario: successfully show only problems with the skill 'water' and location 'a
   And I should see "gameboy broken"
   And I should not see "ps3 broken"
   And I should not see "outlet exploded"
-
-Scenario: successfully show all current existing problem's location and skills
-  Then the "value" field within "select#address option:first" should contain "All2"
-  And I should see "Address2" in "address"
-  And I should see "Address3" in "address"
-  And I should see "water" in "skills"
-  And I should see "water, mold" in "skills"
-  And I should see "All" in "address"
-  And I should see "All" in "skills"
