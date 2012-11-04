@@ -43,12 +43,7 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
 
-    @user = User.find_by_phone_number(params[:user][:phone_number])
-    if @user.nil?
-      @user = User.new
-      @user.attributes = params[:user]
-    end
-    @user.problems << @problem
+    add_problem_to_user
     save_problem
     return
   end
@@ -66,12 +61,13 @@ class ProblemsController < ApplicationController
   def sms_create problem_text
     success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
-    return params[:Body]
-    problem_text = params[:Body].split
-    summary = problem_text[0]
-    location = problem_text[1]
-    problem
+    summary = problem_text[1]
+    location = problem_text[2]
+    skills = problem_text[3]
     
+    @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
+    add_problem_to_user
+    save_problem_sms
     twiml = Twilio::TwiML::Response.new do |r|
       if success
         r.Sms success_msg
@@ -80,6 +76,15 @@ class ProblemsController < ApplicationController
       end
     end
     twiml.text
+  end
+  
+  def add_problem_to_user
+    @user = User.find_by_phone_number(params[:user][:phone_number])
+    if @user.nil?
+      @user = User.new
+      @user.attributes = params[:user]
+    end
+    @user.problems << @problem
   end
 
   def new
@@ -94,6 +99,14 @@ class ProblemsController < ApplicationController
       flash[:error] = 'There was a problem with creating the problem.'
     end
     redirect_to problems_path
+  end
+  
+  def save_problem_sms
+    if @user.save!
+      success = true
+    else
+      success = false
+    end
   end
 
   def show
