@@ -31,6 +31,7 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+if false #these cause ambigious errors and seem useless
 # Single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
@@ -39,6 +40,7 @@ end
 # Multi-line step scoper
 When /^(.*) within (.*[^:]):$/ do |step, parent, table_or_string|
   with_scope(parent) { When "#{step}:", table_or_string }
+end
 end
 
 Given /^(?:|I )am on (.+)$/ do |page_name|

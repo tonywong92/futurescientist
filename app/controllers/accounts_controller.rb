@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
   end
   
   def login
-    @account = Account.find_by_email(params[:account][:email])
+    @account = Account.find_by_account_name(params[:account][:account_name])
     if @account.nil?
       flash[:error] = 'No such account exists'
       render '/accounts/login_form'
