@@ -38,6 +38,22 @@ class ProblemsController < ApplicationController
     
     @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
     add_problem_to_user_sms
+    @account_sid = 'AC65e34f3e42326c21b8d1c915c1817f7e'
+    @auth_token = '0814d38b55c49cfc462463d643328287'
+    
+    if save_problem_sms
+      body = success_msg
+    else
+      body = failure_msg
+    end
+
+    # set up a client to talk to the Twilio REST API
+    @client = Twilio::REST::Client.new(@account_sid, @auth_token)
+    
+    @account = @client.account
+    @message = @account.sms.messages.create({:from => '+16502674928', :to => '+14154393733', :body => body})
+    puts @message
+    if false
     twiml = Twilio::TwiML::Response.new do |r|
       if save_problem_sms
         r.Sms success_msg
@@ -46,6 +62,7 @@ class ProblemsController < ApplicationController
       end
     end
     twiml.text
+    end
   end
   
   def add_problem_to_user_sms
