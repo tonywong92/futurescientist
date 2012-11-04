@@ -62,7 +62,7 @@ class ProblemsController < ApplicationController
   end
 
   def save_problem
-    if @user.save!
+    if @user.save
       flash[:notice] = 'You have successfully created a problem!'
     else
       flash[:error] = 'There was a problem with creating the problem.'
