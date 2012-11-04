@@ -1,4 +1,6 @@
 -# in app/views/show.html.haml
+- if flash[:notice] != nil
+  = flash[:notice]
 
 %h2 Details about #{@problem.summary}
 %ul
@@ -7,7 +9,7 @@
   %li skills: #{@problem.skills}
   %li description: #{@problem.description}
   %li phone number: #{@user.phone_number}
-
-= link_to 'Edit', edit_problem_path(@problem)
-= button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
+- if @verifiedUser
+  = link_to 'Edit', edit_problem_path(@problem)
+  = button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
 = link_to 'Back to problems list', problems_path
