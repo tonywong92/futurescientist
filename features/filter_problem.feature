@@ -73,4 +73,3 @@ Scenario: successfully show all current existing problem's location and skills
   And I should see "water, mold" in "skills"
   And I should see "All" in "address"
   And I should see "All" in "skills"
-  

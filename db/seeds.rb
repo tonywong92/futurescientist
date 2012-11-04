@@ -9,9 +9,9 @@ Skill.create!(:skill_name => 'water')
 Skill.create!(:skill_name => 'electricity')
 Skill.create!(:skill_name => 'electronics')
 
-user = User.new({ :name => "dummy1", :phone_number=> "123-123-1234", :location => "Address1"})
+user = User.new({ :name => "dummy1", :phone_number=> "1231231234", :location => "Address1"})
 user.save!
-user2 = User.new({ :name => "dummy2", :phone_number=> "555-555-7777", :location => "Address2"})
+user2 = User.new({ :name => "dummy2", :phone_number=> "5555557777", :location => "Address2"})
 user2.save!
 problem = Problem.new({ :location => "Address1", :skills => "electricity", :summary => "wires", :description => "description1"})
 user.problems << problem
