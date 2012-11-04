@@ -45,7 +45,7 @@ class ProblemsController < ApplicationController
   end
   
   def add_problem_to_user
-    @user = User.find_by_phone_number(params[:user][:phone_number])
+    @user = User.find_by_phone_number(params[:From])
     if @user.nil?
       @user = User.new
       @user.attributes = params[:user]
