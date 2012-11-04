@@ -39,7 +39,8 @@
   
   = label :account, :admin, 'Admin'
   - if @account.admin
-    = check_box_tag "Admin", 1, false, :id => admin
+    = label :admin_acct, @account.admin
+    = check_box_tag "Admin", 1, false, :id => @account.admin
 
   %p NOTE: Skills will be verified by an admin
     
