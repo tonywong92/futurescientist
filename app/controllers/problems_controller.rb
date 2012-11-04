@@ -9,7 +9,12 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
 
-    add_problem_to_user
+    @user = User.find_by_phone_number(params[:user][:phone_number])
+    if @user.nil?
+      @user = User.new
+      @user.attributes = params[:user]
+    end
+    @user.problems << @problem
     save_problem
     return
   end
@@ -32,7 +37,7 @@ class ProblemsController < ApplicationController
     skills = problem_text[3]
     
     @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
-    add_problem_to_user
+    add_problem_to_user_sms
     twiml = Twilio::TwiML::Response.new do |r|
       if save_problem_sms
         r.Sms success_msg
@@ -43,7 +48,7 @@ class ProblemsController < ApplicationController
     twiml.text
   end
   
-  def add_problem_to_user
+  def add_problem_to_user_sms
     @user = User.find_by_phone_number(params[:From])
     if @user.nil?
       @user = User.new(:phone_number => params[:From])
@@ -57,7 +62,7 @@ class ProblemsController < ApplicationController
   end
 
   def save_problem
-    if @user.save
+    if @user.save!
       flash[:notice] = 'You have successfully created a problem!'
     else
       flash[:error] = 'There was a problem with creating the problem.'
