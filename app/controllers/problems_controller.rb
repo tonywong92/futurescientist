@@ -9,7 +9,7 @@ class ProblemsController < ApplicationController
       addresses = ["All"]
     end
     if skills == {}
-	skills = ["All"]
+      skills = ["All"]
     end
     if params[:skills] != session[:skills]
       session[:skills] = skills
@@ -26,31 +26,31 @@ class ProblemsController < ApplicationController
     @sessionSkills = skills
     @sessionAddresses = addresses
     if skills.include? "All" and addresses.include? "All"
-  	@problems = Problem.find(
-	    	  :all,
-	      	  :order => "created_at DESC")
+    @problems = Problem.find(
+          :all,
+            :order => "created_at DESC")
     elsif skills.include? "All"
-	@problems = Problem.where(:location => addresses).order("created_at DESC")
+  @problems = Problem.where(:location => addresses).order("created_at DESC")
     elsif addresses.include? "All"
-	@problems = Problem.where(:skills => skills).order("created_at DESC")
+  @problems = Problem.where(:skills => skills).order("created_at DESC")
     else
-    	@problems = Problem.where(:skills => skills, :location => addresses).order("created_at DESC")
+      @problems = Problem.where(:skills => skills, :location => addresses).order("created_at DESC")
     end
     @curr_skills = Problem.select("*").group("skills")
     @curr_addresses = Problem.select("*").group("location")
   end
 
   def create
-	@problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
+  @problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
 
-	@user = User.find_by_phone_number(params[:user][:phone_number])
-	if @user.nil?
-	@user = User.new
-	@user.attributes = params[:user]
-	end
-	@user.problems << @problem
-	save_problem
-	return
+  @user = User.find_by_phone_number(params[:user][:phone_number])
+  if @user.nil?
+  @user = User.new
+  @user.attributes = params[:user]
+  end
+  @user.problems << @problem
+  save_problem
+  return
   end
 
   def new
@@ -68,32 +68,72 @@ class ProblemsController < ApplicationController
   end
 
   def show
-    id = params[:id] 
+    id = params[:id]
     @problem = Problem.find(id)
     @user = @problem.user
+    @verifiedUser = false
+    account = session[:account]
+    if account != nil
+      if account.user.phone_number == @user.phone_number
+        @verifiedUser = true
+      end
+    end
   end
 
   def edit
-   #TODO: NEED TO ADD LOGIC about how to verify person editing.
     @problem = Problem.find(params[:id])
-    @all_skills = Skill.find(:all)
     @user = @problem.user
+    account = session[:account]
+    if account != nil
+      if account.user.phone_number == @user.phone_number
+        @verifiedUser = true
+      end
+    end
+    if @verifiedUser
+      @all_skills = Skill.find(:all)
+    else
+      flash[:notice] = 'You do not have permission to edit this problem.'
+      redirect_to problems_path
+    end
   end
 
   def update
-    #TODO: NEED TO ADD LOGIC FOR updating user.
     @problem = Problem.find(params[:id])
-    @problem.update_attributes!(params[:problem])
-    flash[:notice] = "#{@problem.summary} was successfully updated."
-    redirect_to problem_path(@problem)
+    @user = @problem.user
+    account = session[:account]
+    if account != nil
+      if account.user.phone_number == @user.phone_number
+        @verifiedUser = true
+      end
+    end
+    if @verifiedUser
+      @problem.update_attributes!(params[:problem])
+      flash[:notice] = "#{@problem.summary} was successfully updated."
+      redirect_to problem_path(@problem)
+    else
+      flash[:notice] = 'You do not have permission to edit this problem.'
+      redirect_to problems_path
+    end
   end
 
   def destroy
-    #TODO: NEED TO ADD LOGIC about how to verify person editing.
     @problem = Problem.find(params[:id])
-    @problem.destroy
-    flash[:notice] = "Problem '#{@problem.summary}' deleted."
-    redirect_to problems_path
+    @user = @problem.user
+    account = session[:account]
+    if account != nil
+      if account.user.phone_number == @user.phone_number
+        @verifiedUser = true
+      end
+    end
+    if @verifiedUser
+      @problem = Problem.find(params[:id])
+      @problem.destroy
+      flash[:notice] = "Problem '#{@problem.summary}' deleted."
+      redirect_to problems_path
+    else
+      flash[:notice] = 'You do not have permission to delete this problem.'
+      redirect_to problems_path
+    end
   end
 
 end

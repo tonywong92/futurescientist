@@ -35,11 +35,6 @@ Given /^I am logged in as "(.*)"$/ do |user|
   fill_in 'account_login', :with => '#{account.account_name}'
   fill_in 'account_password', :with => '#{account.password}'
   click_button 'Login'
-  if page.respond_to? :should
-    page.should have_content('Login successful')
-  else
-    assert page.has_content?('Login successful')
-  end
 end
 
 
@@ -77,10 +72,10 @@ end
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
-  #   "When I uncheck..." steps in lines 89-95 of web_steps.rb 
+  #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
  if uncheck == "un"
     rating_list.split(', ').each do |rate|
-      step "I uncheck \"ratings_#{rate}\"" 
+      step "I uncheck \"ratings_#{rate}\""
     end
   else
     rating_list.split(', ').each do |rate|
@@ -103,11 +98,11 @@ Then /I should see all of the movies/ do ||
 end
 
 Then /^the director of "([^"]*)" should be "([^"]*)"$/ do |director, title|
-	Movie.where("title = ?", title).each do |mov|
-		if mov[:director] != director
-			assert false
-		end
-	end
+  Movie.where("title = ?", title).each do |mov|
+    if mov[:director] != director
+      assert false
+    end
+  end
 end
 
 

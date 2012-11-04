@@ -6,39 +6,52 @@ Feature: allow problems to be edited or deleted by the poster
 
 Background: problems have been created by some requester
 
-  Given the following problems exists:
-  | name | location | skills relevant | problem summary   | description       |
-  | Bob  | Address1 | water           | broken water pipe | water pipe broken |
-  | John | Address2 | water           | broken water pipe |                   |
-  | Bob  | Address1 | electricity     | wire broken       | wire broken       |
-  | Bob  | Address3 | water, mold     | roof is leaking   | roof is leaking   |
+  Given the following users exists:
+  | name   | phone_number   | location   |
+  | Bob    | 6265559999     | Address1   |
+  | John   | 6264539999     | Address2   |
 
-  And I am logged in as Bob
-  And I am on the FutureScientists home page
+  And I add the "electronics" skill to the database
+  And I add the "water" skill to the database
+  And I add the "electricity" skill to the database
+  Given I am on the create account page
+  When I fill in the following fields:
+        | Email                | Account Name | Password | Name | Phone Number | Location |
+        | tester@something.com | Tester       | password | Bob | 6265559999    | Panama   |
+    Then I should see "Water"
+    And I check "water"
+    And I press "Create Account"
+    Then I should be on the problems page
+    When I login with "tester@something.com" and "password"
+ 
+  Given "Bob" created the following problems:
+  | location | skills          | summary           | description       |
+  | Address1 | water           | broken water pipe | water pipe broken |
+  | Address2 | electricity     | wire broken       |                   |
+  | Address3 | electronics     | computer broken   | computer broken   |
+  | Address3 | electronics     | gameboy broken    | gameboy broken    |
+  | Address4 | electronics     | ps3 broken        | ps3 broken        |
+
+  Given "John" created the following problems:
+  | location | skills          | summary           | description       |
+  | Address3 | electricity     | outlet exploded   |                   |
+
+  And I add the "electronics" skill to the database
+  And I add the "water" skill to the database
+  And I add the "electricity" skill to the database
+  And I login with "bleh" and "bleh"
+  And I am on the home page
   
 Scenario: successfully edit a problem that was created by the poster
-  When I click on the 'broken water pipe' problem by 'Bob' at 'Address1'
-  And I press 'edit'
-  And I change 'water' to 'water, mold' in the 'skills relevant' field
-  And I change 'water pipe broken' to 'water pipe broken and is causing mold' in the 'description' field
-  And I press 'submit'
-  Then I should see 'water, mold'
-  And I should see 'water pipe broken and is causing mold'
-
-Scenario: should be prompted to confirm to delete the problem when delete is pressed on a problem that was created by the poster
-  When I click on the 'broken water pipe' problem by 'Bob' at 'Address1'
-  And I press 'delete'
-  Then I should see 'are you sure you want to delete this problem?'
-  And I should see 'yes'
-  And I should see 'no'
-
-Scenario: should be prompted to confirm to delete the problem when delete is pressed on a problem that was created by the poster
-  When I click on the 'broken water pipe' problem by 'Bob' at 'Address1'
-  And I press 'delete'
-  And I click on 'yes'
-  Then I should not see the 'broken water pipe' problem at 'Address1'
+  When I follow "broken water pipe"
+  And I follow "Edit"
+  And I select "electronics" from "skills"
+  And I fill in "problem_summary" with "laptop broke"
+  And I press "Update Problem"
+  Then I should see "laptop broke was successfully updated."
+  And I should see "electronics"
 
 Scenario: Only the poster of the problem may edit or delete that problem
-  When I click on the 'broken water pipe' problem by 'John' at 'Address2'
-  Then I should not see 'edit'
-  And I should not see 'delete'
+  When I follow "outlet exploded"
+  Then I should not see "Edit"
+  And I should not see "Delete"
