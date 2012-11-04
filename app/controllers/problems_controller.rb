@@ -53,11 +53,14 @@ class ProblemsController < ApplicationController
     return
   end
   
+  # sms support for problem creation
   def sms_create
     success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
     
-    problem_text = params[:Body]
+    problem_text = params[:Body].split
+    
+    
     twiml = Twilio::TwiML::Response.new do |r|
       if success
         r.Sms success_msg
