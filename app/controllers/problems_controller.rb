@@ -33,9 +33,8 @@ class ProblemsController < ApplicationController
     
     @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
     add_problem_to_user
-    save_problem_sms
     twiml = Twilio::TwiML::Response.new do |r|
-      if success
+      if save_problem_sms
         r.Sms success_msg
       else
         r.Sms failure_msg
@@ -58,7 +57,7 @@ class ProblemsController < ApplicationController
   end
 
   def save_problem
-    if @user.save!
+    if @user.save
       flash[:notice] = 'You have successfully created a problem!'
     else
       flash[:error] = 'There was a problem with creating the problem.'
@@ -67,10 +66,10 @@ class ProblemsController < ApplicationController
   end
   
   def save_problem_sms
-    if @user.save!
-      success = true
+    if @user.save
+      return true
     else
-      success = false
+      return false
     end
   end
 
