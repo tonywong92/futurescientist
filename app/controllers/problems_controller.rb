@@ -66,7 +66,7 @@ class ProblemsController < ApplicationController
   def sms_create problem_text
     success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
-    return success_msg
+    return params[:Body]
     problem_text = params[:Body].split
     summary = problem_text[0]
     location = problem_text[1]
