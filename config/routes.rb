@@ -12,6 +12,7 @@ Futurescientist::Application.routes.draw do
   match 'accounts/new' => 'accounts#new'
   match 'accounts/login' => 'accounts#login'
   match 'accounts/logout' => 'accounts#logout'
+  match 'problems/sms_create' => 'problems#sms_create'
   
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

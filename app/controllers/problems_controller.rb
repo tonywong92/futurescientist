@@ -41,16 +41,45 @@ class ProblemsController < ApplicationController
   end
 
   def create
-	@problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
+    @problem = Problem.new(:location => params[:user][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
 
-	@user = User.find_by_phone_number(params[:user][:phone_number])
-	if @user.nil?
-	@user = User.new
-	@user.attributes = params[:user]
-	end
-	@user.problems << @problem
-	save_problem
-	return
+    @user = User.find_by_phone_number(params[:user][:phone_number])
+    if @user.nil?
+      @user = User.new
+      @user.attributes = params[:user]
+    end
+    @user.problems << @problem
+    save_problem
+    return
+  end
+  
+  #sms superfunction for receiving texts
+  def receive_sms
+    problem_text = params[:Body].split
+    case problem_text[0]
+      when /^ADD$/
+        sms_create problem_text
+    end
+  end
+  
+  # sms support for problem creation
+  def sms_create problem_text
+    success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
+    failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
+    return params[:Body]
+    problem_text = params[:Body].split
+    summary = problem_text[0]
+    location = problem_text[1]
+    problem
+    
+    twiml = Twilio::TwiML::Response.new do |r|
+      if success
+        r.Sms success_msg
+      else
+        r.Sms failure_msg
+      end
+    end
+    twiml.text
   end
 
   def new

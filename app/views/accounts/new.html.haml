@@ -57,6 +57,7 @@
                 = label :user, :location, 'Location'
                 = text_field :user, :location, :id => 'location'
   
+<<<<<<< HEAD
                 = label :account, :skills, 'Skills'
                 - @all_skills.each do |skill|
                   = label :skill, skill.skill_name
@@ -65,3 +66,21 @@
                 %p NOTE: Skills will be verified by an admin
     
                 = submit_tag 'Create Account', :class=>"btn btn-primary span3"
+=======
+  = label :account, :skills, 'Skills'
+  - @all_skills.each do |skill|
+    = label :skill, skill.skill_name
+    = check_box_tag "skills[#{skill.skill_name}]", 1, false, :id => skill.skill_name
+  
+  = label :account, :admin, 'Admin'
+  - if @account.admin
+    = check_box_tag "Admin", 1, false, :id => admin
+
+  %p NOTE: Skills will be verified by an admin
+    
+  = submit_tag 'Create Account'
+
+
+
+
+>>>>>>> 4471104736c6d43f6021329a48d6464ce0360068

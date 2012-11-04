@@ -26,7 +26,7 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
         | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
     And I press "Create Account"
     Then I should be on the problems page
-    When I login with "tester@something.com" and "password"
+    When I login with "Tester" and "password"
     Then I should see "Welcome, Test"
 
 Scenario: User should not see admin checkbox
@@ -38,7 +38,7 @@ Scenario: User tries to logout
         | Email                | Account Name | Password | Name | Phone Number | Location |
         | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
     And I press "Create Account"
-    And I login with "tester@something.com" and "password"
+    And I login with "Tester" and "password"
     And I log out
     Then I should see "You have successfully logged out"
     
