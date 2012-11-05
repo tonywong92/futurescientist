@@ -67,7 +67,9 @@ class ProblemsController < ApplicationController
     @client = Twilio::REST::Client.new account_sid, auth_token
 
     @client.account.sms.messages.create(:from => "+15005550006", :to => "+14154393733", :body => "TESTING")
-  end
+  
+    redirect_to problems_path
+    end
 
   # sms support for problem creation
   def sms_create problem_text
