@@ -1,17 +1,9 @@
 class AccountsController < ApplicationController
 
   def new
-    if User.count.zero?
-      create_admin
-    else
-      if params[:admin].nil?
-        create_admin
-      else
-        user = User.new(params[:user])
-        @account = Account.new(params[:account])
-        @all_skills = Skill.find(:all)
-      end
-    end
+    user = User.new(params[:user])
+    @account = Account.new(params[:account])
+    @all_skills = Skill.find(:all)
     if request.post?
       @user.account = @account
       save_account
@@ -29,6 +21,7 @@ class AccountsController < ApplicationController
     @account = Account.new(params[:account])
     @all_skills = Skill.find(:all)
     @account.admin = true
+    @account.save
   end
   
   def save_account
