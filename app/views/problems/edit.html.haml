@@ -4,15 +4,12 @@
 
   = label :user, :name, 'Name'
   = text_field :user, :name
-  
-  = label :user, :phone_number, 'Phone Number'
-  = text_field :user, :phone_number
-  
+
   = label :problem, :location, 'Location'
   = text_field :problem, :location
 
   = label :problem, :skills, 'Skills Required'
-  = select_tag('skills', options_from_collection_for_select(@all_skills, 'id', 'skill_name'))
+  = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name', {:selected => [@curr_skills]}))
 
   = label :problem, :summary, 'Problem Summary'
   = text_field :problem, :summary

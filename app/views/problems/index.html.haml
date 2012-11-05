@@ -52,7 +52,7 @@
               .filter_region
                 Filter by region:
                 - if @sessionAddresses.include? "All"
-                  = select_tag('address', "<option value=\"All2\" selected=\"\">All</option>".html_safe<<options_from_collection_for_select(@curr_addresses, 'location', 'location', {:selected => @sessionAddresses}), :multiple => true)
+                  = select_tag('address', "<option selected=\"\">All</option>".html_safe<<options_from_collection_for_select(@curr_addresses, 'location', 'location', {:selected => @sessionAddresses}), :multiple => true)
                 - else
                   = select_tag('address', "<option>All</option>".html_safe<<options_from_collection_for_select(@curr_addresses, 'location', 'location', {:selected => @sessionAddresses}), :multiple => true)
               = submit_tag 'Refresh', :id=> "problems_submit"

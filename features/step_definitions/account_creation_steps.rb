@@ -9,7 +9,7 @@ When /^I fill in the following fields:$/ do |table|
     step "I fill in \"password\" with \"#{account['Password']}\""
     step "I fill in \"name\" with \"#{account['Name']}\""
     step "I fill in \"phone_number\" with \"#{account['Phone Number']}\""
-    step "I fill in \"location\" with \"#{account['Location']}\"" 
+    step "I fill in \"location\" with \"#{account['Location']}\""
   end
 end
 
