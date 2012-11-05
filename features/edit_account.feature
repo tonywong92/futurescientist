@@ -1,23 +1,13 @@
 Feature: Edit accounts skills/emails/phone numbers
 
-Scenario: Add skill
-		Given I am on the accounts page
-		And I click "edit account"
-		And I should be able to add a skill
+Background: Accounts have been created
 
-Scenario: Delete skill
-		Given I am on the accounts page
-		And I click "edit account"
-		And I should be able to delete a skill
+Given the following account exists:
+  | account_name   | email            | password |
+  | foobar         | foobar@yahoo.com | lalala   |
 
-Scenario: Update email
-		Given I am on the accounts page
-		And I click "change email"
-		And I should be able to change my email
-
-Scenario: Change Phone Number
-		Given I am on the accounts page
-		And I click "change phone number"
-		And I should be able to chang emy phone number
-
-
+Scenario: Edit email
+	Given I am on the edit account page
+	And I fill in "email_address" with "test@yahoo.com"
+	And I press "Update"
+	Then I should be on the edit account page

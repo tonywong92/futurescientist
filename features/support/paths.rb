@@ -30,6 +30,9 @@ module NavigationHelpers
     when /^log out$/
       '/accounts/logout'
 
+    when /^the edit account page$/
+      '/accounts/edit'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

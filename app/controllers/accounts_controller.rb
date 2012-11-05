@@ -53,8 +53,19 @@ class AccountsController < ApplicationController
       redirect_to problems_path
     else
       flash[:error] = 'Your password is incorrect'
-      render '/accounts/login_form'
+      render '/accounts/edit'
     end
+  end
+  
+  def edit
+    render '/accounts/edit'
+  end
+
+  def update
+    #todo: find out who is making the update call
+    @account = Account.find_by_account_name('foobar')
+    @account.update_attributes!(:email => params[:email][:address])
+    redirect_to '/accounts/edit'
   end
   
 end
