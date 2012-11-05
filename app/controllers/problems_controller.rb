@@ -21,14 +21,14 @@ class ProblemsController < ApplicationController
   
   #sms superfunction for receiving texts
   def receive_sms
-    if false
+=begin
     problem_text = params[:Body].split
     case problem_text[0]
       when /^ADD$/
         sms_create problem_text
     end
-    end
-    
+=end
+
     account_sid = 'AC65e34f3e42326c21b8d1c915c1817f7e'
     auth_token = '0814d38b55c49cfc462463d643328287'
     client = Twilio::REST::Client.new account_sid, auth_token
