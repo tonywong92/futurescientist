@@ -72,7 +72,7 @@ class ProblemsController < ApplicationController
 
     puts @account.friendly_name
 
-    @client.account.sms.messages.create(:from => "+15005550006", :to => "+14154393733", :body => "TESTING")
+    @client.account.sms.messages.create(:from => "+16502674928", :to => "+14154393733", :body => "TESTING")
   
     redirect_to problems_path
     end
