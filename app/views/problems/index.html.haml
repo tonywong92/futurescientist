@@ -10,7 +10,7 @@
           - unless flash[:notice].nil?
             = flash[:notice]
           %ul.nav.pull-right
-            - if User.count.zero?
+            - if Account.count.zero?
               %li
                 %a#create_new_admin{:href => "accounts/new"} Create Admin Account
             %li
