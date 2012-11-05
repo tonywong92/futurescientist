@@ -17,8 +17,8 @@ Scenario: Happy Path - User successfully creates an account and submits skills
     And I check "water"
     And I press "Create Account"
     Then I should be on the problems page
-    When I login with "tester@something.com" and "password"
-    Then I should see "Welcome, Test"
+    When I login with "Tester" and "password"
+    Then I should see "Welcome, Tester"
     
 Scenario: Happy Path - User successfully creates an account and doesn't submit skills
     When I fill in the following fields:
@@ -27,10 +27,10 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
     And I press "Create Account"
     Then I should be on the problems page
     When I login with "Tester" and "password"
-    Then I should see "Welcome, Test"
+    Then I should see "Welcome, Tester"
 
 Scenario: User should not see admin checkbox
-    When I goto the create account page
+    When I go to the create account page
     Then I should not see "admin"
     
 Scenario: User tries to logout
