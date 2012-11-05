@@ -21,6 +21,9 @@ module NavigationHelpers
     when /^the create account page$/
       '/accounts/new'
 
+    when /^the create admin page$/
+      '/accounts/new'
+
     when /^the problem submission page$/
       '/problems/new'
       
