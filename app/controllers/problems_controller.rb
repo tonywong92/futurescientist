@@ -177,6 +177,7 @@ class ProblemsController < ApplicationController
     end
   end
 
+=begin
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
@@ -196,5 +197,5 @@ class ProblemsController < ApplicationController
       redirect_to problems_path
     end
   end
-
+=end
 end

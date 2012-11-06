@@ -4,7 +4,8 @@ Feature: User can make an account and submit a skillset
     I want to able to make an account and submit my skillset.
 
 Background:
-    Given I am on the create account page
+    Given the site is set up
+    And I am on the create account page
     Then I should see "Create New Account"
 
 Scenario: Happy Path - User successfully creates an account and submits skills
@@ -28,10 +29,6 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
     Then I should be on the problems page
     When I login with "Tester" and "password"
     Then I should see "Welcome, Tester"
-
-Scenario: User should not see admin checkbox
-    When I go to the create account page
-    Then I should not see "admin"
     
 Scenario: User tries to logout
     When I fill in the following fields:
@@ -69,7 +66,6 @@ Scenario Outline: User submits an invalid account creation form
         | Email                | Account Name | Password | Name | Phone Number | Location | Error Message        |
         | tester@something.com |              | password | Test | 123456789    | Panama   | Missing Account Name |
         | tester@something.com | Tester       |          | Test | 123456789    | Panama   | Missing Password     |
-        | tester@something.com | Tester       | password |      | 123456789    | Panama   | Missing Name         |   
         | tester@something.com | Tester       | password | Test |              | Panama   | Missing Phone Number |
 
 

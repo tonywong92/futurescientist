@@ -48,7 +48,6 @@ Scenario: successfully edit a problem that was created by the poster
   Then I should see "laptop broke was successfully updated."
   And I should see "electronics"
 
-Scenario: Only the poster of the problem may edit or delete that problem
+Scenario: Only the poster of the problem may edit that problem
   When I follow "outlet exploded"
   Then I should not see "Edit"
-  And I should not see "Delete"

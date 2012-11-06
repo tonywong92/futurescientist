@@ -62,7 +62,7 @@
                   = label :skill, skill.skill_name
                   = check_box_tag "skills[#{skill.skill_name}]", 1, false, :id => skill.skill_name
                 
-                - if Account.count.zero? or @account.admin
+                - if Account.find(:all).empty? or @account.admin
                   = label :account, :admin, 'Admin'
                   = check_box_tag "Admin", 1, false, :id => 'admin'
     

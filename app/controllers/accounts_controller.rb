@@ -1,7 +1,7 @@
 class AccountsController < ApplicationController
 
   def new
-    if Account.count.zero?
+    if Account.find(:all).empty?
       create_admin
     else
       if session[:account] && session[:account].admin
