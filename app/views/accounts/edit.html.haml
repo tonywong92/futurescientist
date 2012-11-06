@@ -1,0 +1,8 @@
+%h1 Edit Account
+
+= form_tag 'update', :method => :put  do
+
+  = label :email, :address, 'Email'
+  = text_field :email, :address
+
+  = submit_tag 'Update'

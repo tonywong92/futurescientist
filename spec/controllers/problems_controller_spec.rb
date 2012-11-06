@@ -15,7 +15,10 @@ describe ProblemsController do
     end
     
     it 'should post my problem' do
-      Problem.find_by_summary('textedProblem').should_not be_nil
+      textedProblem = Problem.find_by_summary('textedProblem')
+      textedProblem.should_not be_nil
+      textedProblem.location.should == "Location"
+      textedProblem.skills.should == "Skill"
     end
     
   end
