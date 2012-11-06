@@ -41,4 +41,6 @@ RSpec.configure do |config|
   
   # 
   SmsSpec.driver = :"twilio-ruby"
+  config.include(SmsSpec::Helpers)
+  config.include(SmsSpec::Matchers)
 end

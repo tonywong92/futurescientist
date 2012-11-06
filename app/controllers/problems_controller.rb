@@ -55,30 +55,37 @@ class ProblemsController < ApplicationController
 
   #sms superfunction for receiving texts
   def receive_sms
-=begin
-    problem_text = params[:Body].split
-    case problem_text[0]
+    @problem_text = params[:Body].split
+    case @problem_text[0]
       when /^ADD$/
-        sms_create problem_text
+        sms_create
     end
-=end
+  end
+
+  # sms support for problem creation
+  def sms_create
+    success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
+    failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
+    summary = @problem_text[1]
+    location = @problem_text[2]
+    skills = @problem_text[3]
+
+    @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
+    add_problem_to_user_sms
+    
+    if save_problem_sms
+      body = success_msg
+    else
+      body = failure_msg
+    end
+    
     account_sid = 'AC65e34f3e42326c21b8d1c915c1817f7e'
     auth_token = '0814d38b55c49cfc462463d643328287'
     @client = Twilio::REST::Client.new account_sid, auth_token
 
-    @client.account.sms.messages.create(:from => "+15005550006", :to => "+14154393733", :body => "TESTING")
-  end
-
-  # sms support for problem creation
-  def sms_create problem_text
-    success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
-    failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
-    summary = problem_text[1]
-    location = problem_text[2]
-    skills = problem_text[3]
-
-    @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
-    add_problem_to_user_sms
+    @client.account.sms.messages.create(:from => "+15005550006", :to => "+14154393733", :body => body)
+    redirect_to problems_path
+=begin
     twiml = Twilio::TwiML::Response.new do |r|
       if save_problem_sms
         r.Sms success_msg
@@ -87,6 +94,7 @@ class ProblemsController < ApplicationController
       end
     end
     twiml.text
+=end
   end
 
   def add_problem_to_user_sms
