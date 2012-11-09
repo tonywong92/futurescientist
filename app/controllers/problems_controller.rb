@@ -79,14 +79,14 @@ class ProblemsController < ApplicationController
       body = failure_msg
     end
 
-    account_sid = 'AC65e34f3e42326c21b8d1c915c1817f7e'
-    auth_token = '0814d38b55c49cfc462463d643328287'
+    account_sid = 'AC7bec7276c109417979adfc442a675fc9'
+    auth_token = '6ca5a284c956fc0a444ba453ca63508b'
     @client = Twilio::REST::Client.new(account_sid, auth_token)
 
     puts params[:To]
     puts params[:From]
 
-    @client.account.sms.messages.create(:from => +15005550006, :to => params[:To], :body => 'Hi there!')
+    @client.account.sms.messages.create(:from => params[:From], :to => params[:To], :body => 'Hi there!')
   end
 
   def add_problem_to_user_sms
