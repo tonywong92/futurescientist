@@ -60,6 +60,7 @@ class ProblemsController < ApplicationController
       when /^ADD$/
         sms_create
     end
+    redirect_to problems_path
   end
 
   # sms support for problem creation
