@@ -83,10 +83,7 @@ class ProblemsController < ApplicationController
     auth_token = '6ca5a284c956fc0a444ba453ca63508b'
     @client = Twilio::REST::Client.new(account_sid, auth_token)
 
-    puts params[:To]
-    puts params[:From]
-
-    @client.account.sms.messages.create(:from => params[:From], :to => params[:To], :body => 'Hi there!')
+    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => 'Hi there!')
   end
 
   def add_problem_to_user_sms
