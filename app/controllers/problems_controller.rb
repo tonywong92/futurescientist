@@ -81,13 +81,12 @@ class ProblemsController < ApplicationController
 
     account_sid = 'AC65e34f3e42326c21b8d1c915c1817f7e'
     auth_token = '0814d38b55c49cfc462463d643328287'
-    @client = Twilio::REST::Client.new account_sid, auth_token
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
 
-    puts 'params[:To]: ', params[:To]
-    puts 'params[:From]: ', params[:From]
+    puts params[:To]
+    puts params[:From]
 
-    @client.account.sms.messages.create(:from => params[:From], :to => params[:To], :body => body)
-    redirect_to problems_path
+    @client.account.sms.messages.create(:from => params[:To], :to => params[:To], :body => body)
   end
 
   def add_problem_to_user_sms
