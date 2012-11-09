@@ -86,7 +86,7 @@ class ProblemsController < ApplicationController
     puts 'params[:To]: ', params[:To]
     puts 'params[:From]: ', params[:From]
 
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+    @client.account.sms.messages.create(:from => params[:From], :to => params[:To], :body => body)
     redirect_to problems_path
   end
 
