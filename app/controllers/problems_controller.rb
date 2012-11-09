@@ -86,7 +86,7 @@ class ProblemsController < ApplicationController
     puts params[:To]
     puts params[:From]
 
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:To], :body => 'Hi there!')
+    @client.account.sms.messages.create(:from => +15005550006, :to => params[:To], :body => 'Hi there!')
   end
 
   def add_problem_to_user_sms
