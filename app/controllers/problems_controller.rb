@@ -72,20 +72,21 @@ class ProblemsController < ApplicationController
 
     @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
     add_problem_to_user_sms
-    
+
+=begin
     if save_problem_sms
       body = success_msg
     else
       body = failure_msg
     end
-    
+
     account_sid = 'AC65e34f3e42326c21b8d1c915c1817f7e'
     auth_token = '0814d38b55c49cfc462463d643328287'
     @client = Twilio::REST::Client.new account_sid, auth_token
 
     @client.account.sms.messages.create(:from => "+16502674928", :to => "+14154393733", :body => body)
     redirect_to problems_path
-=begin
+=end
     twiml = Twilio::TwiML::Response.new do |r|
       if save_problem_sms
         r.Sms success_msg
@@ -94,7 +95,6 @@ class ProblemsController < ApplicationController
       end
     end
     twiml.text
-=end
   end
 
   def add_problem_to_user_sms
