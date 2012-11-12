@@ -16,3 +16,19 @@ Scenario: Happy Path - Admin successfully creates an account
     And I check "Admin"
     And I press "Create Account"
     Then I should be on the problems page
+
+Scenario: Verification of regular Provider's account
+    Given I fill in the following fields:
+        | Email               | Account Name | Password | Name  | Phone Number | Location |
+        | water@something.com | water        | password | Water | 123456789    | US       |
+    And I check "Water"
+    And I press "Create Account"
+    Then I should be on the problems page
+    When I go to the skill approval page
+    And I press "Approve"
+    Then I should be on the skill approval page
+    When I log out
+    And I login with "water" and "password"
+    And I go to a problem with "Water" skill
+    Then I should be able to accept this problem
+s
