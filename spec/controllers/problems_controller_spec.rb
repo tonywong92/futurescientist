@@ -9,6 +9,7 @@ describe ProblemsController do
   describe 'sms interactions' do
     let(:twilio_phone_number) {"+16502674928"}
     let(:registered_phone_number) {"+14154393733"}
+    let(:registered_phone_number2) {"+14154393734"}
     
     describe 'problem submission through text' do
       before do
@@ -41,6 +42,21 @@ describe ProblemsController do
         current_text_message.should have_body "You have successfully accepted this problem! Please contact the requester as soon as possible"
       end
     end
-  
+
+    describe 'problem retrieval through text' do
+
+      before do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'ADD Problem1 Location1 water'}
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'ADD Problem2 Location2 water'}
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'SEE problems someLocation water limit 1'}
+      end
+
+      it 'should send me a list of problems with correct attributes' do
+        post 'create', {:phone_number => "+14154393734"}
+
+        open_last_test_message_for "+14154393734"
+        current_text_message.should have_body "Problem1 Location1 14154393733 AND Problem2 Location2 14154393733"
+      end
+    end
   end
 end
