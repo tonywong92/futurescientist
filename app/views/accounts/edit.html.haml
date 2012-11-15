@@ -1,8 +1,45 @@
-%h1 Edit Account
+%html
+  %head
+    %link{:href => "/bootstrap/css/bootstrap.css", :rel => "stylesheet", :type => "text/css"}
+  %body
+    .navbar.navbar-static-top
+      .navbar-inner
+        .container
+          %a#nav-left.brand.pull-left{:href => "/"} Future Scientists
+          - unless flash[:notice].nil?
+            = flash[:notice]
+          %ul.nav.pull-right
+            %li
+              %a#submit_new_problem{:href => "/problems/new"} Submit New Problem
+            %li
+              %a#sign_up{:href => "/accounts/new"} Sign Up
+            %li
+              - if session[:account].nil?
+                %a#log_in{:href => "/accounts/login_form"} Log In
+              - else
+                %a#log_out{:href => "/accounts/logout"} Log Out
+    %br
+      .span9.offset1
+        .well
+          .container
+            .span8
+              %legend Edit Email
+              = form_tag 'update', :method => :put  do
+                = label :email, :address, 'Email'
+                = text_field :email, :address
+                = submit_tag 'Update'
 
-= form_tag 'update', :method => :put  do
+              %legend Edit Password
 
-  = label :email, :address, 'Email'
-  = text_field :email, :address
+              = form_tag 'changepass', :method => :put do
 
-  = submit_tag 'Update'
+                = label :password, :current, 'Current Password'
+                = text_field :password, :current, :type => 'password'
+                = label :password_new, :new, 'New Password'
+                = text_field :password_new, :new, :type => 'password'
+
+                = label :reenter, :pass, 'Reenter New Password'
+                = text_field :reenter, :pass, :type => 'password'
+
+                = submit_tag 'Change Password'
+

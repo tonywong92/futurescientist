@@ -82,5 +82,15 @@ class AccountsController < ApplicationController
     @account.update_attributes!(:email => params[:email][:address])
     redirect_to '/accounts/edit'
   end
+
+  def changepass
+    @account = Account.find_by_account_name('foobar')
+    if params[:password_new][:new] == params[:reenter][:pass] 
+      @account.update_attributes!(:password => params[:password_new][:new])
+      redirect_to '/accounts/edit'
+    else 
+      redirect_to '/accounts/edit'
+    end
+  end
   
 end
