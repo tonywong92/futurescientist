@@ -260,6 +260,7 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     password = @problem_text[2]
     provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
+    sms_send(normalize_phone(params[:From]))
     provider_acc = provider_user.account
     if provider_acc.nil?
       body = "Sorry, there is no account associated with the phone number #{normalize_phone(params[:From])}"
@@ -273,7 +274,7 @@ class ProblemsController < ApplicationController
         body = "You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible."
       end
       #send a notification to the requester saying that a provider will be contacting shortly
-      requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.name}, whom you can contact at #{provider.phone_number}."
+      requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.name}, whom you can contact at #{provider_acc.phone_number}."
       @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
     #else
      # body = "Sorry, incorrect password"
