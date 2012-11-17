@@ -87,7 +87,7 @@ class ProblemsController < ApplicationController
           sms_detail
       end
     end
-    redirect_to :action => index and return
+    return
   end
 
   #call this to do all the logic to parse the incomming text
