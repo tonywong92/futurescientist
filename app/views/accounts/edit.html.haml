@@ -7,20 +7,21 @@
           %legend Edit Email
           = form_tag 'update', :method => :put  do
             = label :email, :address, 'Email'
-            = text_field :email, :address
-            = submit_tag 'Update'
+            = text_field :email, :address, :type => 'email'
+            %br
+            = submit_tag 'Update', :class=>"btn btn-primary span2"
 
           %legend Edit Password
 
           = form_tag 'changepass', :method => :put do
 
             = label :password, :current, 'Current Password'
-            = text_field :password, :current, :type => 'password'
-            = label :password_new, :new, 'New Password'
-            = text_field :password_new, :new, :type => 'password'
+            = text_field :password, :current, :type => 'password', :required => 'required'
+            = label :password_new, :new, 'New Password (6 characters with at least one uppercase)'
+            = text_field :password_new, :new, :type => 'password', :pattern=>"^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$"
 
             = label :reenter, :pass, 'Reenter New Password'
             = text_field :reenter, :pass, :type => 'password'
-
-            = submit_tag 'Change Password'
+            %br
+            = submit_tag 'Change Password', :class=>"btn btn-primary span2"
 
