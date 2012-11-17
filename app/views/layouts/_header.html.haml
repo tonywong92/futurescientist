@@ -8,10 +8,11 @@
         %li
           %a#submit_new_problem{:href => "/problems/new"} Submit New Problem
         %li
-          - if not session[:account].nil?
-            = link_to "#{session[:account].account_name}", account_path(session[:account])
+          - account = Account.find_by_id(session[:account])
+          - if not account.nil?
+            = link_to "#{account.account_name}", account_path(session[:account])
         %li
-          - if session[:account].nil?
+          - if account.nil?
             %a#log_in{:href => "/accounts/login_form"} Log In
           - else
             %a#log_out{:href => "/accounts/logout"} Log Out

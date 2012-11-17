@@ -73,7 +73,7 @@ class AccountsController < ApplicationController
       redirect_to problems_path
     else
       flash[:error] = 'Your password is incorrect'
-      render '/accounts/edit'
+      render '/accounts/login_form'
     end
   end
   
