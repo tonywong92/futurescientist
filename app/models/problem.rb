@@ -17,5 +17,6 @@ class Problem < ActiveRecord::Base
     if description == nil
       description = "None"
       return "id:#{self.id}. Description: #{description} Phone Number: #{self.user.phone_number} "
+    end
   end
 end

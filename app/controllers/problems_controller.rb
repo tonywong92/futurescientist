@@ -64,7 +64,7 @@ class ProblemsController < ApplicationController
       when /^get$/
         sms_get(0)
       when /^next$/
-        offset = session[:offset]
+        offset = session["offset"]
         if offset == nil
           sms_error("Sorry, there is no saved session right now. Please first text \"GET\" with @location !skill %number of texts you want to allow.")
         else
@@ -118,24 +118,24 @@ class ProblemsController < ApplicationController
       end
       if body == ""
         body = "There are no more additional problems for "
-        location ? body += "Location: #{location} "
-        skills ? body += "Skills: #{skills} "
+        location ? body += "Location: #{location} " : false
+        skills ? body += "Skills: #{skills} " : false
         @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
         break
       else
         @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
       end
     end
-    session[:offset] = offset
+    session["offset"] = offset
   end
 
   def sms_detail
-    problem_id = @problem_text[1]
+    problem_id = @problem_text[1].to_i
     problem = Problem.find(problem_id)
 
     sms_authenticate
 
-    if problem
+    if problem.nil?
       problem_details = problem.more_detail
       current = 0
       (problem_details.length/TEXTLENGTH.to_f).ceil.times do |i|
