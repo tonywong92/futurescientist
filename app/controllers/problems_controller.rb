@@ -59,8 +59,9 @@ class ProblemsController < ApplicationController
 
   #sms superfunction for receiving texts
   def receive_sms
-    @problem_text = params[:Body].split
-    action = sms_parsing(@problem_text)
+    body = params[:Body]
+    @problem_text = body.split
+    action = sms_parsing(body)
     if !@sms_error
       case action.downcase
         when /^add$/
