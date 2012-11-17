@@ -145,7 +145,7 @@ class ProblemsController < ApplicationController
             when "limit"
               words.slice!(0)
               nextWord = words[0]
-              if !isNum?(nextWord)
+              if !is_num?(nextWord)
                 sms_error("LIMIT must be followed by a integer number")
                 @sms_error = true
                 break
