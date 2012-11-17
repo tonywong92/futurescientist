@@ -1,0 +1,22 @@
+=render :partial => 'layouts/header'
+%br
+	.span9.offset1
+		.well
+			.container
+				.span3
+					%a#profile{:href => "/accounts/show"} #{@user.account.account_name}
+					%ul
+						%li
+							%a#profile{:href => "/accounts/skill"} Skill Verification
+						%li
+							%a#profile{:href => "/accounts/admin"} Admin Verification
+				.span6
+					%legend 
+						%ul
+							%li Name: #{@user.name}
+							%li Location: #{@user.location}
+							%li Email: #{@user.account.email}
+							%li Phone number: #{@user.phone_number}
+							%li Skills: #{@user.account.skills}
+					%br
+					%a#account_edit{:href => "/accounts/edit"} Edit
