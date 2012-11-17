@@ -1,31 +1,29 @@
-%html
-  %body
-    =render :partial => '/layouts/header'
-    %br
-      .span9.offset1
-        .well
-          .container
-            .span8
-              %legend Problem Submission
+=render :partial => '/layouts/header'
+%br
+  .span9.offset1
+    .well
+      .container
+        .span8
+          %legend Problem Submission
 
-              = form_tag problems_path do
+          = form_tag problems_path do
 
-                = label :user, :name, 'Name'
-                = text_field :user, :name
+            = label :user, :name, 'Name'
+            = text_field :user, :name
   
-                = label :user, :phone_number, 'Phone Number'
-                = text_field :user, :phone_number, :placeholder=>"xxx-xxx-xxxx", :required=>""
+            = label :user, :phone_number, 'Phone Number'
+            = text_field :user, :phone_number, :placeholder=>"xxx-xxx-xxxx", :required=>""
   
-                = label :problem, :location, 'Location'
-                = text_field :problem, :location, :required=>""
+            = label :problem, :location, 'Location'
+            = text_field :problem, :location, :required=>""
 
-                = label :problem, :skills, 'Skills Required'
-                = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name'))
+            = label :problem, :skills, 'Skills Required'
+            = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name'))
 
-                = label :problem, :summary, 'Problem Summary'
-                = text_field :problem, :summary, :required=>""
+            = label :problem, :summary, 'Problem Summary'
+            = text_field :problem, :summary, :required=>""
 
-                = label :problem, :description, 'Description'
-                = text_area :problem, :description
-                %br
-                = submit_tag 'Submit Problem', :class=>"btn btn-primary span3"
+            = label :problem, :description, 'Description'
+            = text_area :problem, :description
+            %br
+            = submit_tag 'Submit Problem', :class=>"btn btn-primary span3"
