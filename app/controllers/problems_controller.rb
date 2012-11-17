@@ -272,7 +272,7 @@ class ProblemsController < ApplicationController
       else
         problem.archived = true
         requester = problem.user
-        sms_send("You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible.")
+        sms_send("You have accepted problem ##{problem_id}. Please contact your provider at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
         requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
         sms_authenticate
