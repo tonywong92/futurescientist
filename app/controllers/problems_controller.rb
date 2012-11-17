@@ -82,7 +82,7 @@ class ProblemsController < ApplicationController
           sms_detail
       end
     end
-    render :nothing => true
+    redirect_to "http://www.google.com"
   end
 
   #call this to do all the logic to parse the incomming text
