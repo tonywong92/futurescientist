@@ -3,7 +3,7 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.string :account_name
       t.string :password
-      t.boolean :admin
+      t.boolean :admin, :default => false
       t.string :email
       t.string :skills
       t.string :verified_skills

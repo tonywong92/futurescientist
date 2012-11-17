@@ -7,6 +7,7 @@ class CreateProblems < ActiveRecord::Migration
       t.text :description
       t.integer :price
       t.references 'user' 
+      t.boolean :archived, :default => false
      
       t.timestamps
     end

@@ -56,9 +56,11 @@ class ProblemsController < ApplicationController
   #sms superfunction for receiving texts
   def receive_sms
     @problem_text = params[:Body].split
-    case @problem_text[0]
-      when /^ADD$/
+    case @problem_text[0].downcase
+      when /^add$/
         sms_create
+      when /^accept$/
+        sms_accept_problem
     end
     redirect_to problems_path
   end
@@ -165,6 +167,37 @@ class ProblemsController < ApplicationController
       flash[:notice] = 'You do not have permission to edit this problem.'
       redirect_to problems_path
     end
+  end
+  
+  #Expecting the input to look like: "accept #{problem id} !{password}"
+  def sms_accept_problem
+    problem_id = @problem_text[1]
+    password = @problem_text[2]
+    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
+    @provider_acc = provider_user.account
+    if provider_acc.nil?
+      body = "Sorry, there is no account associated with your phone number"
+    elsif provider_acc.password == password
+      #mark it as done
+      body = add_problem_to_account problem_id
+      #send a notification to the requester saying that a provider will be contacting shortly
+      
+    else
+      body = "Sorry, incorrect password"
+    end
+    #send a reply back to the provider with the required information
+  end
+  
+  def add_problem_to_account problem_id
+    if Problem.find(problem_id).nil?
+      body = "No problem exists with id #{problem_id}"
+    else
+      @provider
+    end
+  end
+  
+  def normalize_phone phone_number
+    return phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
   end
 
 =begin
