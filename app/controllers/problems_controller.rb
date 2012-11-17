@@ -279,7 +279,7 @@ class ProblemsController < ApplicationController
      # body = "Sorry, incorrect password"
     end
     #send a reply back to the provider with the required information
-    send_sms(body)
+    sms_send(body)
   end
 
   def normalize_phone phone_number
