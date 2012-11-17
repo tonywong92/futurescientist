@@ -9,7 +9,7 @@ class Problem < ActiveRecord::Base
  #validates :price, :presence => true
 
   def to_s
-    return "#{self.id}. @#{self.location} !#{self.skill} ##{self.summary} $#{self.price} "
+    return "#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} $#{self.price} "
   end
 
   def more_detail
