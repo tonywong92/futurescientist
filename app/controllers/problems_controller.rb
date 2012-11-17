@@ -83,7 +83,6 @@ class ProblemsController < ApplicationController
           sms_detail
       end
     end
-    sms_send("it got to the end")
     redirect_to get
   end
 
