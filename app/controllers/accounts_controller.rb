@@ -18,6 +18,7 @@ class AccountsController < ApplicationController
     @user.account = @account
     @user.phone_number = normalize_phone(@user.phone_number)
     save_account
+    
     sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
     return '/accounts/new'
   end
@@ -95,12 +96,11 @@ class AccountsController < ApplicationController
   end
   
   def normalize_phone phone_number
-    if phone_number.length == 12
-      phone_number.slice!(0,2)
-    elsif phone_number.length == 11
+    number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    elsif number.length == 11
       phone_number.slice!(0)
     end
-    return '+1' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    return '+1' + number
   end
   
   def sms_authenticate

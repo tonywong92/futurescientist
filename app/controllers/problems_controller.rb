@@ -267,11 +267,11 @@ class ProblemsController < ApplicationController
     if provider_acc.nil?
       sms_error("There is no verified account for #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
     elsif provider_acc.password == password
-      #mark it as done
       problem = Problem.find(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
+        #TODO: MARK PROBLEM AS DONE
         requester = problem.user
         sms_send("You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
@@ -285,12 +285,11 @@ class ProblemsController < ApplicationController
   end
 
   def normalize_phone phone_number
-    if phone_number.length == 12
-      phone_number.slice!(0,2)
-    elsif phone_number.length == 11
+    number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    elsif number.length == 11
       phone_number.slice!(0)
     end
-    return '+1' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    return '+1' + number
   end
 
   def destroy
