@@ -224,7 +224,6 @@ class ProblemsController < ApplicationController
   end
 
   def sms_detail
-    sms_send("got to top of function")
     problem_id = @problem_text[1]
     problem = Problem.find(problem_id)
     sms_authenticate
@@ -232,7 +231,6 @@ class ProblemsController < ApplicationController
     if !problem.nil?
       problem_details = problem.more_detail
       current = 0
-      sms_send(problem_details)
       (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
         sms_send(problem_details.slice(current, current + TEXTLENGTH))
         current += TEXTLENGTH
