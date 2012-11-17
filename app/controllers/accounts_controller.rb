@@ -6,31 +6,29 @@ class AccountsController < ApplicationController
   end
   
   def create
-    if Account.find(:all).empty?
-      create_admin
+    @user = User.new(params[:user])
+    @account = Account.new(params[:account])
+    @user.phone_number = normalize_phone(@user.phone_number)
+    @account.skills = params[:skills]
+    if params[:Admin] == '1'
+      @account.admin = true
     else
-      account = Account.find_by_id(session[:account])
-      if account && account.admin
-        create_admin
-      else
-        @user = User.new(params[:user])
-        @account = Account.new(params[:account])
-        @user.phone_number = normalize_phone(@user.phone_number)
-        @all_skills = Skill.find(:all)
-      end
+      @account.admin = false
     end
     @user.account = @account
+    @user.phone_number = normalize_phone(@user.phone_number)
     save_account
+    # TODO: user can receive a text and confirm it through text (stored in a session) before an account is actually created. make sure it fails nicely as wel
+=begin
+    begin
+      sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
+    rescue Twilio::REST::RequestError
+      
+    end
+=end
     return '/accounts/new'
   end
 
-  def create_admin
-    @user = User.new(params[:user])
-    @account = Account.new(params[:account])
-    @all_skills = Skill.find(:all)
-    @account.admin = true
-  end
-  
   def save_account
     if @account.save and @user.save
       flash[:notice] = 'You have successfully created an account'
@@ -104,12 +102,29 @@ class AccountsController < ApplicationController
   end
   
   def normalize_phone phone_number
-    if phone_number.length == 12
-      phone_number.slice!(0,2)
-    elsif phone_number.length == 11
-      phone_number.slice!(0)
+    number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    if number.length == 11
+      number.slice!(0)
     end
-    return '+1' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    return '+1' + number
+  end
+  
+  def sms_authenticate
+    if @client == nil
+      account_sid = 'AC7bec7276c109417979adfc442a675fc9'
+      auth_token = '6ca5a284c956fc0a444ba453ca63508b'
+      @client = Twilio::REST::Client.new(account_sid, auth_token)
+    end
+  end
+
+  def sms_error(to, error_string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => error_string)
+  end
+
+  def sms_send(to, string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => string)
   end
   
 end
