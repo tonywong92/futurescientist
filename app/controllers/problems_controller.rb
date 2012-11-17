@@ -283,7 +283,7 @@ class ProblemsController < ApplicationController
   end
 
   def normalize_phone phone_number
-    return phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    return '+' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
   end
 
   def destroy
