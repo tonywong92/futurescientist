@@ -82,7 +82,7 @@ class ProblemsController < ApplicationController
           sms_detail
       end
     end
-    render '/'
+    render :nothing => true
   end
 
   #call this to do all the logic to parse the incomming text
