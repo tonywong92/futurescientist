@@ -226,6 +226,8 @@ class ProblemsController < ApplicationController
     end
     puts "end of function @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     puts offset
+    puts location
+    puts skills
     puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     session["offset"] = offset
     session["location"] = location
