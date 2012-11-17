@@ -191,8 +191,6 @@ class ProblemsController < ApplicationController
       skills = session["skills"]
     end
 
-    sms_authenticate
-
     amountOfTexts.times do |i|
       body = ""
       if skills and location
@@ -223,6 +221,9 @@ class ProblemsController < ApplicationController
         sms_send(body)
       end
     end
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts offset
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     session["offset"] = offset
     session["location"] = location
     session["skills"] = skills
