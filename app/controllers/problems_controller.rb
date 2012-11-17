@@ -97,11 +97,11 @@ class ProblemsController < ApplicationController
 
     amountOfTexts.times do |i|
       body = ""
-      if skills and locations
+      if skills and location
         problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
       elsif skills
         problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
-      elsif locations
+      elsif location
         problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
       else
         problems = Problem.find(:all, :order => "created_at DESC").limit(5).offset(offset)
