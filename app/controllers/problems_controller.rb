@@ -260,11 +260,12 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     password = @problem_text[2]
     provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
+    sms_send('normalized: ' + normalize_phone(params[:From]) + ' ' + 'not normalized: ' + params[:From])
     if !provider_user.nil?
       provider_acc = provider_user.account
     end
     if provider_acc.nil?
-      sms_error("Sorry, there is no verified account with the phone number #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
+      sms_error("There is no verified account for #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
     elsif provider_acc.password == password
       #mark it as done
       problem = Problem.find(problem_id)

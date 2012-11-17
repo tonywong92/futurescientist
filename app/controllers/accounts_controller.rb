@@ -18,6 +18,7 @@ class AccountsController < ApplicationController
     @user.account = @account
     @user.phone_number = normalize_phone(@user.phone_number)
     save_account
+    sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
     return '/accounts/new'
   end
 
@@ -100,6 +101,24 @@ class AccountsController < ApplicationController
       phone_number.slice!(0)
     end
     return '+1' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+  end
+  
+  def sms_authenticate
+    if @client == nil
+      account_sid = 'AC7bec7276c109417979adfc442a675fc9'
+      auth_token = '6ca5a284c956fc0a444ba453ca63508b'
+      @client = Twilio::REST::Client.new(account_sid, auth_token)
+    end
+  end
+
+  def sms_error(to, error_string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => error_string)
+  end
+
+  def sms_send(to, string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => string)
   end
   
 end
