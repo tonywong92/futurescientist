@@ -1,3 +1,5 @@
+require 'set'
+
 class ProblemsController < ApplicationController
 
   TEXTLENGTH = 160
@@ -57,31 +59,111 @@ class ProblemsController < ApplicationController
 
   #sms superfunction for receiving texts
   def receive_sms
-    @problem_text = params[:Body].split
-    case @problem_text[0].downcase
-      when /^add$/
-        sms_create
-      when /^accept$/
-        sms_accept_problem
-      when /^get$/
-        sms_get(0)
-      when /^next$/
-        offset = session["offset"]
-        if offset == nil
-          sms_error("Sorry, there is no saved session right now. Please first text \"GET\" with @location !skill %number of texts you want to allow.")
-        else
-          sms_get(offset)
-        end
-      when /^detail$/
-        sms_detail
+    @problem_text = params[:Body]
+    action = sms_parsing(@problem_text)
+    if !@sms_error
+      case action.downcase
+        when /^add$/
+          sms_create
+        when /^accept$/
+          sms_accept_problem
+        when /^get$/
+          @offset = false
+          sms_get(0)
+        when /^next$/
+          offset = session["offset"]
+          if offset == nil
+            sms_error("Sorry, there is no saved session right now. Please first text \"GET\" with @location !skill %number of texts you want to allow.")
+          else
+            @offset = true
+            sms_get(offset)
+          end
+        when /^detail$/, /^details$/, /^describe$/
+          sms_detail
+      end
     end
     redirect_to problems_path
   end
 
+  #call this to do all the logic to parse the incomming text
+  #returns the action that the text wants
+  #sets @sms_location if there's a "@location"
+  #sets @sms_skills if there's a !skills
+  #sets @sms_summary if there's a #summary
+  #sets @sms_price if there's a $price
+  #sets @sms_limit if there's a LIMIT #
+  #sets @sms_error to true if there's a specific error that cannot allow the text to continue processing
+  #add more parsing logic here if there's more.
+  def sms_parsing(text_body)
+    words = text_body.split
+    action = words[0]
+    words.slice!(0)
+    symbol_hashset = Set.new ["!", "@", "#", "$"] #all symbols to check for
+    word_hashset = Set.new ["limit"]
+    while !words.empty?
+      nextWord = words[0]
+      symbol = nextWord[0]
+      if symbol_hashset.member? symbol
+        nextWord.slice!(0)
+        case symbol #all symbols to check for here
+          when "!"
+            @sms_skills = nextWord + " "
+            words.slice!(0)
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0] #checks if nextWord is a symboled word
+              @sms_skills = @sms_skills + words[0] + " "
+              words.slice!(0)
+            end
+            @sms_skills.chop!
+          when "@"
+            @sms_location = nextWord + " "
+            words.slice!(0)
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0] #checks if nextWord is a symboled word
+              @sms_location = @sms_location + words[0] + " "
+              words.slice!(0)
+            end
+            @sms_location.chop!
+          when "#"
+            @sms_summary = nextWord + " "
+            words.slice!(0)
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0] #checks if nextWord is a symboled word or key word
+              @sms_summary = @sms_summary + words[0] + " "
+              words.slice!(0)
+            end
+            @sms_summary.chop!
+          when "$"
+            @sms_price = nextWord + " "
+            words.slice!(0)
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0]#checks if nextWord is a symboled word or key word
+              @sms_price = @sms_price + words[0] + " "
+              words.slice!(0)
+            end
+            @sms_price.chop!
+        end
+      else
+        if word_hashset.member? nextWord
+          case nextWord.downcase
+            when "limit"
+              words.slice!(0)
+              nextWord = words[0]
+              if !isNum?(nextWord)
+                sms_error("LIMIT must be followed by a integer number")
+                @sms_error = true
+                break
+              end
+              @sms_limit = nextWord.to_i
+          end
+        else
+          words.slice!(0)
+        end
+      end
+    end
+    return action
+  end
+
   def sms_authenticate
     if @client == nil
-      account_sid = 'AC7bec7276c109417979adfc442a675fc9'
-      auth_token = '6ca5a284c956fc0a444ba453ca63508b'
+      account_sid = 'ACafb3d0d7820d6b39613ffdc47d5f074f'#'AC7bec7276c109417979adfc442a675fc9'
+      auth_token = '71aedf3c912ea6f64b719d671adea8b3'#'6ca5a284c956fc0a444ba453ca63508b'
       @client = Twilio::REST::Client.new(account_sid, auth_token)
     end
   end
@@ -97,9 +179,13 @@ class ProblemsController < ApplicationController
   end
 
   def sms_get(offset)
-    location = @problem_text[1]
-    skills = @problem_text[2]
-    amountOfTexts = @problem_text[3].to_i
+    location = @sms_location
+    skills = @sms_skills
+    amountOfTexts = @sms_limit
+
+    if @offset
+      amountOfTexts = @problem_text[1]
+    end
 
     sms_authenticate
 
@@ -142,7 +228,7 @@ class ProblemsController < ApplicationController
 
     sms_authenticate
 
-    if problem.nil?
+    if !problem.nil?
       problem_details = problem.more_detail
       current = 0
       (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
@@ -158,9 +244,9 @@ class ProblemsController < ApplicationController
   def sms_create
     success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
-    summary = @problem_text[1]
-    location = @problem_text[2]
-    skills = @problem_text[3]
+    summary = @sms_summary
+    location = @sms_location
+    skills = @sms_skills
 
     @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
     add_problem_to_user_sms
@@ -304,6 +390,14 @@ class ProblemsController < ApplicationController
       flash[:notice] = 'You do not have permission to delete this problem.'
       redirect_to problems_
     end
+  end
+
+  def is_num?(str)
+    Integer(str)
+    rescue ArgumentError
+      false
+    else
+      true
   end
 
 end
