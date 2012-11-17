@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
       else
         @user = User.new(params[:user])
         @account = Account.new(params[:account])
-        @account.phone_number = normalize_phone(@account.phone_number)
+        @user.phone_number = normalize_phone(@user.phone_number)
         @all_skills = Skill.find(:all)
       end
     end
