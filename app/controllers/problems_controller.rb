@@ -227,14 +227,14 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     begin
       problem = Problem.find(problem_id)
+      problem_details = problem.more_detail
+      current = 0
+      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+        sms_send(problem_details.slice(current, current + TEXTLENGTH))
+        current += TEXTLENGTH
+      end
     rescue ActiveRecord::RecordNotFound
       sms_error("Sorry, that problem id does not exist")
-    end
-    problem_details = problem.more_detail
-    current = 0
-    (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
-      sms_send(problem_details.slice(current, current + TEXTLENGTH))
-      current += TEXTLENGTH
     end
   end
 
