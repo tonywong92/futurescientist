@@ -61,8 +61,83 @@ class ProblemsController < ApplicationController
         sms_create
       when /^accept$/
         sms_accept_problem
+      when /^get$/
+        sms_get(0)
+      when /^next$/
+        offset = session[:offset]
+        if offset == nil
+          sms_error("Sorry, there is no saved session right now. Please first text \"GET\" with @location !skill %number of texts you want to allow.")
+        else
+          sms_get(offset)
+        end
+      when /^detail$/
+        sms_detail
     end
     redirect_to problems_path
+  end
+
+  def sms_authenticate
+    if @client == nil
+      account_sid = 'AC7bec7276c109417979adfc442a675fc9'
+      auth_token = '6ca5a284c956fc0a444ba453ca63508b'
+      @client = Twilio::REST::Client.new(account_sid, auth_token)
+    end
+  end
+
+  def sms_error(error_string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string)
+  end
+  
+  def sms_send(string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string)
+  end
+
+  def sms_get(offset)
+    lenOfTexts = 160
+    location = @problem_text[1]
+    skills = @problem_text[2]
+    amountOfTexts = @problem_text[3].to_i
+
+    sms_authenticate
+
+    amountOfTexts.times do |i|
+      body = ""
+      if skills and locations
+        problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
+      elsif skills
+        problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
+      elsif locations
+        problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
+      else
+        problems = Problem.find(:all, :order => "created_at DESC").limit(5).offset(offset)
+      end
+      problems.each do |problem|
+            tmpbody = body +  problem.to_s
+            if tmpbody.length <= lenOfTexts
+              body = tmpbody
+              offset +=1
+            else
+              break
+            end
+      end
+      sms_send(body)
+    end
+    session[:offset] = offset
+  end
+
+  def sms_detail
+    problem_id = @problem_text[1]
+    problem = Problem.find(problem_id)
+
+    sms_authenticate
+
+    if problem
+      sms_send(problem.more_detail)
+    else
+      sms_error("Sorry, that problem id does not exist")
+    end
   end
 
   # sms support for problem creation
@@ -82,11 +157,8 @@ class ProblemsController < ApplicationController
       body = failure_msg
     end
 
-    account_sid = 'AC7bec7276c109417979adfc442a675fc9'
-    auth_token = '6ca5a284c956fc0a444ba453ca63508b'
-    @client = Twilio::REST::Client.new(account_sid, auth_token)
-
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+    sms_authenticate
+    sms_send(body)
   end
 
   def add_problem_to_user_sms
@@ -169,7 +241,7 @@ class ProblemsController < ApplicationController
     end
   end
   
-  #Expecting the input to look like: "accept #{problem id} !{password}"
+  #Expecting the input to look like: "accept #[problem id] ![password]"
   def sms_accept_problem
     problem_id = @problem_text[1]
     password = @problem_text[2]
@@ -179,28 +251,27 @@ class ProblemsController < ApplicationController
       body = "Sorry, there is no account associated with your phone number"
     elsif provider_acc.password == password
       #mark it as done
-      body = add_problem_to_account problem_id
+      problem = Problem.find(problem_id)
+      if problem.nil?
+        body = "Sorry, there is no problem that matches ID #{problem_id}"
+      else
+        requester = problem.user
+        body = "You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible."
+      end
       #send a notification to the requester saying that a provider will be contacting shortly
-      
+      requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.name}, whom you can contact at #{provider.phone_number}."
+      @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
     else
       body = "Sorry, incorrect password"
     end
     #send a reply back to the provider with the required information
-  end
-  
-  def add_problem_to_account problem_id
-    if Problem.find(problem_id).nil?
-      body = "No problem exists with id #{problem_id}"
-    else
-      @provider
-    end
+    send_sms(body)
   end
   
   def normalize_phone phone_number
     return phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
   end
 
-=begin
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
@@ -217,8 +288,8 @@ class ProblemsController < ApplicationController
       redirect_to problems_path
     else
       flash[:notice] = 'You do not have permission to delete this problem.'
-      redirect_to problems_path
+      redirect_to problems_
     end
   end
-=end
+
 end

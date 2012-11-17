@@ -38,7 +38,7 @@ Background: problems have been created by some requester
   When I login with "Tester" and "password"
   Given I am on the home page
   
-Scenario: successfully edit a problem that was created by the poster
+Scenario: successfully edit and delete a problem that was created by the poster
   When I follow "broken water pipe"
   And I follow "Edit"
   Then I should see "water"
@@ -47,7 +47,10 @@ Scenario: successfully edit a problem that was created by the poster
   And I press "Update Problem"
   Then I should see "laptop broke was successfully updated."
   And I should see "electronics"
+  When I follow "Delete"
+  Then I should see not see "laptop broke"
 
 Scenario: Only the poster of the problem may edit that problem
   When I follow "outlet exploded"
   Then I should not see "Edit"
+  Then I should not see "Delete"
