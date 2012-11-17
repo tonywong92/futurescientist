@@ -61,6 +61,8 @@ class ProblemsController < ApplicationController
   def receive_sms
     @problem_text = params[:Body]
     action = sms_parsing(@problem_text)
+    sms_send(@problem_text)
+    sms_send(action)
     if !@sms_error
       case action.downcase
         when /^add$/
@@ -79,9 +81,11 @@ class ProblemsController < ApplicationController
             sms_get(offset)
           end
         when /^detail$/, /^details$/, /^describe$/
+          sms_send("it got in here")
           sms_detail
       end
     end
+    sms_send("it got to the end")
     redirect_to get
   end
 
