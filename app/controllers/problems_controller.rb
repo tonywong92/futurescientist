@@ -61,6 +61,8 @@ class ProblemsController < ApplicationController
     case @problem_text[0].downcase
       when /^add$/
         sms_create
+      when /^accept$/
+        sms_accept_problem
       when /^get$/
         sms_get(0)
       when /^next$/
@@ -87,6 +89,11 @@ class ProblemsController < ApplicationController
   def sms_error(error_string)
     sms_authenticate
     @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string)
+  end
+
+  def sms_send(string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string)
   end
 
   def sms_get(offset)
@@ -120,10 +127,10 @@ class ProblemsController < ApplicationController
         body = "There are no more additional problems for "
         location ? body += "Location: #{location} " : false
         skills ? body += "Skills: #{skills} " : false
-        @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+        sms_send(body)
         break
       else
-        @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+        sms_send(body)
       end
     end
     session["offset"] = offset
@@ -138,8 +145,8 @@ class ProblemsController < ApplicationController
     if problem.nil?
       problem_details = problem.more_detail
       current = 0
-      (problem_details.length/TEXTLENGTH.to_f).ceil.times do |i|
-        @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => problem_details.slice(current, current + TEXTLENGTH)
+      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+        sms_send(problem_details.slice(current, current + TEXTLENGTH))
         current += TEXTLENGTH
       end
     else
@@ -165,8 +172,7 @@ class ProblemsController < ApplicationController
     end
 
     sms_authenticate
-
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+    sms_send(body)
   end
 
   def add_problem_to_user_sms
@@ -247,6 +253,37 @@ class ProblemsController < ApplicationController
       flash[:notice] = 'You do not have permission to edit this problem.'
       redirect_to problems_path
     end
+  end
+
+  #Expecting the input to look like: "accept #[problem id] ![password]"
+  def sms_accept_problem
+    problem_id = @problem_text[1]
+    password = @problem_text[2]
+    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
+    @provider_acc = provider_user.account
+    if provider_acc.nil?
+      body = "Sorry, there is no account associated with your phone number"
+    elsif provider_acc.password == password
+      #mark it as done
+      problem = Problem.find(problem_id)
+      if problem.nil?
+        body = "Sorry, there is no problem that matches ID #{problem_id}"
+      else
+        requester = problem.user
+        body = "You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible."
+      end
+      #send a notification to the requester saying that a provider will be contacting shortly
+      requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.name}, whom you can contact at #{provider.phone_number}."
+      @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
+    else
+      body = "Sorry, incorrect password"
+    end
+    #send a reply back to the provider with the required information
+    send_sms(body)
+  end
+
+  def normalize_phone phone_number
+    return phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
   end
 
   def destroy
