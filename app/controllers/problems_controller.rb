@@ -87,7 +87,6 @@ class ProblemsController < ApplicationController
           sms_detail
       end
     end
-    redirect_to get
   end
 
   #call this to do all the logic to parse the incomming text
