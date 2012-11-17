@@ -78,17 +78,25 @@ class AccountsController < ApplicationController
 
   def update
     #todo: find out who is making the update call
-    @account = Account.find_by_account_name('foobar')
+    account = session[:account]
+    user_id = account.id
+
+    @account = Account.find_by_id(user_id)
     @account.update_attributes!(:email => params[:email][:address])
+    flash[:notice] = "Email changed!"
     redirect_to '/accounts/edit'
   end
 
   def changepass
-    @account = Account.find_by_account_name('foobar')
+    account = session[:account]
+    user_id = account.id
+    @account = Account.find_by_id(user_id)
     if params[:password_new][:new] == params[:reenter][:pass] 
       @account.update_attributes!(:password => params[:password_new][:new])
+      flash[:notice] = "Password changed"
       redirect_to '/accounts/edit'
-    else 
+    else
+      flash[:notice] = "The new password you entered doesn't match"
       redirect_to '/accounts/edit'
     end
   end
