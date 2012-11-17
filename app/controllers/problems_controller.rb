@@ -56,11 +56,81 @@ class ProblemsController < ApplicationController
   #sms superfunction for receiving texts
   def receive_sms
     @problem_text = params[:Body].split
-    case @problem_text[0]
-      when /^ADD$/
+    case @problem_text[0].downcase
+      when /^add$/
         sms_create
+      when /^get$/
+        sms_get(0)
+      when /^next$/
+        offset = session[:offset]
+        if offset == nil
+          sms_error("Sorry, there is no saved session right now. Please first text \"GET\" with @location !skill %number of texts you want to allow.")
+        else
+          sms_get(offset)
+        end
+      when /^detail$/
+        sms_detail
     end
     redirect_to problems_path
+  end
+
+  def sms_authenticate
+    if @client == nil
+      account_sid = 'AC7bec7276c109417979adfc442a675fc9'
+      auth_token = '6ca5a284c956fc0a444ba453ca63508b'
+      @client = Twilio::REST::Client.new(account_sid, auth_token)
+    end
+  end
+
+  def sms_error(error_string)
+    sms_authenticate
+    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string)
+  end
+
+  def sms_get(offset)
+    lenOfTexts = 160
+    location = @problem_text[1]
+    skills = @problem_text[2]
+    amountOfTexts = @problem_text[3].to_i
+
+    sms_authenticate
+
+    amountOfTexts.times do |i|
+      body = ""
+      if skills and locations
+        problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
+      elsif skills
+        problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
+      elsif locations
+        problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
+      else
+        problems = Problem.find(:all, :order => "created_at DESC").limit(5).offset(offset)
+      end
+      problems.each do |problem|
+            tmpbody = body +  problem.to_s
+            if tmpbody.length <= lenOfTexts
+              body = tmpbody
+              offset +=1
+            else
+              break
+            end
+      end
+      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+    end
+    session[:offset] = offset
+  end
+
+  def sms_detail
+    problem_id = @problem_text[1]
+    problem = Problem.find(problem_id)
+
+    sms_authenticate
+
+    if problem
+       @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => problem.more_detail)
+    else
+      sms_error("Sorry, that problem id does not exist")
+    end
   end
 
   # sms support for problem creation
@@ -80,9 +150,7 @@ class ProblemsController < ApplicationController
       body = failure_msg
     end
 
-    account_sid = 'AC7bec7276c109417979adfc442a675fc9'
-    auth_token = '6ca5a284c956fc0a444ba453ca63508b'
-    @client = Twilio::REST::Client.new(account_sid, auth_token)
+    sms_authenticate
 
     @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
   end
@@ -167,7 +235,6 @@ class ProblemsController < ApplicationController
     end
   end
 
-=begin
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
@@ -184,8 +251,8 @@ class ProblemsController < ApplicationController
       redirect_to problems_path
     else
       flash[:notice] = 'You do not have permission to delete this problem.'
-      redirect_to problems_path
+      redirect_to problems_
     end
   end
-=end
+
 end
