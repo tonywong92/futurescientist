@@ -44,6 +44,10 @@ class AccountsController < ApplicationController
     @user = session[:account].user
     render '/accounts/show'
   end
+
+  def login_form
+    render '/accounts/login_form'
+  end
   
   def login
     @account = Account.find_by_account_name(params[:account][:account_name])

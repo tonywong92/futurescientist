@@ -11,6 +11,7 @@ Futurescientist::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
   match 'accounts/login' => 'accounts#login'
   match 'accounts/logout' => 'accounts#logout'
+  match 'accounts/login_form' => 'accounts#login_form'
   match 'problems/receive_sms' => 'problems#receive_sms'
   match 'accounts/edit' => 'accounts#edit'
   
