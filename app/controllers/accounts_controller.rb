@@ -9,6 +9,7 @@ class AccountsController < ApplicationController
       else
         @user = User.new(params[:user])
         @account = Account.new(params[:account])
+        @account.phone_number = normalize_phone(@account.phone_number)
         @all_skills = Skill.find(:all)
       end
     end
@@ -91,6 +92,10 @@ class AccountsController < ApplicationController
     else 
       redirect_to '/accounts/edit'
     end
+  end
+  
+  def normalize_phone phone_number
+    return '+' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
   end
   
 end
