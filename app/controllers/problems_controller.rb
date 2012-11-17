@@ -82,7 +82,7 @@ class ProblemsController < ApplicationController
           sms_detail
       end
     end
-    redirect_to edit_problems_path
+    render '/'
   end
 
   #call this to do all the logic to parse the incomming text
@@ -388,7 +388,7 @@ class ProblemsController < ApplicationController
       redirect_to problems_path
     else
       flash[:notice] = 'You do not have permission to delete this problem.'
-      redirect_to problems_
+      redirect_to problems_path
     end
   end
 
