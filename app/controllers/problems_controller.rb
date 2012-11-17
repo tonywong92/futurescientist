@@ -262,7 +262,7 @@ class ProblemsController < ApplicationController
     provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
     provider_acc = provider_user.account
     if provider_acc.nil?
-      body = "Sorry, there is no account associated with your phone number"
+      body = "Sorry, there is no account associated with the phone number #{normalize_phone(params[:From])}"
     else #if provider_acc.password == password
       #mark it as done
       problem = Problem.find(problem_id)
