@@ -298,7 +298,7 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(id)
     @user = @problem.user
     @verifiedUser = false
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -309,7 +309,7 @@ class ProblemsController < ApplicationController
   def edit
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -327,7 +327,7 @@ class ProblemsController < ApplicationController
   def update
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -343,41 +343,46 @@ class ProblemsController < ApplicationController
     end
   end
 
-  #Expecting the input to look like: "accept #[problem id] ![password]"
+  #Expecting the input to look like: "accept [problem id] [password]"
   def sms_accept_problem
     problem_id = @problem_text[1]
     password = @problem_text[2]
     provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    @provider_acc = provider_user.account
+    if !provider_user.nil?
+      provider_acc = provider_user.account
+    end
     if provider_acc.nil?
-      body = "Sorry, there is no account associated with your phone number"
+      sms_error("There is no verified account for #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
     elsif provider_acc.password == password
-      #mark it as done
       problem = Problem.find(problem_id)
       if problem.nil?
-        body = "Sorry, there is no problem that matches ID #{problem_id}"
+        sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
+        problem.archived = true
         requester = problem.user
-        body = "You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible."
+        sms_send("You have accepted problem ##{problem_id}. Please contact your provider at #{requester.phone_number} as soon as possible.")
+        #send a notification to the requester saying that a provider will be contacting shortly
+        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
+        sms_authenticate
+        @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
       end
-      #send a notification to the requester saying that a provider will be contacting shortly
-      requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.name}, whom you can contact at #{provider.phone_number}."
-      @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
     else
-      body = "Sorry, incorrect password"
+      body = "Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'"
     end
-    #send a reply back to the provider with the required information
-    send_sms(body)
   end
 
   def normalize_phone phone_number
-    return phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    if number.length == 11
+      number.slice!(0)
+    end
+    return '+1' + number
   end
 
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true

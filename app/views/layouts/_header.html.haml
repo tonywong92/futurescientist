@@ -1,0 +1,22 @@
+.navbar.navbar-static-top
+  .navbar-inner
+    .container
+      %a#nav-left.brand.pull-left{:href => "/"} Future Scientists
+      - unless flash[:notice].nil?
+        = flash[:notice]
+      %ul.nav.pull-right
+        %ul.nav.pull-right
+          - if Account.count.zero?
+            %li
+              %a#create_new_admin{:href => new_account_path} Create Admin Account
+        %li
+          %a#submit_new_problem{:href => new_problem_path} Submit New Problem
+        %li
+          - account = Account.find_by_id(session[:account])
+          - if not account.nil?
+            = link_to "#{account.account_name}", account_path(session[:account])
+        %li
+          - if account.nil?
+            %a#log_in{:href => "/accounts/login_form"} Log In
+          - else
+            %a#log_out{:href => "/accounts/logout"} Log Out

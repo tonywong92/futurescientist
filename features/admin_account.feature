@@ -31,4 +31,3 @@ Scenario: Verification of regular Provider's account
     And I login with "water" and "password"
     And I go to a problem with "Water" skill
     Then I should be able to accept this problem
-s

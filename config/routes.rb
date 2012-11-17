@@ -9,12 +9,12 @@ Futurescientist::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
-  match 'accounts/new' => 'accounts#new'
   match 'accounts/login' => 'accounts#login'
   match 'accounts/logout' => 'accounts#logout'
+  match 'accounts/login_form' => 'accounts#login_form'
   match 'problems/receive_sms' => 'problems#receive_sms'
   match 'accounts/edit' => 'accounts#edit'
-
+  match 'accounts/changepass' => 'accounts#changepass'
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :accounts
