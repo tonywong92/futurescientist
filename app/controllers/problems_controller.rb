@@ -145,7 +145,7 @@ class ProblemsController < ApplicationController
     if problem
       problem_details = problem.more_detail
       current = 0
-      (problem_details.length/TEXTLENGTH.to_f).ceil.times do |i|
+      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
         sms_send(problem_details.slice(current, current + TEXTLENGTH))
         current += TEXTLENGTH
       end
