@@ -59,7 +59,7 @@ class ProblemsController < ApplicationController
 
   #sms superfunction for receiving texts
   def receive_sms
-    @problem_text = params[:Body]
+    @problem_text = params[:Body].split
     action = sms_parsing(@problem_text)
     if !@sms_error
       case action.downcase
@@ -224,6 +224,7 @@ class ProblemsController < ApplicationController
   end
 
   def sms_detail
+    sms_send("got to top of function")
     problem_id = @problem_text[1]
     problem = Problem.find(problem_id)
     sms_authenticate
