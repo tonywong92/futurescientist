@@ -42,8 +42,9 @@
             - @all_skills.each do |skill|
               = label :skill, skill.skill_name
               = check_box_tag "skills[#{skill.skill_name}]", 1, false, :id => skill.skill_name
-                
-            - if Account.find(:all).empty? or (!session[:account].nil? and session[:account].admin)
+            
+            - account = Account.find_by_id(session[:account])
+            - if Account.find(:all).empty? or (!account.nil? and account.admin)
               = label :account, :admin, 'Admin'
               = check_box_tag "Admin", 1, true, :id => 'admin'
     

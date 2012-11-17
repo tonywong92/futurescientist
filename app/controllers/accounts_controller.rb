@@ -6,31 +6,19 @@ class AccountsController < ApplicationController
   end
   
   def create
-    if Account.find(:all).empty?
-      create_admin
+    @user = User.new(params[:user])
+    @account = Account.new(params[:account])
+    @user.phone_number = normalize_phone(@user.phone_number)
+    if params[:Admin] == '1'
+      @account.admin = true
     else
-      account = Account.find_by_id(session[:account])
-      if account && account.admin
-        create_admin
-      else
-        @user = User.new(params[:user])
-        @account = Account.new(params[:account])
-        @user.phone_number = normalize_phone(@user.phone_number)
-        @all_skills = Skill.find(:all)
-      end
+      @account.admin = false
     end
     @user.account = @account
     save_account
     return '/accounts/new'
   end
 
-  def create_admin
-    @user = User.new(params[:user])
-    @account = Account.new(params[:account])
-    @all_skills = Skill.find(:all)
-    @account.admin = true
-  end
-  
   def save_account
     if @account.save and @user.save
       flash[:notice] = 'You have successfully created an account'
