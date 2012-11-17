@@ -18,8 +18,14 @@ class AccountsController < ApplicationController
     @user.account = @account
     @user.phone_number = normalize_phone(@user.phone_number)
     save_account
-    
-    sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
+    # TODO: user can receive a text and confirm it through text (stored in a session) before an account is actually created. make sure it fails nicely as wel
+=begin
+    begin
+      sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
+    rescue Twilio::REST::RequestError
+      
+    end
+=end
     return '/accounts/new'
   end
 

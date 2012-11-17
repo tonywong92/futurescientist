@@ -260,7 +260,6 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     password = @problem_text[2]
     provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    sms_send('normalized: ' + normalize_phone(params[:From]) + ' ' + 'not normalized: ' + params[:From])
     if !provider_user.nil?
       provider_acc = provider_user.account
     end
@@ -271,7 +270,7 @@ class ProblemsController < ApplicationController
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
-        #TODO: MARK PROBLEM AS DONE
+        problem.archived = true
         requester = problem.user
         sms_send("You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
