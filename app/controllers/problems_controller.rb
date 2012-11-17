@@ -142,7 +142,7 @@ class ProblemsController < ApplicationController
 
     sms_authenticate
 
-    if problem.nil?
+    if !problem.nil?
       problem_details = problem.more_detail
       current = 0
       (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
