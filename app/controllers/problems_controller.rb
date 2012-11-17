@@ -260,26 +260,27 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     password = @problem_text[2]
     provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    provider_acc = provider_user.account
+    if !provider_user.nil?
+      provider_acc = provider_user.account
+    end
     if provider_acc.nil?
-      body = "Sorry, there is no account with the phone number #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [your_password]'"
+      sms_error("Sorry, there is no verified account with the phone number #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
     elsif provider_acc.password == password
       #mark it as done
       problem = Problem.find(problem_id)
       if problem.nil?
-        body = "Sorry, there is no problem that matches ID #{problem_id}"
+        sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
         requester = problem.user
-        body = "You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible."
+        sms_send("You have accepted problem ##{problem_id}. Please contact #{requester.name} at #{requester.phone_number} as soon as possible.")
+        #send a notification to the requester saying that a provider will be contacting shortly
+        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
+        sms_authenticate
+        @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
       end
-      #send a notification to the requester saying that a provider will be contacting shortly
-      requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
-      @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
     else
       body = "Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'"
     end
-    #send a reply back to the provider with the required information
-    sms_send(body)
   end
 
   def normalize_phone phone_number
