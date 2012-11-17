@@ -41,7 +41,8 @@ class AccountsController < ApplicationController
   end
   
   def show
-    render '/accounts/login_form'
+    @user = session[:account].user
+    render '/accounts/show'
   end
   
   def login
