@@ -186,7 +186,7 @@ class ProblemsController < ApplicationController
     amountOfTexts = @sms_limit
 
     if @offset
-      amountOfTexts = @problem_text[1]
+      amountOfTexts = @problem_text[1].to_i
     end
 
     sms_authenticate
