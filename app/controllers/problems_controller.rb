@@ -75,7 +75,7 @@ class ProblemsController < ApplicationController
       when /^detail$/
         sms_detail
     end
-    redirect_to problems_path
+    render :nothing => true
   end
 
   def sms_authenticate
