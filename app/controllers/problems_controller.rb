@@ -255,14 +255,14 @@ class ProblemsController < ApplicationController
     end
   end
 
-  #Expecting the input to look like: "accept #[problem id] ![password]"
+  #Expecting the input to look like: "accept [problem id] [password]"
   def sms_accept_problem
     problem_id = @problem_text[1]
     password = @problem_text[2]
-    provider_user = User.find_by_phone_number(params[:From])
+    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
     provider_acc = provider_user.account
     if provider_acc.nil?
-      body = "Sorry, there is no account associated with the phone number #{normalize_phone(params[:From])}"
+      body = "Sorry, there is no account with the phone number #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [your_password]'"
     elsif provider_acc.password == password
       #mark it as done
       problem = Problem.find(problem_id)
@@ -276,7 +276,7 @@ class ProblemsController < ApplicationController
       requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
       @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
     else
-      body = "Sorry, incorrect password"
+      body = "Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'"
     end
     #send a reply back to the provider with the required information
     sms_send(body)
