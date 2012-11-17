@@ -2,7 +2,7 @@ require 'set'
 
 class ProblemsController < ApplicationController
 
-  #skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token
   TEXTLENGTH = 160
 
   def index
