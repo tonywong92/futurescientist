@@ -101,7 +101,12 @@ class AccountsController < ApplicationController
   end
   
   def normalize_phone phone_number
-    return '+' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+    if phone_number.length == 12
+      phone_number.slice!(0,2)
+    elsif phone_number.length == 11
+      phone_number.slice!(0)
+    end
+    return '+1' + phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
   end
   
 end
