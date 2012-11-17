@@ -1,6 +1,11 @@
 class AccountsController < ApplicationController
 
   def new
+    @all_skills = Skill.find(:all)
+    render '/accounts/new'
+  end
+  
+  def create
     if Account.find(:all).empty?
       create_admin
     else
@@ -13,16 +18,9 @@ class AccountsController < ApplicationController
         @all_skills = Skill.find(:all)
       end
     end
-    if request.post?
-      @user.account = @account
-      save_account
-      return '/accounts/new'
-    end
-    render '/accounts/new'
-  end
-  
-  def create
-    new
+    @user.account = @account
+    save_account
+    return '/accounts/new'
   end
 
   def create_admin

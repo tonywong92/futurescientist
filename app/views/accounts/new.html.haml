@@ -25,19 +25,19 @@
             .span8
               %legend Create New Account
 
-              - unless @account.errors.empty?
+              - unless @account.nil? or @account.errors.empty?
                 The following errors occurred:
                 %ul
                   - @account.errors.full_messages.each do |error|
                     %li= error
         
-              - unless @user.errors.empty?
+              - unless @user.nil? or @user.errors.empty?
                 The following fields were missing:
                 %ul
                   - @user.errors.full_messages.each do |error|
                     %li= error
 
-              = form_tag '/accounts/new' do
+              = form_tag '/accounts' do
 
                 = label :account, :email, 'Email'
                 = text_field :account, :email, :id => 'email', :type=>"email"
@@ -62,7 +62,7 @@
                   = label :skill, skill.skill_name
                   = check_box_tag "skills[#{skill.skill_name}]", 1, false, :id => skill.skill_name
                 
-                - if Account.find(:all).empty? or @account.admin
+                - if Account.find(:all).empty? or (!session[:account].nil? and session[:account].admin)
                   = label :account, :admin, 'Admin'
                   = check_box_tag "Admin", 1, false, :id => 'admin'
     
