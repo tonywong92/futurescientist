@@ -44,6 +44,10 @@ class AccountsController < ApplicationController
     @user = session[:account].user
     render '/accounts/show'
   end
+
+  def login_form
+    render '/accounts/login_form'
+  end
   
   def login
     @account = Account.find_by_account_name(params[:account][:account_name])
@@ -77,7 +81,6 @@ class AccountsController < ApplicationController
   end
 
   def update
-    #todo: find out who is making the update call
     account = session[:account]
     user_id = account.id
 
@@ -91,7 +94,10 @@ class AccountsController < ApplicationController
     account = session[:account]
     user_id = account.id
     @account = Account.find_by_id(user_id)
-    if params[:password_new][:new] == params[:reenter][:pass] 
+    if params[:password][:current] != @account.password
+       flash[:notice] = "Password incorrect"
+       redirect_to '/accounts/edit'
+    elsif params[:password_new][:new] == params[:reenter][:pass]
       @account.update_attributes!(:password => params[:password_new][:new])
       flash[:notice] = "Password changed"
       redirect_to '/accounts/edit'
