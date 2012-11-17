@@ -1,19 +1,4 @@
-.navbar.navbar-static-top
-  .navbar-inner
-    .container
-      %a#nav-left.brand.pull-left{:href => "/"} Future Scientists
-      - unless flash[:notice].nil?
-        = flash[:notice]
-      %ul.nav.pull-right
-        %li
-          %a#submit_new_problem{:href => "/problems/new"} Submit New Problem
-        %li
-          %a#sign_up{:href => "/accounts/new"} Sign Up
-        %li
-          - if session[:account].nil?
-            %a#log_in{:href => "/accounts/login_form"} Log In
-          - else
-            %a#log_out{:href => "/accounts/logout"} Log Out
+=render :partial => '/layouts/header'
 %br
   .span9.offset1
     .well
@@ -32,7 +17,7 @@
 
   
             = label :account, :password, 'Password'
-            = text_field :account, :password
+            = text_field :account, :password, :type => 'password'
             %br
             = submit_tag 'Login', :class=>"btn btn-primary span3"
             %br
