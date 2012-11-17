@@ -3,7 +3,6 @@ class ProblemsController < ApplicationController
   TEXTLENGTH = 160
 
   def index
-    @account = session[:account]
     @sessionSkills = []
     @sessionAddresses = []
     skills = params[:skills] || session[:skills] || {}

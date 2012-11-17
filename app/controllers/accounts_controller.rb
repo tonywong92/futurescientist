@@ -41,6 +41,7 @@ class AccountsController < ApplicationController
   end
   
   def show
+    @user = session[:account].user
     render '/accounts/show'
   end
   
