@@ -287,7 +287,7 @@ class ProblemsController < ApplicationController
   def normalize_phone phone_number
     number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
     if number.length == 11
-      phone_number.slice!(0)
+      number.slice!(0)
     end
     return '+1' + number
   end
