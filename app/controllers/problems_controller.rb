@@ -1,5 +1,7 @@
 class ProblemsController < ApplicationController
 
+  TEXTLENGTH = 160
+
   def index
     @sessionSkills = []
     @sessionAddresses = []
@@ -88,7 +90,6 @@ class ProblemsController < ApplicationController
   end
 
   def sms_get(offset)
-    lenOfTexts = 160
     location = @problem_text[1]
     skills = @problem_text[2]
     amountOfTexts = @problem_text[3].to_i
@@ -108,14 +109,22 @@ class ProblemsController < ApplicationController
       end
       problems.each do |problem|
             tmpbody = body +  problem.to_s
-            if tmpbody.length <= lenOfTexts
+            if tmpbody.length <= TEXTLENGTH
               body = tmpbody
               offset +=1
             else
               break
             end
       end
-      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+      if body == ""
+        body = "There are no more additional problems for "
+        location ? body += "Location: #{location} "
+        skills ? body += "Skills: #{skills} "
+        @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+        break
+      else
+        @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => body)
+      end
     end
     session[:offset] = offset
   end
@@ -127,7 +136,12 @@ class ProblemsController < ApplicationController
     sms_authenticate
 
     if problem
-       @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => problem.more_detail)
+      problem_details = problem.more_detail
+      current = 0
+      (problem_details.length/TEXTLENGTH.to_f).ceil.times do |i|
+        @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => problem_details.slice(current, current + TEXTLENGTH)
+        current += TEXTLENGTH
+      end
     else
       sms_error("Sorry, that problem id does not exist")
     end

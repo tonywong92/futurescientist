@@ -9,10 +9,13 @@ class Problem < ActiveRecord::Base
  #validates :price, :presence => true
 
   def to_s
-    return "#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} $#{self.price} "
+    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} $#{self.price} "
   end
 
   def more_detail
-    return "#{self.id}. #{self.description} Phone Number: #{self.user.phone_number} "
+    description = self.description
+    if description == nil
+      description = "None"
+      return "id:#{self.id}. Description: #{description} Phone Number: #{self.user.phone_number} "
   end
 end
