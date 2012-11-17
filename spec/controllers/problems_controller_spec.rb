@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ProblemsController do
+  include SmsSpec::Helpers
 
   before do
     clear_messages
@@ -46,16 +47,14 @@ describe ProblemsController do
     describe 'problem retrieval through text' do
 
       before do
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'ADD Problem1 Location1 water'}
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'ADD Problem2 Location2 water'}
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @someLocation !water %1'}
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'ADD @Location1 !water #Problem1'}
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'ADD @Location1 !water #Problem2'}
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location1 !water LIMIT 1'}
       end
 
       it 'should send me a list of problems with correct attributes' do
-        post 'create', {:phone_number => "+14154393734"}
-
         open_last_test_message_for "+14154393734"
-        current_text_message.should have_body "#{Problem.find_by_summary(\"Problem1\")}. @Location1 !water #Problem1 $50 #{Problem.find_by_summary(\"Problem2\")}. @Location2 !water #Problem2 $50 "
+        current_text_message.should have_body "#{Problem.find_by_summary(Problem1)}. @Location1 !water #Problem1 $50 #{Problem.find_by_summary(Problem2)}. @Location2 !water #Problem2 $50 "
       end
     end
   end

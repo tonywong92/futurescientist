@@ -77,9 +77,6 @@ class ProblemsController < ApplicationController
           if offset == nil
             sms_error("Sorry, there is no saved session right now. Please first text \"GET\" with @location !skill %number of texts you want to allow.")
           else
-   puts "receive sms @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts offset
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
             @offset = true
             sms_get(offset)
           end
@@ -114,7 +111,7 @@ class ProblemsController < ApplicationController
           when "!"
             @sms_skills = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0] #checks if nextWord is a symboled word
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word
               @sms_skills = @sms_skills + words[0] + " "
               words.slice!(0)
             end
@@ -122,7 +119,7 @@ class ProblemsController < ApplicationController
           when "@"
             @sms_location = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0] #checks if nextWord is a symboled word
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word
               @sms_location = @sms_location + words[0] + " "
               words.slice!(0)
             end
@@ -130,7 +127,7 @@ class ProblemsController < ApplicationController
           when "#"
             @sms_summary = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0] #checks if nextWord is a symboled word or key word
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word or key word
               @sms_summary = @sms_summary + words[0] + " "
               words.slice!(0)
             end
@@ -138,14 +135,14 @@ class ProblemsController < ApplicationController
           when "$"
             @sms_price = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0]#checks if nextWord is a symboled word or key word
+            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word or key word
               @sms_price = @sms_price + words[0] + " "
               words.slice!(0)
             end
             @sms_price.chop!
         end
       else
-        if word_hashset.member? nextWord
+        if word_hashset.member? nextWord.downcase
           case nextWord.downcase
             when "limit"
               words.slice!(0)
@@ -156,6 +153,7 @@ class ProblemsController < ApplicationController
                 break
               end
               @sms_limit = nextWord.to_i
+              words.slice!(0)
           end
         else
           words.slice!(0)
@@ -224,11 +222,6 @@ class ProblemsController < ApplicationController
         sms_send(body)
       end
     end
-    puts "end of function @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-    puts offset
-    puts location
-    puts skills
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     session["offset"] = offset
     session["location"] = location
     session["skills"] = skills
