@@ -1,5 +1,7 @@
 class ProblemsController < ApplicationController
 
+  TEXTLENGTH = 160
+
   def index
     @sessionSkills = []
     @sessionAddresses = []
@@ -95,7 +97,6 @@ class ProblemsController < ApplicationController
   end
 
   def sms_get(offset)
-    lenOfTexts = 160
     location = @problem_text[1]
     skills = @problem_text[2]
     amountOfTexts = @problem_text[3].to_i
@@ -104,25 +105,33 @@ class ProblemsController < ApplicationController
 
     amountOfTexts.times do |i|
       body = ""
-      if skills and locations
+      if skills and location
         problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
       elsif skills
         problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
-      elsif locations
+      elsif location
         problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
       else
         problems = Problem.find(:all, :order => "created_at DESC").limit(5).offset(offset)
       end
       problems.each do |problem|
             tmpbody = body +  problem.to_s
-            if tmpbody.length <= lenOfTexts
+            if tmpbody.length <= TEXTLENGTH
               body = tmpbody
               offset +=1
             else
               break
             end
       end
-      sms_send(body)
+      if body == ""
+        body = "There are no more additional problems for "
+        location ? body += "Location: #{location} "
+        skills ? body += "Skills: #{skills} "
+        sms_send(body)
+        break
+      else
+        sms_send(body)
+      end
     end
     session[:offset] = offset
   end
@@ -134,7 +143,12 @@ class ProblemsController < ApplicationController
     sms_authenticate
 
     if problem
-      sms_send(problem.more_detail)
+      problem_details = problem.more_detail
+      current = 0
+      (problem_details.length/TEXTLENGTH.to_f).ceil.times do |i|
+        sms_send(problem_details.slice(current, current + TEXTLENGTH))
+        current += TEXTLENGTH
+      end
     else
       sms_error("Sorry, that problem id does not exist")
     end
