@@ -4,13 +4,15 @@
 		.well
 			.container
 				.span3
-					%a#profile{:href => "/accounts/show"} #{@user.account.account_name}
-					%ul
-						- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
-							%li
-								%a#profile{:href => "/accounts/skill"} Skill Verification
-							%li
-								%a#profile{:href => "/accounts/admin"} Admin Verification
+					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
+						%#{@user.account.account_name} - ADMIN
+							%ul
+								%li
+									%a#profile{:href => "/accounts/skill"} Skill Verification
+								%li
+									%a#profile{:href => "/accounts/admin"} Admin Verification
+					- else
+						%#{@user.account.account_name} - USER
 				.span6
 					%legend 
 						%ul
