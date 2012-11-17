@@ -41,7 +41,7 @@ class AccountsController < ApplicationController
   end
   
   def show
-    render '/accounts/login_form'
+    render '/accounts/show'
   end
   
   def login
