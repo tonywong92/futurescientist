@@ -4,19 +4,21 @@
 		.well
 			.container
 				.span3
-					%a#profile{:href => "/accounts/show"} #{@user.account.account_name}
-					%ul
-						%li
-							%a#profile{:href => "/accounts/skill"} Skill Verification
-						%li
-							%a#profile{:href => "/accounts/admin"} Admin Verification
-				.span6
-					%legend 
+					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
+						%a#profile{:href => "/accounts/show"} ADMIN - #{@user.account.account_name} 
 						%ul
-							%li Name: #{@user.name}
-							%li Location: #{@user.location}
-							%li Email: #{@user.account.email}
-							%li Phone number: #{@user.phone_number}
-							%li Skills: #{@user.account.skills}
-					%br
+							%li
+								%a#profile{:href => "/accounts/skill"} Skill Verification
+							%li
+								%a#profile{:href => "/accounts/admin"} Admin Verification
+					- else
+						%a#profile{:href => "/accounts/show"} USER - #{@user.account.account_name}
+				.span6
+					%h4 Profile
+					%ul
+						%li Name: #{@user.name}
+						%li Location: #{@user.location}
+						%li Email: #{@user.account.email}
+						%li Phone number: #{@user.phone_number}
+						%li Skills: #{@user.account.skills}
 					%a#account_edit{:href => "/accounts/edit"} Edit

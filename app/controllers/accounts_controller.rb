@@ -6,16 +6,14 @@ class AccountsController < ApplicationController
   end
   
   def create
-    if Account.find(:all).empty?
-      create_admin
+    @user = User.new(params[:user])
+    @account = Account.new(params[:account])
+    @user.phone_number = normalize_phone(@user.phone_number)
+    @account.skills = params[:skills]
+    if params[:Admin] == '1'
+      @account.admin = true
     else
-      if session[:account] && session[:account].admin
-        create_admin
-      else
-        @user = User.new(params[:user])
-        @account = Account.new(params[:account])
-        @all_skills = Skill.find(:all)
-      end
+      @account.admin = false
     end
     @user.account = @account
     @user.phone_number = normalize_phone(@user.phone_number)
@@ -23,13 +21,6 @@ class AccountsController < ApplicationController
     return '/accounts/new'
   end
 
-  def create_admin
-    @user = User.new(params[:user])
-    @account = Account.new(params[:account])
-    @all_skills = Skill.find(:all)
-    @account.admin = true
-  end
-  
   def save_account
     if @account.save and @user.save
       flash[:notice] = 'You have successfully created an account'
@@ -41,7 +32,7 @@ class AccountsController < ApplicationController
   end
   
   def show
-    @user = session[:account].user
+    @user = Account.find_by_id(session[:account]).user
     render '/accounts/show'
   end
 
@@ -67,12 +58,12 @@ class AccountsController < ApplicationController
   
   def validate_password
     if @account.password == params[:account][:password]
-      session[:account] = @account
+      session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
     else
       flash[:error] = 'Your password is incorrect'
-      render '/accounts/edit'
+      render '/accounts/login_form'
     end
   end
   
@@ -81,19 +72,14 @@ class AccountsController < ApplicationController
   end
 
   def update
-    account = session[:account]
-    user_id = account.id
-
-    @account = Account.find_by_id(user_id)
+    @account = Account.find_by_id(session[:account])
     @account.update_attributes!(:email => params[:email][:address])
     flash[:notice] = "Email changed!"
     redirect_to '/accounts/edit'
   end
 
   def changepass
-    account = session[:account]
-    user_id = account.id
-    @account = Account.find_by_id(user_id)
+    @account = Account.find_by_id(session[:account])
     if params[:password][:current] != @account.password
        flash[:notice] = "Password incorrect"
        redirect_to '/accounts/edit'
