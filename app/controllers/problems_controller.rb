@@ -187,6 +187,8 @@ class ProblemsController < ApplicationController
 
     if @offset
       amountOfTexts = @problem_text[1].to_i
+      location = session["location"]
+      skills = session["skills"]
     end
 
     sms_authenticate
@@ -222,6 +224,8 @@ class ProblemsController < ApplicationController
       end
     end
     session["offset"] = offset
+    session["location"] = location
+    session["skills"] = skills
   end
 
   def sms_detail
