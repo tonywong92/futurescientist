@@ -125,8 +125,8 @@ class ProblemsController < ApplicationController
       end
       if body == ""
         body = "There are no more additional problems for "
-        location ? body += "Location: #{location} "
-        skills ? body += "Skills: #{skills} "
+        location ? body += "Location: #{location} " : false
+        skills ? body += "Skills: #{skills} " : false
         sms_send(body)
         break
       else
