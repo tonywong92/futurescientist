@@ -200,7 +200,7 @@ class ProblemsController < ApplicationController
       elsif location
         problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
       else
-        problems = Problem.find(:all, :order => "created_at DESC").limit(5).offset(offset)
+        problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
       end
       problems.each do |problem|
             tmpbody = body +  problem.to_s
