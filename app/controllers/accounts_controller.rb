@@ -9,7 +9,8 @@ class AccountsController < ApplicationController
     if Account.find(:all).empty?
       create_admin
     else
-      if session[:account] && session[:account].admin
+      account = Account.find_by_id(session[:account])
+      if account && account.admin
         create_admin
       else
         @user = User.new(params[:user])
@@ -41,7 +42,7 @@ class AccountsController < ApplicationController
   end
   
   def show
-    @user = session[:account].user
+    @user = Account.find_by_id(session[:account]).user
     render '/accounts/show'
   end
 
@@ -67,7 +68,7 @@ class AccountsController < ApplicationController
   
   def validate_password
     if @account.password == params[:account][:password]
-      session[:account] = @account
+      session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
     else
@@ -81,19 +82,14 @@ class AccountsController < ApplicationController
   end
 
   def update
-    account = session[:account]
-    user_id = account.id
-
-    @account = Account.find_by_id(user_id)
+    @account = Account.find_by_id(session[:account])
     @account.update_attributes!(:email => params[:email][:address])
     flash[:notice] = "Email changed!"
     redirect_to '/accounts/edit'
   end
 
   def changepass
-    account = session[:account]
-    user_id = account.id
-    @account = Account.find_by_id(user_id)
+    @account = Account.find_by_id(session[:account])
     if params[:password][:current] != @account.password
        flash[:notice] = "Password incorrect"
        redirect_to '/accounts/edit'

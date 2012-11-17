@@ -210,7 +210,7 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(id)
     @user = @problem.user
     @verifiedUser = false
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -221,7 +221,7 @@ class ProblemsController < ApplicationController
   def edit
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -239,7 +239,7 @@ class ProblemsController < ApplicationController
   def update
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -294,7 +294,7 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = session[:account]
+    account = Account.find_by_id(session[:account])
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
