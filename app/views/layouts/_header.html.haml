@@ -8,9 +8,9 @@
         %ul.nav.pull-right
           - if Account.count.zero?
             %li
-              %a#create_new_admin{:href => "accounts/new"} Create Admin Account
+              %a#create_new_admin{:href => new_account_path} Create Admin Account
         %li
-          %a#submit_new_problem{:href => "/problems/new"} Submit New Problem
+          %a#submit_new_problem{:href => new_problem_path} Submit New Problem
         %li
           - account = Account.find_by_id(session[:account])
           - if not account.nil?
