@@ -306,6 +306,7 @@ class ProblemsController < ApplicationController
     @user = @problem.user
     @verifiedUser = false
     account = Account.find_by_id(session[:account])
+    @is_admin = account.admin
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true

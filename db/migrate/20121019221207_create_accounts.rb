@@ -5,8 +5,8 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :password
       t.boolean :admin, :default => false
       t.string :email
-      t.text :skills, :default => []
-      t.text :verified_skills, :default => []
+      t.text :skills
+      t.text :verified_skills
       t.references 'user'
 
       t.timestamps
