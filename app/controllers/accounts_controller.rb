@@ -6,6 +6,7 @@ class AccountsController < ApplicationController
   end
   
   def create
+    @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
     @user.phone_number = normalize_phone(@user.phone_number)
