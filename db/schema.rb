@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.string   "skills"
     t.string   "summary"
     t.text     "description"
-    t.integer  "price"
+    t.float    "price"
     t.integer  "user_id"
     t.boolean  "archived",    :default => false
     t.datetime "created_at",                     :null => false

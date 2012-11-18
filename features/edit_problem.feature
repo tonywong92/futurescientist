@@ -47,10 +47,12 @@ Scenario: successfully edit and delete a problem that was created by the poster
   And I press "Update Problem"
   Then I should see "laptop broke was successfully updated."
   And I should see "electronics"
-  When I follow "Delete"
-  Then I should see not see "laptop broke"
+  When I press "Delete"
+  Then I should see "Problem 'laptop broke' deleted."
 
 Scenario: Only the poster of the problem may edit that problem
   When I follow "outlet exploded"
   Then I should not see "Edit"
   Then I should not see "Delete"
+  Given I attempt to see the edit page by typing in the url for "ps3 broken"
+  Then I should see "You do not have permission to edit this problem."

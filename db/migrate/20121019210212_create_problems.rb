@@ -5,10 +5,10 @@ class CreateProblems < ActiveRecord::Migration
       t.string :skills
       t.string :summary
       t.text :description
-      t.integer :price
-      t.references 'user' 
+      t.float :price
+      t.references 'user'
       t.boolean :archived, :default => false
-     
+
       t.timestamps
     end
   end
