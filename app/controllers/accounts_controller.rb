@@ -43,15 +43,16 @@ class AccountsController < ApplicationController
   
   def show
     @user = Account.find_by_id(session[:account]).user
-    
+    render '/accounts/show'
+  end
+
+  def skills_verification    
     # List of Accounts that have skills that are unverified.
     @accounts_list = []
     SkillVerification.all.each do |a|
       @accounts_list << a.account_id
     end
-    puts 'HELLO'
-    puts @accounts_list
-    render '/accounts/show'
+    render '/accounts/skills_verification'
   end
 
   def login_form
