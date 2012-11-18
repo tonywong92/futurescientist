@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022010806) do
+ActiveRecord::Schema.define(:version => 20121118082645) do
 
   create_table "accounts", :force => true do |t|
     t.string   "account_name"
@@ -35,6 +35,12 @@ ActiveRecord::Schema.define(:version => 20121022010806) do
     t.boolean  "archived",    :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "skill_verifications", :force => true do |t|
+    t.integer  "account_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "skills", :force => true do |t|
