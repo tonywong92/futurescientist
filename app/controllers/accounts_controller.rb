@@ -10,6 +10,8 @@ class AccountsController < ApplicationController
     @account = Account.new(params[:account])
     @user.phone_number = normalize_phone(@user.phone_number)
     @account.skills = params[:skills]
+    @sv = SkillVerification.new
+    @sv.account = @account
     if params[:Admin] == '1'
       @account.admin = true
     else
@@ -30,7 +32,7 @@ class AccountsController < ApplicationController
   end
 
   def save_account
-    if @account.save and @user.save
+    if @account.save and @user.save and @sv.save
       flash[:notice] = 'You have successfully created an account'
       redirect_to problems_path
     else
@@ -41,6 +43,14 @@ class AccountsController < ApplicationController
   
   def show
     @user = Account.find_by_id(session[:account]).user
+    
+    # List of Accounts that have skills that are unverified.
+    @accounts_list = []
+    SkillVerification.all.each do |a|
+      @accounts_list << a.account_id
+    end
+    puts 'HELLO'
+    puts @accounts_list
     render '/accounts/show'
   end
 
