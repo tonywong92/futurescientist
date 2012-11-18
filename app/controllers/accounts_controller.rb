@@ -9,13 +9,15 @@ class AccountsController < ApplicationController
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
     @user.phone_number = normalize_phone(@user.phone_number)
-    @account.skills = params[:skills]
-    @sv = SkillVerification.new
-    @sv.account = @account
     if params[:Admin] == '1'
       @account.admin = true
+      @account.verified_skills = params[:skills]
     else
       @account.admin = false
+      @account.skills = params[:skills]
+      @sv = SkillVerification.new
+      @sv.account = @account
+      @sv.save!
     end
     @user.account = @account
     @user.phone_number = normalize_phone(@user.phone_number)
@@ -32,7 +34,7 @@ class AccountsController < ApplicationController
   end
 
   def save_account
-    if @account.save and @user.save and @sv.save
+    if @account.save and @user.save
       flash[:notice] = 'You have successfully created an account'
       redirect_to problems_path
     else
