@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   serialize :verified_skills
   
   belongs_to :user
+
   has_many :problems, :through => :users
 
   validates :account_name, :presence => true
