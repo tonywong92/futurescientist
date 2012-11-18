@@ -22,7 +22,7 @@
 						%li Phone number: #{@user.phone_number}
 					%h5 Skills:
 					%ul
-						- if not @user.account.skills.nil?
+						- if not @user.account.skills.empty?
 							- @user.account.skills.each do |skill|
 								%li #{skill}
 					%a#account_edit{:href => "/accounts/edit"} Edit Profile
