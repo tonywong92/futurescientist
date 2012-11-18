@@ -19,10 +19,10 @@
 						%li Name: #{@user.name}
 						%li Location: #{@user.location}
 						%li Email: #{@user.account.email}
-						%li Phone number: #{@user.phone_number}	
-						- skills = ""
+						%li Phone number: #{@user.phone_number}
+					%h5 Skills:
+					%ul
 						- if not @user.account.skills.nil?
 							- @user.account.skills.each do |skill|
-								- skills << skill
-						%li Skills: #{@user.account.skills}
-					%a#account_edit{:href => "/accounts/edit"} Edit
+								%li #{skill}
+					%a#account_edit{:href => "/accounts/edit"} Edit Profile
