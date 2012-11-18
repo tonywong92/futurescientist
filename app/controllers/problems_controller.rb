@@ -360,6 +360,7 @@ class ProblemsController < ApplicationController
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
         problem.archived = true
+        problem.save
         requester = problem.user
         sms_send("You have accepted problem ##{problem_id}. Please contact your provider at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
