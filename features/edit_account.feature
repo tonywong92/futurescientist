@@ -1,13 +1,43 @@
-Feature: Edit accounts skills/emails/phone numbers
-
-Background: Accounts have been created
-
-Given the following account exists:
-  | account_name   | email            | password |
-  | foobar         | foobar@yahoo.com | lalala   |
+Feature: Edit accounts email/password
 
 Scenario: Edit email
-	Given I am on the edit account page
+        Given the site is set up
+        And I am logged in as an admin
+	And I am on the edit account page
 	And I fill in "email_address" with "test@yahoo.com"
 	And I press "Update"
 	Then I should be on the edit account page
+        And I should see "Email changed!"
+
+Scenario: Change password (Happy Path)
+	Given the site is set up
+	And I am logged in as an admin
+	And I am on the edit account page
+	And I fill in "password_current" with "Password"
+	And I fill in "password_new_new" with "Foobarzz"
+	And I fill in "reenter_pass" with "Foobarzz"
+	And I press "Change Password"
+	Then I should be on the edit account page
+	And I should see "Password changed"
+
+Scenario: Change password (sad path)
+       Given the site is set up
+       And I am logged in as an admin
+       And I am on the edit account page
+       And I fill in "password_current" with "foobar"
+       And I fill in "password_new_new" with "Foobarzz"
+       And I fill in "reenter_pass" with "Foobarzz"
+       And I press "Change Password"
+       Then I should be on the edit account page
+       And I should see "Password incorrect"
+
+Scenario: Change password (sad path 2)
+	Given the site is set up
+	And I am logged in as an admin
+	And I am on the edit account page
+	And I fill in "password_current" with "Password"
+	And I fill in "password_new_new" with "Foobarzz"
+	And I fill in "reenter_pass" with "LEEEajsjsjs"
+	And I press "Change Password"
+	Then I should be on the edit account page
+	And I should see "The new password you entered doesn't match"
