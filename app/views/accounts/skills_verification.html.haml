@@ -1,0 +1,13 @@
+=render :partial => 'layouts/header'
+%br
+	.span9.offset1
+		.well
+			.container
+				.span9
+					%h3 Skills Verification
+					- @accounts_list.each do |a|
+						- account = Account.find_by_id(a)
+						%h4 #{account.account_name}
+						%ul
+							- account.skills.each do |skill|
+								%li #{skill}
