@@ -1,5 +1,5 @@
 class Problem < ActiveRecord::Base
-  attr_accessible :description, :location, :skills, :summary, :price
+  attr_accessible :description, :location, :skills, :summary, :price, :archived
 
   belongs_to :user
 

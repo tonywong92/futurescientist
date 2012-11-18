@@ -5,14 +5,14 @@
 			.container
 				.span3
 					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
-						%a#profile{:href => "/accounts/show"} ADMIN - #{@user.account.account_name} 
+						%a#profile{:href => "/accounts/show"} Admin - #{@user.account.account_name} 
 						%ul
 							%li
 								%a#profile{:href => "/accounts/skill"} Skill Verification
 							%li
-								%a#profile{:href => "/accounts/admin"} Admin Verification
+								%a#profile{:href => "/accounts/new"} Add Admin Account
 					- else
-						%a#profile{:href => "/accounts/show"} USER - #{@user.account.account_name}
+						%a#profile{:href => "/accounts/show"} User - #{@user.account.account_name}
 				.span6
 					%h4 Profile
 					%ul
@@ -20,5 +20,9 @@
 						%li Location: #{@user.location}
 						%li Email: #{@user.account.email}
 						%li Phone number: #{@user.phone_number}
-						%li Skills: #{@user.account.skills}
-					%a#account_edit{:href => "/accounts/edit"} Edit
+					%h5 Skills:
+					%ul
+						- if not @user.account.skills.nil?
+							- @user.account.skills.each do |skill|
+								%li #{skill}
+					%a#account_edit{:href => "/accounts/edit"} Edit Profile
