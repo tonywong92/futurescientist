@@ -51,12 +51,33 @@ class AccountsController < ApplicationController
 
   def skills_verification  
     puts 'HELLO!$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
-    puts params[:'2_water']  
     # List of Accounts that have skills that are unverified.
     @accounts_list = []
     SkillVerification.all.each do |a|
       @accounts_list << a.account_id
     end
+    
+    @accounts_list.each do |a|
+      account = Account.find_by_id(a)
+      account.skills.each do |skill|
+        key = (a.to_s() + "_" + skill).to_sym
+        if params[key] == 'true'
+          account.skills.delete(skill)
+          if account.verified_skills.empty?
+            account.verified_skills = [skill]
+          else
+            account.verified_skills << skill
+          end
+          puts account.verified_skills
+        end
+      end
+      account.save!
+      if account.skills.empty?
+        SkillVerification.destroy(a)
+        @acounts_list.delete(a)
+      end
+    end
+
     render '/accounts/skills_verification'
   end
 
