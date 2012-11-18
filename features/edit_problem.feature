@@ -54,5 +54,3 @@ Scenario: Only the poster of the problem may edit that problem
   When I follow "outlet exploded"
   Then I should not see "Edit"
   Then I should not see "Delete"
-  Given I attempt to see the edit page by typing in the url for "ps3 broken"
-  Then I should see "You do not have permission to edit this problem."
