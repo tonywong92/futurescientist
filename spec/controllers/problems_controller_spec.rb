@@ -30,11 +30,11 @@ describe ProblemsController do
         provider_account = Account.create(:account_name => 'tony', :password => 'Password')
         provider_user = User.create(:phone_number => registered_phone_number2)
         provider_user.account = provider_account
-        provider_user.save
-        User.stub(:find_by_phone_number).and_return(provider_user)
+        provider_user.save!
+        #User.stub(:find_by_phone_number).and_return(provider_user)
         requester = User.create(:phone_number => registered_phone_number)
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #textedProblem2 @Location !water'}
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Accept textedProblem2 1'}
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Accept textedProblem2 Password'}
       end
 
       it 'should mark the problem as done' do
@@ -44,9 +44,9 @@ describe ProblemsController do
       end
 
       it 'should send a confirmation text to the provider and notify the requester' do
-        open_last_text_message_for "14154393733"
+        open_last_text_message_for registered_phone_number2
         current_text_message.should have_body "You have accepted problem #1. Please contact your provider at +#{registered_phone_number2} as soon as possible."
-        open_last_text_message_for "16263204917"
+        open_last_text_message_for registered_phone_number
         current_text_message.should have_body "Your textedProblem2 problem has been accepted by tony, whom you can contact at +14154393733"
       end
     end
