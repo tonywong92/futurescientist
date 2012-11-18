@@ -58,8 +58,18 @@ class ProblemsController < ApplicationController
     return
   end
 
+  def uninitialize_sms
+    @sms_location = nil
+    @sms_skills = nil
+    @sms_summary = nil
+    @sms_price = nil
+    @sms_limit = nil
+    @client = nil
+  end
+
   #sms superfunction for receiving texts
   def receive_sms
+    uninitialize_sms
     body = params[:Body]
     @problem_text = body.split
     action = sms_parsing(body)
@@ -133,13 +143,8 @@ class ProblemsController < ApplicationController
             end
             @sms_summary.chop!
           when "$"
-            @sms_price = nextWord + " "
+            @sms_price = nextWord.to_f
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word or key word
-              @sms_price = @sms_price + words[0] + " "
-              words.slice!(0)
-            end
-            @sms_price.chop!
         end
       else
         if word_hashset.member? nextWord.downcase
@@ -147,7 +152,7 @@ class ProblemsController < ApplicationController
             when "limit"
               words.slice!(0)
               nextWord = words[0]
-              if !is_num?(nextWord)
+              if nextWord == nil or !is_num?(nextWord)
                 sms_error("LIMIT must be followed by a integer number")
                 @sms_error = true
                 break
@@ -194,11 +199,11 @@ class ProblemsController < ApplicationController
 
     amountOfTexts.times do |i|
       body = ""
-      if skills and location
+      if !skills.nil? and !location.nil?
         problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
-      elsif skills
+      elsif !skills.nil?
         problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
-      elsif location
+      elsif !location.nil?
         problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
       else
         problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
@@ -250,8 +255,9 @@ class ProblemsController < ApplicationController
     summary = @sms_summary
     location = @sms_location
     skills = @sms_skills
+    price = @sms_price
 
-    @problem = Problem.new(:location => location, :summary => summary, :skills => skills)
+    @problem = Problem.new(:location => location, :summary => summary, :skills => skills, :price => price)
     add_problem_to_user_sms
 
     if save_problem_sms
