@@ -12,4 +12,11 @@ class Account < ActiveRecord::Base
   validates :password, :presence => true
   validates_uniqueness_of :account_name
 
+  after_initialize :init
+
+  def init
+    self.skills ||= []
+    self.verified_skills ||= []
+  end
+
 end

@@ -10,6 +10,7 @@ class AccountsController < ApplicationController
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
     @user.phone_number = normalize_phone(@user.phone_number)
+
     if params[:Admin] == '1'
       @account.admin = true
       @account.verified_skills = params[:skills]
@@ -59,22 +60,24 @@ class AccountsController < ApplicationController
     
     @accounts_list.each do |a|
       account = Account.find_by_id(a)
-      account.skills.each do |skill|
+      account.skills.delete_if do |skill|
+        puts skill
         key = (a.to_s() + "_" + skill).to_sym
         if params[key] == 'true'
-          account.skills.delete(skill)
           if account.verified_skills.empty?
             account.verified_skills = [skill]
           else
             account.verified_skills << skill
           end
-          puts account.verified_skills
+          true
+        else
+          false
         end
       end
       account.save!
       if account.skills.empty?
-        SkillVerification.destroy(a)
-        @acounts_list.delete(a)
+        SkillVerification.destroy(SkillVerification.find_by_account_id(a).id)
+        @accounts_list.delete(a)
       end
     end
 
