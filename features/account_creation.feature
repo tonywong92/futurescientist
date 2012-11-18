@@ -13,41 +13,41 @@ Scenario: Happy Path - User successfully creates an account and submits skills
     And I go to the create account page
     When I fill in the following fields:
         | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
     Then I should be on the problems page
-    When I login with "Tester" and "password"
+    When I login with "Tester" and "Password"
     Then I should see "Welcome, Tester"
     
 Scenario: Happy Path - User successfully creates an account and doesn't submit skills
     When I fill in the following fields:
         | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
     And I press "Create Account"
     Then I should be on the problems page
-    When I login with "Tester" and "password"
+    When I login with "Tester" and "Password"
     Then I should see "Welcome, Tester"
     
 Scenario: User tries to logout
     When I fill in the following fields:
         | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
     And I press "Create Account"
-    And I login with "Tester" and "password"
+    And I login with "Tester" and "Password"
     And I log out
     Then I should see "You have successfully logged out"
     
 Scenario: User tries to create an account with an existing account name
     When I fill in the following fields:
         | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
     And I press "Create Account"
     And I am on the create account page
     And I fill in the following fields:
         | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Test | 123456789    | Panama   |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
     And I press "Create Account"
     Then I should see "Account name has already been taken"
     
@@ -64,9 +64,9 @@ Scenario Outline: User submits an invalid account creation form
 
     Examples:
         | Email                | Account Name | Password | Name | Phone Number | Location | Error Message        |
-        | tester@something.com |              | password | Test | 123456789    | Panama   | Missing Account Name |
+        | tester@something.com |              | Password | Test | 123456789    | Panama   | Missing Account Name |
         | tester@something.com | Tester       |          | Test | 123456789    | Panama   | Missing Password     |
-        | tester@something.com | Tester       | password | Test |              | Panama   | Missing Phone Number |
+        | tester@something.com | Tester       | Password | Test |              | Panama   | Missing Phone Number |
 
 
         

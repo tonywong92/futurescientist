@@ -9,7 +9,7 @@ class Problem < ActiveRecord::Base
  #validates :price, :presence => true
 
   def to_s
-    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} $#{self.price} "
+    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} "# $#{self.price} "
   end
 
   def more_detail
@@ -17,6 +17,6 @@ class Problem < ActiveRecord::Base
     if description == nil
       description = "None"
     end
-    return "id:#{self.id}. Description: #{description} Phone Number: #{self.user.phone_number} "
+    return "id:#{self.id}. Description: #{description} Phone: #{self.user.phone_number} "
   end
 end

@@ -1,8 +1,9 @@
 Given /^the site is set up$/ do
   step "I am on the home page"
   step "I go to the create admin page"
+  step "I fill in \"email\" with \"master@yahoo.com\""
   step "I fill in \"account_name\" with \"master\""
-  step "I fill in \"password\" with \"password\""
+  step "I fill in \"password\" with \"Password\""
   step "I fill in \"name\" with \"Master\""
   step "I fill in \"phone_number\" with \"1234567890\""
   step "I check \"Admin\""
@@ -13,7 +14,7 @@ end
 When /^I am logged in as an admin$/ do
   step "I go to the login page"
   step "I fill in \"account_account_name\" with \"master\""
-  step "I fill in \"account_password\" with \"password\""
+  step "I fill in \"account_password\" with \"Password\""
   step "I press \"Login\""
   step "I should see \"Welcome, master\""
 end
