@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
     @all_skills = Skill.find(:all)
     render '/accounts/new'
   end
-  
+
   def create
     @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
@@ -29,7 +29,7 @@ class AccountsController < ApplicationController
     begin
       sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
     rescue Twilio::REST::RequestError
-      
+
     end
 =end
     return '/accounts/new'
@@ -41,10 +41,11 @@ class AccountsController < ApplicationController
       redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating your account'
+      @all_skills = Skill.find(:all)
       render '/accounts/new'
     end
   end
-  
+
   def show
     @user = Account.find_by_id(session[:account]).user
     render '/accounts/show'
@@ -56,7 +57,7 @@ class AccountsController < ApplicationController
     SkillVerification.all.each do |a|
       @accounts_list << a.account_id
     end
-    
+
     @accounts_list.each do |a|
       account = Account.find_by_id(a)
       account.skills.delete_if do |skill|
@@ -86,7 +87,7 @@ class AccountsController < ApplicationController
   def login_form
     render '/accounts/login_form'
   end
-  
+
   def login
     @account = Account.find_by_account_name(params[:account][:account_name])
     if @account.nil?
@@ -96,13 +97,13 @@ class AccountsController < ApplicationController
       validate_password
     end
   end
-  
+
   def logout
     reset_session
     flash[:notice] = "You have successfully logged out"
     redirect_to problems_path
   end
-  
+
   def validate_password
     if @account.password == params[:account][:password]
       session[:account] = @account.id
@@ -113,7 +114,7 @@ class AccountsController < ApplicationController
       render '/accounts/login_form'
     end
   end
-  
+
   def edit
     render '/accounts/edit'
   end
@@ -139,7 +140,7 @@ class AccountsController < ApplicationController
       redirect_to '/accounts/edit'
     end
   end
-  
+
   def normalize_phone phone_number
     number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
     if number.length == 11
@@ -147,7 +148,7 @@ class AccountsController < ApplicationController
     end
     return '+1' + number
   end
-  
+
   def sms_authenticate
     if @client == nil
       account_sid = 'AC7bec7276c109417979adfc442a675fc9'
@@ -165,5 +166,5 @@ class AccountsController < ApplicationController
     sms_authenticate
     @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => string)
   end
-  
+
 end
