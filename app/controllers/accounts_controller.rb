@@ -50,6 +50,11 @@ class AccountsController < ApplicationController
   def save_account
     if @user.save and @account.save
       flash[:notice] = 'You have successfully created an account'
+	puts "it got in here somehow"
+	puts "USER_NAME:" + @user.name
+	puts "ACCOUNT_NAME: " + @account.account_name
+	puts "LOCATION: " + @user.location
+	puts "PHONE_NUMBER: " + @user.phone_number
       redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating your account'
