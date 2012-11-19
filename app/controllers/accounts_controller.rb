@@ -3,13 +3,13 @@ require 'openssl'
 require 'base64'
 require 'cgi'
 require 'hmac-sha1'
+
 class AccountsController < ApplicationController
 
   def new
     @all_skills = Skill.find(:all)
-    render '/accounts/new'
   end
-  
+
   def create
     @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
@@ -17,8 +17,9 @@ class AccountsController < ApplicationController
     hmac = HMAC::SHA1.new('1234')
     hmac.update(params[:account][:password])
     @account.password = hmac.to_s
-    @user.phone_number = normalize_phone(@user.phone_number)
-
+    if @user.phone_number != nil and !@user.phone_number.empty?
+      @user.phone_number = normalize_phone(@user.phone_number)
+    end
     if params[:Admin] == '1'
       @account.admin = true
       @account.verified_skills = params[:skills]
@@ -30,17 +31,19 @@ class AccountsController < ApplicationController
       @sv.save!
     end
     @user.account = @account
-    @user.phone_number = normalize_phone(@user.phone_number)
+    if @user.phone_number != nil and !@user.phone_number.empty?
+      @user.phone_number = normalize_phone(@user.phone_number)
+    end
     save_account
     # TODO: user can receive a text and confirm it through text (stored in a session) before an account is actually created. make sure it fails nicely as wel
 =begin
     begin
       sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
     rescue Twilio::REST::RequestError
-      
+
     end
 =end
-    return '/accounts/new'
+    return
   end
 
   def save_account
@@ -49,10 +52,17 @@ class AccountsController < ApplicationController
       redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating your account'
-      render '/accounts/new'
+      if !@user.errors.empty?
+        flash[:user_errors] = @user.errors.full_messages
+      end
+      if !@account.errors.empty?
+        flash[:account_errors] = @account.errors.full_messages
+      end
+      @all_skills = Skill.find(:all)
+      redirect_to '/accounts/new'
     end
   end
-  
+
   def show
     @user = Account.find_by_id(session[:account]).user
     render '/accounts/show'
@@ -64,7 +74,7 @@ class AccountsController < ApplicationController
     SkillVerification.all.each do |a|
       @accounts_list << a.account_id
     end
-    
+
     @accounts_list.each do |a|
       account = Account.find_by_id(a)
       account.skills.delete_if do |skill|
@@ -94,7 +104,7 @@ class AccountsController < ApplicationController
   def login_form
     render '/accounts/login_form'
   end
-  
+
   def login
     @account = Account.find_by_account_name(params[:account][:account_name])
     if @account.nil?
@@ -104,13 +114,13 @@ class AccountsController < ApplicationController
       validate_password
     end
   end
-  
+
   def logout
     reset_session
     flash[:notice] = "You have successfully logged out"
     redirect_to problems_path
   end
-  
+
   def validate_password
     hmac = HMAC::SHA1.new('1234')
     hmac.update(params[:account][:password])
@@ -123,7 +133,7 @@ class AccountsController < ApplicationController
       render '/accounts/login_form'
     end
   end
-  
+
   def edit
     @all_skills = Skill.find(:all)
     render '/accounts/edit'
@@ -131,7 +141,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find_by_id(session[:account])
-    
+
     if @account.nil?
       flash[:notice] = "You are not logged in"
       redirect_to '/accounts/edit'
@@ -210,7 +220,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  
   def normalize_phone phone_number
     number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
     if number.length == 11
@@ -218,7 +227,7 @@ class AccountsController < ApplicationController
     end
     return '+1' + number
   end
-  
+
   def sms_authenticate
     if @client == nil
       account_sid = 'AC7bec7276c109417979adfc442a675fc9'
@@ -236,5 +245,5 @@ class AccountsController < ApplicationController
     sms_authenticate
     @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => string)
   end
-  
+
 end

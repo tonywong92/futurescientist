@@ -5,6 +5,7 @@ Feature: allow submission of problems
   I want to be able to fill out and submit a problem form
 
 Background: Go to the Problem Submission view
+  Given the site is set up
   Given I am on the home page
   When I follow "Submit New Problem"
   Then I should be on the problem submission page

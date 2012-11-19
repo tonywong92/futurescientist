@@ -5,8 +5,8 @@ Feature: allow problems to be edited or deleted by the poster
  I want to be able to edit or delete my post.
 
 Background: problems have been created by some requester
-
-  Given the following users exists:
+  Given the site is set up
+  And the following users exists:
   | name   | phone_number   | location   |
   | John   | 6264539999     | Address2   |
 
