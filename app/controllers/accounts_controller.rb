@@ -125,6 +125,7 @@ class AccountsController < ApplicationController
   end
   
   def edit
+    @all_skills = Skill.find(:all)
     render '/accounts/edit'
   end
 
@@ -161,6 +162,54 @@ class AccountsController < ApplicationController
       redirect_to '/accounts/edit'
     end
   end
+
+  def changenumber
+    @account = Account.find_by_id(session[:account])
+
+    if @account.nil?
+      flash[:notice] = "You are not logged in"
+      redirect_to '/accounts/edit'
+    else
+      phoneNum = params[:phone][:number]
+      phoneNum = normalize_phone phoneNum
+      @account.user.update_attributes!(:phone_number => phoneNum)
+      flash[:notice] = "Phone number changed"
+      redirect_to '/accounts/edit'
+    end
+  end
+
+  def changelocation
+    @account = Account.find_by_id(session[:account])
+
+    if @account.nil?
+      flash[:notice] = "You are not logged in"
+      redirect_to '/accounts/edit'
+    else
+      newLocation = params[:location][:name]
+      @account.user.update_attributes!(:location => newLocation)
+      flash[:notice] = "Location changed"
+      redirect_to '/accounts/edit'
+    end
+  end
+
+  def changeskills
+    @all_skills = Skill.find(:all)
+    @account = Account.find_by_id(session[:account])
+
+    if @account.nil?
+      flash[:notice] = "You are not logged in"
+      redirect_to '/accounts/edit'
+    elsif @account.admin == 't'
+      @account.update_attributes!(:verified_skills => params[:skills])
+      flash[:noticed] = "Skills updated"
+      redirect_to '/accounts/edit'
+    else
+      @account.update_attributes!(:skills => params[:skills])
+      flash[:notice] = "Skills to be verified"
+      redirect_to '/accounts/edit'
+    end
+  end
+
   
   def normalize_phone phone_number
     number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
