@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.string   "password"
     t.boolean  "admin",           :default => false
     t.string   "email"
-    t.text     "skills"
-    t.text     "verified_skills"
+    t.string   "skills"
+    t.string   "verified_skills"
     t.integer  "user_id"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.string   "skills"
     t.string   "summary"
     t.text     "description"
-    t.float    "price"
+    t.integer  "price"
     t.integer  "user_id"
     t.boolean  "archived",    :default => false
     t.datetime "created_at",                     :null => false

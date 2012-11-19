@@ -1,6 +1,6 @@
 Feature: Edit accounts email/password
 
-Scenario: Edit email
+Scenario: Edit email (Happy Path)
         Given the site is set up
         And I am logged in as an admin
 	And I am on the edit account page
@@ -8,6 +8,13 @@ Scenario: Edit email
 	And I press "Update"
 	Then I should be on the edit account page
         And I should see "Email changed!"
+
+Scenario: Edit email (Sad Path)
+	Given I am on the edit account page
+	And I fill in "email_address" with "test@yahoo.com"
+	And I press "Update"
+	Then I should be on the edit account page
+        And I should see "You are not logged in"
 
 Scenario: Change password (Happy Path)
 	Given the site is set up
@@ -41,3 +48,13 @@ Scenario: Change password (sad path 2)
 	And I press "Change Password"
 	Then I should be on the edit account page
 	And I should see "The new password you entered doesn't match"
+
+Scenario: Change password (sad path 3)
+	Given I am on the edit account page
+	And I fill in "password_current" with "Password"
+	And I fill in "password_new_new" with "Foobarzz"
+	And I fill in "reenter_pass" with "LEEEajsjsjs"
+	And I press "Change Password"
+	Then I should be on the edit account page
+	And I should see "You are not logged in"
+
