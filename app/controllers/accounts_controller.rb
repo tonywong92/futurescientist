@@ -14,9 +14,13 @@ class AccountsController < ApplicationController
     @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
-    hmac = HMAC::SHA1.new('1234')
-    hmac.update(params[:account][:password])
-    @account.password = hmac.to_s
+    if params[:account][:password].empty?
+      flash[:notice] = 'Password is a required field'
+    else
+      hmac = HMAC::SHA1.new('1234')
+      hmac.update(params[:account][:password])
+      @account.password = hmac.to_s
+    end
     @user.phone_number = @user.phone_number.strip
     if @user.phone_number != nil and !@user.phone_number.strip.empty?
       @user.phone_number = normalize_phone(@user.phone_number)
@@ -50,11 +54,6 @@ class AccountsController < ApplicationController
   def save_account
     if @user.save and @account.save
       flash[:notice] = 'You have successfully created an account'
-	puts "it got in here somehow"
-	puts "USER_NAME:" + @user.name
-	puts "ACCOUNT_NAME: " + @account.account_name
-	puts "LOCATION: " + @user.location
-	puts "PHONE_NUMBER: " + @user.phone_number
       redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating your account'
