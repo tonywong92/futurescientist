@@ -209,9 +209,9 @@ class AccountsController < ApplicationController
     if @account.nil?
       flash[:notice] = "You are not logged in"
       redirect_to '/accounts/edit'
-    elsif @account.admin == 't'
+    elsif @account.admin
       @account.update_attributes!(:verified_skills => params[:skills])
-      flash[:noticed] = "Skills updated"
+      flash[:notice] = "Skills updated"
       redirect_to '/accounts/edit'
     else
       @account.update_attributes!(:skills => params[:skills])

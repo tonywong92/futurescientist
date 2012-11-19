@@ -92,10 +92,23 @@ Scenario: Change Phone Number (Sad Path - Not logged in)
 	Then I should be on the edit account page
 	And I should see "You are not logged in"
 
+Scenario: Edit Skills (Happy Path - Admin user)
+  Given the site is set up
+  And I am logged in as an admin
+And I add the "water" skill to the database
+And I am on the edit account page
+	And I check "water"
+        And I press "Change Skills"
+        Then I should be on the edit account page
+        And I should see "Skills updated"
+
 Scenario: Edit Skills (Happy Path - Regular user)
   Given the site is set up
   And I am logged in as an admin
 And I add the "water" skill to the database
+And I log out
+Given the account is set up
+And I am logged in as a user
 And I am on the edit account page
 	And I check "water"
         And I press "Change Skills"
