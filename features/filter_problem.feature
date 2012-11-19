@@ -5,7 +5,7 @@ So that I can quickly find problems relevant to me,
 I want to be able to filter them by skillset or region
 
 Background: problems have been created by some requester
-
+  Given the site is set up
   Given the following users exists:
   | name   | phone_number   | location   |
   | Bob    | 6265559999     | Address1   |

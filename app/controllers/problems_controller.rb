@@ -306,8 +306,8 @@ class ProblemsController < ApplicationController
     @user = @problem.user
     @verifiedUser = false
     account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -318,8 +318,8 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -337,8 +337,8 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
-    if account != nil
+    if account != nil      
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -393,9 +393,9 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
+    account = Account.find_by_id(session[:account])    
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end

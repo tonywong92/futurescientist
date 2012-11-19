@@ -1,19 +1,18 @@
 Feature: Edit accounts email/password
 
-Scenario: Edit email
-        Given the site is set up
-        And I am logged in as an admin
+Background:
+  Given the site is set up
+  And I am logged in as an admin
 	And I am on the edit account page
-	And I fill in "email_address" with "test@yahoo.com"
+
+Scenario: Edit email
+	When I fill in "email_address" with "test@yahoo.com"
 	And I press "Update"
 	Then I should be on the edit account page
-        And I should see "Email changed!"
+  And I should see "Email changed!"
 
 Scenario: Change password (Happy Path)
-	Given the site is set up
-	And I am logged in as an admin
-	And I am on the edit account page
-	And I fill in "password_current" with "Password"
+	When I fill in "password_current" with "Password"
 	And I fill in "password_new_new" with "Foobarzz"
 	And I fill in "reenter_pass" with "Foobarzz"
 	And I press "Change Password"
@@ -21,21 +20,15 @@ Scenario: Change password (Happy Path)
 	And I should see "Password changed"
 
 Scenario: Change password (sad path)
-       Given the site is set up
-       And I am logged in as an admin
-       And I am on the edit account page
-       And I fill in "password_current" with "foobar"
-       And I fill in "password_new_new" with "Foobarzz"
-       And I fill in "reenter_pass" with "Foobarzz"
-       And I press "Change Password"
-       Then I should be on the edit account page
-       And I should see "Password incorrect"
+  When I fill in "password_current" with "foobar"
+  And I fill in "password_new_new" with "Foobarzz"
+  And I fill in "reenter_pass" with "Foobarzz"
+  And I press "Change Password"
+  Then I should be on the edit account page
+  And I should see "Password incorrect"
 
 Scenario: Change password (sad path 2)
-	Given the site is set up
-	And I am logged in as an admin
-	And I am on the edit account page
-	And I fill in "password_current" with "Password"
+	When I fill in "password_current" with "Password"
 	And I fill in "password_new_new" with "Foobarzz"
 	And I fill in "reenter_pass" with "LEEEajsjsjs"
 	And I press "Change Password"

@@ -61,7 +61,6 @@ Scenario Outline: User submits an invalid account creation form
     And I fill in "phone_number" with "<Phone Number>"
     And I fill in "location" with "<Location>"
     And I press "Create Account"
-    Then I should be on the create account page
     Then I should see the "<Error Message>" error
 
     Examples:

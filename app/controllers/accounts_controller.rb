@@ -10,7 +10,6 @@ class AccountsController < ApplicationController
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
     @user.phone_number = normalize_phone(@user.phone_number)
-
     if params[:Admin] == '1'
       @account.admin = true
       @account.verified_skills = params[:skills]
