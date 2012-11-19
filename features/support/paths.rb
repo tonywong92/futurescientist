@@ -36,6 +36,12 @@ module NavigationHelpers
     when /^the edit account page$/
       '/accounts/edit'
 
+    when /^the skills verification page$/
+      '/accounts/skills_verification'
+
+    when /^the profile page$/
+      'accounts/show'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

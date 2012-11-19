@@ -16,18 +16,28 @@ Scenario: Happy Path - Admin successfully creates an account
     And I check "Admin"
     And I press "Create Account"
     Then I should be on the problems page
+    When I go to the profile page
+    Then I should see "Admin"
 
 Scenario: Verification of regular Provider's account
-    Given I fill in the following fields:
-        | Email               | Account Name | Password | Name  | Phone Number | Location |
-        | water@something.com | water        | password | Water | 123456789    | US       |
-    And I check "Water"
+    Given I add the "water" skill to the database
+    And I add the "electronics" skill to the database
+    And I go to the create account page
+    When I fill in the following fields:
+        | Email                | Account Name | Password | Name | Phone Number | Location |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
+    Then I should see "Water"
+    And I check "water"
+    And I check "electronics"
+    And I uncheck "Admin"
     And I press "Create Account"
     Then I should be on the problems page
-    When I go to the skill approval page
-    And I press "Approve"
-    Then I should be on the skill approval page
-    When I log out
-    And I login with "water" and "password"
-    And I go to a problem with "Water" skill
-    Then I should be able to accept this problem
+    When I go to the skills verification page
+    And I should see "water"
+    And I should see "electronics"
+    And I choose "water yes"
+    And I choose "electronics yes"
+    And I press "Verify Skill"
+    Then I should be on the skills verification page
+    And I should not see "water"
+    And I should not see "electronics"

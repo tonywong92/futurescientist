@@ -50,8 +50,7 @@ class AccountsController < ApplicationController
     render '/accounts/show'
   end
 
-  def skills_verification  
-    puts 'HELLO!$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+  def skills_verification
     # List of Accounts that have skills that are unverified.
     @accounts_list = []
     SkillVerification.all.each do |a|
