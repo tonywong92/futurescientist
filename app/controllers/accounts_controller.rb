@@ -47,7 +47,7 @@ class AccountsController < ApplicationController
   end
 
   def save_account
-    if @account.save and @user.save
+    if @user.save and @account.save
       flash[:notice] = 'You have successfully created an account'
       redirect_to problems_path
     else
