@@ -1,0 +1,23 @@
+=render :partial => 'layouts/header'
+%br
+	.span9.offset1
+		.well
+			.container
+				.span9
+
+					%h3 Skills Verification
+					- if @accounts_list.empty?
+						%h5 There are no skills that need verification.
+					- else
+						- key = ""
+						- @accounts_list.each do |a|
+							- account = Account.find_by_id(a)
+							%h4 #{account.account_name}
+							= form_tag '/accounts/skills_verification' do
+								%ul
+									- account.skills.each do |skill|
+										- key = a.to_s() + "_" + skill
+										%li #{skill} - Yes #{radio_button_tag key, true, false, :id => skill + " yes"} No #{radio_button_tag key, false, true, :id => 'no'}
+
+								= submit_tag 'Verify Skills', :class=>"btn btn-primary span3"
+					= link_to 'Back', "/accounts/show"

@@ -1,3 +1,8 @@
+require 'rubygems'
+require 'openssl'
+require 'base64'
+require 'cgi'
+require 'hmac-sha1'
 class AccountsController < ApplicationController
 
   def new
@@ -6,16 +11,22 @@ class AccountsController < ApplicationController
   end
   
   def create
+    @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
+    hmac = HMAC::SHA1.new('1234')
+    hmac.update(params[:account][:password])
+    @account.password = hmac.to_s
     @user.phone_number = normalize_phone(@user.phone_number)
-    @account.skills = params[:skills]
-    @sv = SkillVerification.new
-    @sv.account = @account
     if params[:Admin] == '1'
       @account.admin = true
+      @account.verified_skills = params[:skills]
     else
       @account.admin = false
+      @account.skills = params[:skills]
+      @sv = SkillVerification.new
+      @sv.account = @account
+      @sv.save!
     end
     @user.account = @account
     @user.phone_number = normalize_phone(@user.phone_number)
@@ -32,7 +43,7 @@ class AccountsController < ApplicationController
   end
 
   def save_account
-    if @account.save and @user.save and @sv.save
+    if @account.save and @user.save
       flash[:notice] = 'You have successfully created an account'
       redirect_to problems_path
     else
@@ -43,15 +54,40 @@ class AccountsController < ApplicationController
   
   def show
     @user = Account.find_by_id(session[:account]).user
-    
+    render '/accounts/show'
+  end
+
+  def skills_verification
     # List of Accounts that have skills that are unverified.
     @accounts_list = []
     SkillVerification.all.each do |a|
       @accounts_list << a.account_id
     end
-    puts 'HELLO'
-    puts @accounts_list
-    render '/accounts/show'
+    
+    @accounts_list.each do |a|
+      account = Account.find_by_id(a)
+      account.skills.delete_if do |skill|
+        puts skill
+        key = (a.to_s() + "_" + skill).to_sym
+        if params[key] == 'true'
+          if account.verified_skills.empty?
+            account.verified_skills = [skill]
+          else
+            account.verified_skills << skill
+          end
+          true
+        else
+          false
+        end
+      end
+      account.save!
+      if account.skills.empty?
+        SkillVerification.destroy(SkillVerification.find_by_account_id(a).id)
+        @accounts_list.delete(a)
+      end
+    end
+
+    render '/accounts/skills_verification'
   end
 
   def login_form
@@ -75,7 +111,9 @@ class AccountsController < ApplicationController
   end
   
   def validate_password
-    if @account.password == params[:account][:password]
+    hmac = HMAC::SHA1.new('1234')
+    hmac.update(params[:account][:password])
+    if @account.password == hmac.to_s
       session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
@@ -91,18 +129,30 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find_by_id(session[:account])
-    @account.update_attributes!(:email => params[:email][:address])
-    flash[:notice] = "Email changed!"
-    redirect_to '/accounts/edit'
+    
+    if @account.nil?
+      flash[:notice] = "You are not logged in"
+      redirect_to '/accounts/edit'
+    elsif
+      @account.update_attributes!(:email => params[:email][:address])
+      flash[:notice] = "Email changed!"
+      redirect_to '/accounts/edit'
+    end
   end
 
   def changepass
     @account = Account.find_by_id(session[:account])
-    if params[:password][:current] != @account.password
+    hmac = HMAC::SHA1.new('1234')
+    hmac.update(params[:password][:current])
+    if @account.nil?
+       flash[:notice] = "You are not logged in"
+       redirect_to '/accounts/edit'
+    elsif hmac.to_s != @account.password
        flash[:notice] = "Password incorrect"
        redirect_to '/accounts/edit'
     elsif params[:password_new][:new] == params[:reenter][:pass]
-      @account.update_attributes!(:password => params[:password_new][:new])
+      hmac.update(params[:password_new][:new])
+      @account.update_attributes!(:password => hmac.to_s)
       flash[:notice] = "Password changed"
       redirect_to '/accounts/edit'
     else

@@ -5,8 +5,8 @@ Feature: allow problems to be edited or deleted by the poster
  I want to be able to edit or delete my post.
 
 Background: problems have been created by some requester
-
-  Given the following users exists:
+  Given the site is set up
+  And the following users exists:
   | name   | phone_number   | location   |
   | John   | 6264539999     | Address2   |
 
@@ -53,6 +53,3 @@ Scenario: successfully edit and delete a problem that was created by the poster
 Scenario: Only the poster of the problem may edit that problem
   When I follow "outlet exploded"
   Then I should not see "Edit"
-  Then I should not see "Delete"
-  Given I attempt to see the edit page by typing in the url for "ps3 broken"
-  Then I should see "You do not have permission to edit this problem."

@@ -18,6 +18,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'sms-spec'
+  gem 'ruby-hmac'
 end
 
 group :production do

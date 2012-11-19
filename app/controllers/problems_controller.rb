@@ -199,9 +199,9 @@ class ProblemsController < ApplicationController
 
     amountOfTexts.times do |i|
       body = ""
-      if !skills.nil? and !location.nil?
+      if !skills.empty? and !location.nil?
         problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
-      elsif !skills.nil?
+      elsif !skills.empty?
         problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
       elsif !location.nil?
         problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
@@ -307,6 +307,7 @@ class ProblemsController < ApplicationController
     @verifiedUser = false
     account = Account.find_by_id(session[:account])
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -318,11 +319,12 @@ class ProblemsController < ApplicationController
     @user = @problem.user
     account = Account.find_by_id(session[:account])
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-    if @verifiedUser
+    if @verifiedUser or @is_admin
       @all_skills = Skill.find(:all)
       @curr_skills = @problem.skills
     else
@@ -335,12 +337,13 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    if account != nil
+    if account != nil      
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-    if @verifiedUser
+    if @verifiedUser or @is_admin
       @problem.update_attributes!(params[:problem].merge!({:skills => params[:skills]}))
       flash[:notice] = "#{@problem.summary} was successfully updated."
       redirect_to problem_path(@problem)
@@ -390,13 +393,14 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = Account.find_by_id(session[:account])
+    account = Account.find_by_id(session[:account])    
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-    if @verifiedUser
+    if @verifiedUser or @is_admin
       @problem = Problem.find(params[:id])
       @problem.destroy
       flash[:notice] = "Problem '#{@problem.summary}' deleted."

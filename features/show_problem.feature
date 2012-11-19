@@ -5,7 +5,7 @@ So that I can understand more about the problem,
 I want to be able to click on the problem to see more information.
 
 Background: problems have been created by some requester
-  
+  Given the site is set up
   Given the following users exists:
   | name   | phone_number   | location   |
   | Bob    | 6265559999     | Address1   |
