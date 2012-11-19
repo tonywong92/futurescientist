@@ -141,6 +141,7 @@ GEM
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
       ruby-debug-base19 (>= 0.11.19)
+    ruby-hmac (0.4.0)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.9)
@@ -201,6 +202,7 @@ DEPENDENCIES
   rails (= 3.2.8)
   rspec-rails
   ruby-debug19
+  ruby-hmac
   sass-rails (~> 3.2.3)
   simplecov
   sinatra

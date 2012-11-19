@@ -306,8 +306,8 @@ class ProblemsController < ApplicationController
     @user = @problem.user
     @verifiedUser = false
     account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -318,8 +318,8 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -337,8 +337,8 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
-    if account != nil
+    if account != nil      
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
@@ -371,7 +371,7 @@ class ProblemsController < ApplicationController
         problem.archived = true
         problem.save
         requester = problem.user
-        sms_send("You have accepted problem ##{problem_id}. Please contact your provider at #{requester.phone_number} as soon as possible.")
+        sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
         requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
         sms_authenticate
@@ -393,9 +393,9 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = Account.find_by_id(session[:account])
-    @is_admin = account.admin
+    account = Account.find_by_id(session[:account])    
     if account != nil
+      @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end

@@ -1,3 +1,9 @@
+require 'rubygems'
+require 'openssl'
+require 'base64'
+require 'cgi'
+require 'hmac-sha1'
+
 class AccountsController < ApplicationController
 
   def new
@@ -8,6 +14,9 @@ class AccountsController < ApplicationController
     @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
+    hmac = HMAC::SHA1.new('1234')
+    hmac.update(params[:account][:password])
+    @account.password = hmac.to_s
     if @user.phone_number != nil and !@user.phone_number.empty?
       @user.phone_number = normalize_phone(@user.phone_number)
     end
@@ -113,7 +122,9 @@ class AccountsController < ApplicationController
   end
 
   def validate_password
-    if @account.password == params[:account][:password]
+    hmac = HMAC::SHA1.new('1234')
+    hmac.update(params[:account][:password])
+    if @account.password == hmac.to_s
       session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
@@ -129,18 +140,30 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find_by_id(session[:account])
-    @account.update_attributes!(:email => params[:email][:address])
-    flash[:notice] = "Email changed!"
-    redirect_to '/accounts/edit'
+
+    if @account.nil?
+      flash[:notice] = "You are not logged in"
+      redirect_to '/accounts/edit'
+    elsif
+      @account.update_attributes!(:email => params[:email][:address])
+      flash[:notice] = "Email changed!"
+      redirect_to '/accounts/edit'
+    end
   end
 
   def changepass
     @account = Account.find_by_id(session[:account])
-    if params[:password][:current] != @account.password
+    hmac = HMAC::SHA1.new('1234')
+    hmac.update(params[:password][:current])
+    if @account.nil?
+       flash[:notice] = "You are not logged in"
+       redirect_to '/accounts/edit'
+    elsif hmac.to_s != @account.password
        flash[:notice] = "Password incorrect"
        redirect_to '/accounts/edit'
     elsif params[:password_new][:new] == params[:reenter][:pass]
-      @account.update_attributes!(:password => params[:password_new][:new])
+      hmac.update(params[:password_new][:new])
+      @account.update_attributes!(:password => hmac.to_s)
       flash[:notice] = "Password changed"
       redirect_to '/accounts/edit'
     else
