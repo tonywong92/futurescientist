@@ -5,8 +5,17 @@
       .container
         .span8
           %legend Create New Account
-
-          - unless @account.nil? or @account.errors.empty?
+          - if flash[:account_errors]
+            The following errors occurred:
+            %ul
+              - flash[:account_errors].each do |error|
+                %li= error
+          - if flash[:user_errors]
+            The following errors occurred:
+            %ul
+              - flash[:user_errors].each do |error|
+                %li= error
+          - unless @account.nil? or @account.errors.empty? or flash[:account_errors].empty?
             The following errors occurred:
             %ul
               - @account.errors.full_messages.each do |error|

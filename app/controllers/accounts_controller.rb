@@ -2,15 +2,15 @@ class AccountsController < ApplicationController
 
   def new
     @all_skills = Skill.find(:all)
-    render '/accounts/new'
   end
 
   def create
     @all_skills = Skill.find(:all)
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
-    @user.phone_number = normalize_phone(@user.phone_number)
-
+    if @user.phone_number != nil and !@user.phone_number.empty?
+      @user.phone_number = normalize_phone(@user.phone_number)
+    end
     if params[:Admin] == '1'
       @account.admin = true
       @account.verified_skills = params[:skills]
@@ -22,7 +22,9 @@ class AccountsController < ApplicationController
       @sv.save!
     end
     @user.account = @account
-    @user.phone_number = normalize_phone(@user.phone_number)
+    if @user.phone_number != nil and !@user.phone_number.empty?
+      @user.phone_number = normalize_phone(@user.phone_number)
+    end
     save_account
     # TODO: user can receive a text and confirm it through text (stored in a session) before an account is actually created. make sure it fails nicely as wel
 =begin
@@ -32,7 +34,7 @@ class AccountsController < ApplicationController
 
     end
 =end
-    return '/accounts/new'
+    return
   end
 
   def save_account
@@ -41,8 +43,14 @@ class AccountsController < ApplicationController
       redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating your account'
+      if !@user.errors.empty?
+        flash[:user_errors] = @user.errors.full_messages
+      end
+      if !@account.errors.empty?
+        flash[:account_errors] = @account.errors.full_messages
+      end
       @all_skills = Skill.find(:all)
-      render '/accounts/new'
+      redirect_to '/accounts/new'
     end
   end
 
