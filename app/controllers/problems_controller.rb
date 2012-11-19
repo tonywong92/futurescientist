@@ -318,12 +318,13 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
+    @is_admin = account.admin
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-    if @verifiedUser
+    if @verifiedUser or @is_admin
       @all_skills = Skill.find(:all)
       @curr_skills = @problem.skills
     else
@@ -336,12 +337,13 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
+    @is_admin = account.admin
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-    if @verifiedUser
+    if @verifiedUser or @is_admin
       @problem.update_attributes!(params[:problem].merge!({:skills => params[:skills]}))
       flash[:notice] = "#{@problem.summary} was successfully updated."
       redirect_to problem_path(@problem)
