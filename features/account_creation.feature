@@ -35,7 +35,9 @@ Scenario: User tries to logout
         | Email                | Account Name | Password | Name | Phone Number | Location |
         | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
     And I press "Create Account"
-    And I login with "Tester" and "Password"
+    And I login with "Tester" and "password"
+    Then I should see "Your password is incorrect"
+    When I login with "Tester" and "Password"
     And I log out
     Then I should see "You have successfully logged out"
     
@@ -67,6 +69,10 @@ Scenario Outline: User submits an invalid account creation form
         | tester@something.com |              | Password | Test | 123456789    | Panama   | Missing Account Name |
         | tester@something.com | Tester       |          | Test | 123456789    | Panama   | Missing Password     |
         | tester@something.com | Tester       | Password | Test |              | Panama   | Missing Phone Number |
+
+Scenario: User tries to login with wrong id or password
+    When I login with "Runner" and "Nike"
+    Then I should see "No such account exists"
 
 
         

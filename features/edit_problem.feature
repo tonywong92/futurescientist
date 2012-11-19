@@ -53,4 +53,3 @@ Scenario: successfully edit and delete a problem that was created by the poster
 Scenario: Only the poster of the problem may edit that problem
   When I follow "outlet exploded"
   Then I should not see "Edit"
-  Then I should not see "Delete"
