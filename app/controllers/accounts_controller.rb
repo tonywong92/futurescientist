@@ -3,6 +3,7 @@ require 'openssl'
 require 'base64'
 require 'cgi'
 require 'hmac-sha1'
+
 class AccountsController < ApplicationController
 
   def new
