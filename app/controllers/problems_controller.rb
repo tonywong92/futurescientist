@@ -199,9 +199,9 @@ class ProblemsController < ApplicationController
 
     amountOfTexts.times do |i|
       body = ""
-      if !skills.empty? and !location.nil?
+      if !skills.nil? and !location.nil?
         problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
-      elsif !skills.empty?
+      elsif !skills.nil?
         problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
       elsif !location.nil?
         problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
