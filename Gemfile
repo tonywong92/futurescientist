@@ -23,6 +23,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'ruby-hmac'
 end
 
 # Gems used only for assets and not required

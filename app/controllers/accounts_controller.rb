@@ -17,7 +17,8 @@ class AccountsController < ApplicationController
     hmac = HMAC::SHA1.new('1234')
     hmac.update(params[:account][:password])
     @account.password = hmac.to_s
-    if @user.phone_number != nil and !@user.phone_number.empty?
+    @user.phone_number = @user.phone_number.strip
+    if @user.phone_number != nil and !@user.phone_number.strip.empty?
       @user.phone_number = normalize_phone(@user.phone_number)
     end
     if params[:Admin] == '1'
@@ -31,7 +32,7 @@ class AccountsController < ApplicationController
       @sv.save!
     end
     @user.account = @account
-    if @user.phone_number != nil and !@user.phone_number.empty?
+    if @user.phone_number != nil and !@user.phone_number.strip.empty?
       @user.phone_number = normalize_phone(@user.phone_number)
     end
     save_account
