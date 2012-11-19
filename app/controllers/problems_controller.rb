@@ -394,12 +394,13 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
+    @is_admin = account.admin
     if account != nil
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-    if @verifiedUser
+    if @verifiedUser or @is_admin
       @problem = Problem.find(params[:id])
       @problem.destroy
       flash[:notice] = "Problem '#{@problem.summary}' deleted."
