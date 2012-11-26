@@ -1,17 +1,17 @@
 =render :partial => '/layouts/header'
 %br
-  .span9.offset1
+  .span8.offset1
     .well
       .container
         .span8
-          %legend Edit Email
+          %h3 Edit Email
           = form_tag 'update', :method => :put  do
             = label :email, :address, 'Email'
             = text_field :email, :address, :type => 'email', :required => 'required'
             %br
             = submit_tag 'Update', :class=>"btn btn-primary span2"
 
-          %legend Edit Password
+          %h3 Edit Password
 
           = form_tag 'changepass', :method => :put do
 
@@ -25,7 +25,7 @@
             %br
             = submit_tag 'Change Password', :class=>"btn btn-primary span2"
 
-          %legend Edit Phone Number
+          %h3 Edit Phone Number
 
           = form_tag 'changenumber', :method => :put do
 
@@ -34,7 +34,7 @@
             %br
             = submit_tag 'Change Phone', :class=>"btn btn-primary span2"
 
-          %legend Change Location
+          %h3 Change Location
 
           = form_tag 'changelocation', :method => :put do
 
@@ -43,7 +43,7 @@
             %br
             = submit_tag 'Change Location', :class=>"btn btn-primary span2"
 
-          %legend Change Skills
+          %h3 Change Skills
 
           = form_tag 'changeskills', :method => :put do
             - @all_skills.each do |skill|

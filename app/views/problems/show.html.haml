@@ -1,17 +1,21 @@
 =render :partial => 'layouts/header'
-
--# in app/views/show.html.haml
-- if flash[:notice] != nil
-  = flash[:notice]
-
-%h2 Details about #{@problem.summary}
-%ul
-  %li by #{@user.name}
-  %li location: #{@problem.location}
-  %li skills: #{@problem.skills}
-  %li description: #{@problem.description}
-  %li phone number: #{@user.phone_number}
-- if @verifiedUser or @is_admin
-  = link_to 'Edit', edit_problem_path(@problem)
-  = button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
-= link_to 'Back to problems list', problems_path
+%br
+	.span8.offset1
+		.well
+			.container
+				.span8
+				-# in app/views/show.html.haml
+				- if flash[:notice] != nil
+					= flash[:notice]
+				%h3 Details about #{@problem.summary}
+				%ul
+					%li Requested by: #{@user.name}
+					%li Location: #{@problem.location}
+					%li Skills: #{@problem.skills}
+					%li Description: #{@problem.description}
+					%li Phone number: #{@user.phone_number}
+				- if @verifiedUser or @is_admin
+					= link_to 'Edit', edit_problem_path(@problem)
+					= button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
+				%br
+				= link_to 'Back to problems list', problems_path
