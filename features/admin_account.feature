@@ -49,3 +49,11 @@ Scenario: Admin can edit or delete problems
     Then I should see "Edit"
     And I press "Delete"
     Then I should see "Problem 'broken water pipe' deleted."
+
+Scenario: Admin should be able to add new skills
+    Given I go to the profile page
+    And I follow "Add a new skill"
+    And I fill in "New skill" with "Landscaping"
+    And I press "Submit"
+    When I go to the create account page
+    Then I should see "Landscaping"

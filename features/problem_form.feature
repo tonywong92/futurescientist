@@ -29,3 +29,15 @@ Scenario: Problem submits successfully
   And I press "Submit Problem"
   And I go to the home page
   Then I should see "Broken Sink"
+
+Scenario: Problem submission page should be prepopulated if logged in
+  Given I am on the create account page
+  When I fill in the following fields:
+        | Email                | Account Name | Password | Name | Phone Number | Location |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
+  And I press "Create Account"
+  And I go to the problem submission page
+  Then I should see "Test"
+  And I should see "123456789"
+  And I should see "Panama"
+
