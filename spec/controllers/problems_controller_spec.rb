@@ -49,7 +49,7 @@ describe ProblemsController do
         open_last_text_message_for registered_phone_number2
         current_text_message.should have_body "You have accepted problem #1. Please contact your requester at #{registered_phone_number} as soon as possible."
       end
-      
+
       it 'should send a notification to the requester' do
         open_last_text_message_for registered_phone_number
         open_last_text_message_for registered_phone_number
@@ -142,5 +142,57 @@ describe ProblemsController do
          current_text_message.should have_body "Sorry, that problem id does not exist"
       end
     end
+
+    describe 'edit problem through text' do
+      before do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !water electrical $50.00'}
+       problem1_id = Problem.find_by_summary("texted problem").id
+      end
+
+      it 'should let me edit/delete the problem through text if it is my problem' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Edit #{problem1_id} #new texted problem !mold electricty $49.38'}
+        textedProblem = Problem.find_by_summary('new texted problem')
+        textedProblem.should_not be_nil
+        textedProblem.location.should == "San Francisco"
+        textedProblem.skills.should == "mold electricity"
+        textedProblem.price.should == 49.38
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Delete #{problem1_id}'}
+        textedProblem = Problem.find_by_summary('new texted problem')
+        textedProblem.should be_nil
+      end
+
+      it 'should not let me edit a problem through text if it is not my problem' do
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Edit #{problem1_id} #new texted problem !mold electricty $49.38'}
+        open_last_text_message_for registered_phone_number2
+
+        current_text_message.should have_body "Sorry. You do not have permission to edit this problem. This is not the number that created the problem."
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Delete #{problem1_id}'}
+        open_last_text_message_for registered_phone_number2
+
+        current_text_message.should have_body "Sorry. You do not have permission to edit this problem. This is not the number that created the problem."
+      end
+    end
+
+     describe 'intelligent parsing of text' do
+      before do
+      end
+
+      it 'should send me the right error message if I text something incorrectly' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !asdfasfsdafas $50.00'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Error. We currently do not have anyone with that skill. Text 'Skills' to get a list of skills our providers currently have."
+      end
+
+      it 'should let me be flexible with my texting' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !broken pipe $50.00'}
+        textedProblem = Problem.find_by_summary('texted problem')
+        textedProblem.should_not be_nil
+        textedProblem.location.should == "San Francisco"
+        textedProblem.skills.should == "water"
+        textedProblem.price.should == 50.00
+      end
+    end
+
   end
 end
