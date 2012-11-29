@@ -1,3 +1,5 @@
+Feature: User should have a user dashboard
+
 Background:
     Given the site is set up
     Given I am on the problem submission page
