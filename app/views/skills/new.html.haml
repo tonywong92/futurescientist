@@ -1,0 +1,14 @@
+= render :partial => '/layouts/header'
+%br
+  .span8.offset1
+    .well
+      .container
+        .span8
+          %h3 Add a New Skill
+
+          = form_tag '/skills' do
+
+            = label :skills, 'skills'
+            = text_field :skills, :skill_name, :id => 'skill'
+            %br
+            = submit_tag 'Add', :class=>"btn btn-primary span2"
