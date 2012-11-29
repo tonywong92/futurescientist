@@ -123,6 +123,12 @@ Scenario: Edit Skills (Sad Path - Not logged in)
         Then I should be on the edit account page
         And I should see "You are not logged in"
 	
+Scenario: Add Skills
+	Given the site is set up
+	And I am logged in as an admin
+	And I am on the edit account page
+	Then "water" should be checked
+	And "electricity" should not be checked
 
 
 
