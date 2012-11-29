@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-Feature:
-  
-=======
 Feature: User should have a user dashboard
->>>>>>> 68193536dc764533d742415b66bcaaa365a3224b
 
 Background:
     Given the site is set up
