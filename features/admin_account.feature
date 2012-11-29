@@ -9,12 +9,14 @@ Background:
     And I add the "electronics" skill to the database
     And I go to the create account page
     And I fill in the following fields:
-        | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
+        | Account Name | Password | Name | Phone Number | Location |
+        | Tester       | Password | Test | 123456789    | Panama   |
     And I check "water"
     And I check "electronics"
     And I uncheck "admin"
     And I press "Create Account"
+    And I confirm through text
+    And I press "Continue to problems index"
     Then I should be on the problems page
     And I login with "Tester" and "Password"
     Given "Test" created the following problems:
@@ -27,10 +29,12 @@ Background:
 
 Scenario: Happy Path - Admin successfully creates an account
     Given I fill in the following fields:
-        | Email               | Account Name | Password | Name  | Phone Number | Location |
-        | admin@something.com | admin        | password | Admin | 123456789    | US       |
+        | Account Name | Password | Name  | Phone Number | Location |
+        | admin        | password | Admin | 123456789    | US       |
     And I check "Admin"
     And I press "Create Account"
+    And I confirm through text
+    And I press "Continue to problems index"
     Then I should be on the problems page
     When I go to the profile page
     Then I should see "Admin"
