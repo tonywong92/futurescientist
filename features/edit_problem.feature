@@ -20,6 +20,8 @@ Background: problems have been created by some requester
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
+    And I confirm through text
+    And I press "Continue to problems index"
     Then I should be on the problems page
  
   Given "Bob" created the following problems:
