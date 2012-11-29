@@ -5,6 +5,7 @@ Feature: User can make an account and submit a skillset
 
 Background:
     Given the site is set up
+    And I log out
     And I am on the create account page
     Then I should see "Create New Account"
 
@@ -73,6 +74,18 @@ Scenario Outline: User submits an invalid account creation form
 Scenario: User tries to login with wrong id or password
     When I login with "Runner" and "Nike"
     Then I should see "No such account exists"
+
+Scenario: If you are an admin, when you create another account, you should stay logged in as yourself
+    Given I login with "master" and "Password"
+    And I go to the profile page
+    And I follow "Add Admin Account"
+    When I fill in the following fields:
+        | Email                | Account Name | Password | Name | Phone Number | Location |
+        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
+    And I press "Create Account"
+    And I am on the problems page
+    And I should see "master"
+    And I should not see "Tester"
 
 
         
