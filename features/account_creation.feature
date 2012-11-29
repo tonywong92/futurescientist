@@ -5,6 +5,7 @@ Feature: User can make an account and submit a skillset
 
 Background:
     Given the site is set up
+    And I log out
     And I am on the create account page
     Then I should see "Create New Account"
 
