@@ -316,11 +316,9 @@ class ProblemsController < ApplicationController
       skills = @sms_skills || problem.skills
       price = @sms_price || problem.price
 
-      if problem.update_attributes!(:summary => summary, :location => location, :skills => skills, :price => price)
+      if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :price => price)
         sms_send("Your problem has successfully been edited.")
       else
-        sms_error("it got in here")
-        sms_error(problem.errors.full_messages)
         problem.errors.full_messages.each do |error|
            sms_error(error.to_s)
         end
