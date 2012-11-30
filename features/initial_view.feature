@@ -2,6 +2,7 @@ Feature: users should be able to see the front page
 
 Background:
   Given the site is set up
+  And I log out
 
 Scenario: View the header
 	Given I am on the home page

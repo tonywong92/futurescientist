@@ -15,13 +15,13 @@ Background: problems have been created by some requester
   And I add the "electricity" skill to the database
   Given I go to the create account page
   When I fill in the following fields:
-        | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | password | Bob | 6265559999     | Panama   |
-    Then I should see "Water"
-    And I check "water"
-    And I press "Create Account"
-    Then I should be on the problems page
- 
+  | Email                | Account Name | Password | Name | Phone Number | Location |
+  | tester@something.com | Tester       | password | Bob | 6265559999     | Panama   |
+  Then I should see "Water"
+  And I check "water"
+  And I press "Create Account"
+  Then I should be on the problems page
+
   Given "Bob" created the following problems:
   | location | skills          | summary           | description       |
   | Address1 | water           | broken water pipe | water pipe broken |

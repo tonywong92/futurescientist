@@ -5,16 +5,16 @@
       .container
         .span8
           %h3 Edit Email
-          = form_tag 'update', :method => :put  do
+          = form_tag account_path(session[:account]), :method => :put  do
+            = hidden_field_tag :type, "edit_email"
             = label :email, :address, 'Email'
             = text_field :email, :address, :type => 'email', :required => 'required'
             %br
             = submit_tag 'Update', :class=>"btn btn-primary span2"
 
           %h3 Edit Password
-
-          = form_tag 'changepass', :method => :put do
-
+          = form_tag account_path(session[:account]), :method => :put  do
+            = hidden_field_tag :type, "edit_password"
             = label :password, :current, 'Current Password'
             = text_field :password, :current, :type => 'password', :required => 'required'
             = label :password_new, :new, 'New Password (6 characters with at least one uppercase)'
@@ -26,26 +26,24 @@
             = submit_tag 'Change Password', :class=>"btn btn-primary span2"
 
           %h3 Edit Phone Number
-
-          = form_tag 'changenumber', :method => :put do
-
+          = form_tag account_path(session[:account]), :method => :put  do
+            = hidden_field_tag :type, "edit_phone"
             = label :phone, :number, 'New Phone Number'
             = text_field :phone, :number, :required => 'required'
             %br
             = submit_tag 'Change Phone', :class=>"btn btn-primary span2"
 
           %h3 Change Location
-
-          = form_tag 'changelocation', :method => :put do
-
+          = form_tag account_path(session[:account]), :method => :put  do
+            = hidden_field_tag :type, "edit_location"
             = label :location, :name, 'New Location'
             = text_field :location, :name, :required => 'required'
             %br
             = submit_tag 'Change Location', :class=>"btn btn-primary span2"
 
           %h3 Change Skills
-
-          = form_tag 'changeskills', :method => :put do
+          = form_tag account_path(session[:account]), :method => :put  do
+            = hidden_field_tag :type, "edit_skills"
             - @all_skills.each do |skill|
               = label :skill, skill.skill_name
               = check_box_tag "skills[]", skill.skill_name, false, :id => skill.skill_name

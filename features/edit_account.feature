@@ -2,7 +2,7 @@ Feature: Edit accounts email/password
 
 Scenario: Edit email
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I am on the edit account page
 	When I fill in "email_address" with "test@yahoo.com"
 	And I press "Update"
@@ -18,7 +18,7 @@ Scenario: Edit email (Sad Path)
 
 Scenario: Change password (Happy Path)
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I am on the edit account page
 	When I fill in "password_current" with "Password"
 	And I fill in "password_new_new" with "Foobarzz"
@@ -29,7 +29,7 @@ And I am on the edit account page
 
 Scenario: Change password (sad path)
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I am on the edit account page
   When I fill in "password_current" with "foobar"
   And I fill in "password_new_new" with "Foobarzz"
@@ -40,7 +40,7 @@ And I am on the edit account page
 
 Scenario: Change password (sad path 2)
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I am on the edit account page
 	When I fill in "password_current" with "Password"
 	And I fill in "password_new_new" with "Foobarzz"
@@ -51,7 +51,7 @@ And I am on the edit account page
 
 Scenario: Change password (sad path 3)
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I am on the edit account page
 	And I fill in "password_current" with "Password"
 	And I fill in "password_new_new" with "Foobarzz"
@@ -62,7 +62,7 @@ And I am on the edit account page
 
 Scenario: Change Location (Happy Path)
 	Given the site is set up
-	And I am logged in as an admin
+	And I login with "master" and "Password"
 	And I am on the edit account page
 	And I fill in "location_name" with "SF"
 	And I press "Change Location"
@@ -78,7 +78,7 @@ Scenario: Change Location (Sad Path - not logged in)
 
 Scenario: Change Phone Number (Happy Path)
 	Given the site is set up
-	And I am logged in as an admin
+	And I login with "master" and "Password"
 	And I am on the edit account page
 	And I fill in "phone_number" with "4839458403"
 	And I press "Change Phone"
@@ -94,7 +94,7 @@ Scenario: Change Phone Number (Sad Path - Not logged in)
 
 Scenario: Edit Skills (Happy Path - Admin user)
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I add the "water" skill to the database
 And I am on the edit account page
 	And I check "water"
@@ -104,7 +104,7 @@ And I am on the edit account page
 
 Scenario: Edit Skills (Happy Path - Regular user)
   Given the site is set up
-  And I am logged in as an admin
+  And I login with "master" and "Password"
 And I add the "water" skill to the database
 And I log out
 Given the account is set up

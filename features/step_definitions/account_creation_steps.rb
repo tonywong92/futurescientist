@@ -28,6 +28,7 @@ Then /^I should see the "(.*?)" error$/ do |error_message|
 end
 
 When /^I login with "(.*)" and "(.*)"$/ do |account_name, password|
+  @account_id = Account.find_by_account_name(account_name)
   step "I go to the login page"
   step "I fill in \"account_account_name\" with \"#{account_name}\""
   step "I fill in \"account_password\" with \"#{password}\""
