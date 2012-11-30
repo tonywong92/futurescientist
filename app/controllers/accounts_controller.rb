@@ -6,49 +6,50 @@ require 'hmac-sha1'
 
 class AccountsController < ApplicationController
 
+  # Loads the account creation form
   def new
     @all_skills = Skill.find(:all)
   end
 
+  # Creates a new account after user submits the account creation form. Note: we treat phone number specially because that field is associated with a user, not an account, and therefore is not subject to the account model validations
   def create
     @all_skills = Skill.find(:all)
-    @user = User.new(params[:user])
-    @account = Account.new(params[:account])
-    if params[:account][:password].empty?
-      flash[:notice] = 'Password is a required field'
-    else
-      hmac = HMAC::SHA1.new('1234')
-      hmac.update(params[:account][:password])
-      @account.password = hmac.to_s
-    end
-    @user.phone_number = @user.phone_number.strip
-    if @user.phone_number != nil and !@user.phone_number.strip.empty?
-      @user.phone_number = normalize_phone(@user.phone_number)
-    end
-    if params[:Admin] == '1'
-      @account.admin = true
-      @account.verified_skills = params[:skills]
-    else
-      @account.admin = false
-      @account.skills = params[:skills]
-      @sv = SkillVerification.new
-      @sv.account = @account
-      @sv.save!
-    end
-    @user.account = @account
-    if @user.phone_number != nil and !@user.phone_number.strip.empty?
-      @user.phone_number = normalize_phone(@user.phone_number)
-    end
-    save_account
-    # TODO: user can receive a text and confirm it through text (stored in a session) before an account is actually created. make sure it fails nicely as wel
+    phone_number = normalize_phone(params[:user][:phone_number].strip)
+    if phone_number
+      @user = User.new(params[:user])
+      @user.phone_number = phone_number
+      @account = Account.new(params[:account])
+      if params[:account][:password].empty?
+        flash[:notice] = 'Password is a required field'
+      else
+        hmac = HMAC::SHA1.new('1234')
+        hmac.update(params[:account][:password])
+        @account.password = hmac.to_s
+      end
+      if params[:Admin] == '1'
+        @account.admin = true
+        @account.verified_skills = params[:skills]
+      else
+        @account.admin = false
+        @account.skills = params[:skills]
+        @sv = SkillVerification.new
+        @sv.account = @account
+        @sv.save!
+      end
 =begin
-    begin
-      sms_send(@user.phone_number, "You have successfully created an account with the number #{@user.phone_number}. Congratulations!")
-    rescue Twilio::REST::RequestError
-
-    end
+      begin
+        sms_send(@user.phone_number, "You have successfully created an account! Please reply with the number: #{@account.id}")
+      rescue Twilio::REST::RequestError
+        
+      end
 =end
-    return
+      @user.account = @account
+      save_account
+      return
+    else
+      flash[:notice] = 'Phone Number is a required field'
+      redirect_to new_accounts_path
+    end
   end
 
   def save_account
@@ -229,11 +230,15 @@ class AccountsController < ApplicationController
   end
 
   def normalize_phone phone_number
-    number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
-    if number.length == 11
-      number.slice!(0)
+    if phone_number != nil and phone_number.strip.empty?
+      number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
+      if number.length == 11
+        number.slice!(0)
+      end
+      return '+1' + number
+    else
+      return false
     end
-    return '+1' + number
   end
 
   def sms_authenticate
