@@ -261,7 +261,7 @@ class ProblemsController < ApplicationController
     add_problem_to_user_sms
 
     if save_problem_sms
-      body = "You have successfully posted your problem id: #{@problem.id}. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
+      body = "You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     else
       body = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
     end
@@ -307,7 +307,7 @@ class ProblemsController < ApplicationController
     begin
       problem = Problem.find(problem_id)
     rescue ActiveRecord::RecordNotFound
-      sms_error("Sorry, that problem id does not exist")
+      sms_error("Sorry, that problem id does not exist.")
     end
 
     if problem.user.phone_number == phone_number
@@ -317,14 +317,16 @@ class ProblemsController < ApplicationController
       price = @sms_price || problem.price
 
       if problem.update_attributes!(:summary => summary, :location => location, :skills => skills, :price => price)
-        sms_send("Your problem has successfully been edited")
+        sms_send("Your problem has successfully been edited.")
       else
+        sms_error("it got in here")
+        sms_error(problem.errors.full_messages)
         problem.errors.full_messages.each do |error|
-           sms_error(error)
+           sms_error(error.to_s)
         end
       end
     else
-      sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem")
+      sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem.")
     end
   end
 
