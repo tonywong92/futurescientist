@@ -416,7 +416,7 @@ class ProblemsController < ApplicationController
     end
     if provider_acc.nil?
       sms_error("There is no verified account for #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
-    elsif provider_acc.password == password
+    elsif provider_acc.password == Account.to_hmac(password)
       problem = Problem.find(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
