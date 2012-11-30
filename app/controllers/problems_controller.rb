@@ -320,7 +320,7 @@ class ProblemsController < ApplicationController
         sms_send("Your problem has successfully been edited.")
       else
         problem.errors.full_messages.each do |error|
-           sms_error(error.to_s)
+           sms_error(error)
         end
       end
     else
