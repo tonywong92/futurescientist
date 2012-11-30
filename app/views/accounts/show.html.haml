@@ -11,6 +11,8 @@
 								%a#profile{:href => "/accounts/skills_verification"} Skills Verification
 							%li
 								%a#profile{:href => new_account_path} Add Admin Account
+							%li
+								%a#profile{:href => new_skill_path} Add a New Skill
 					- else
 						%h4 User - #{@user.account.account_name}
 				.span6

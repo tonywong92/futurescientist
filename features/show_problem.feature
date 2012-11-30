@@ -12,10 +12,10 @@ Background: problems have been created by some requester
   | John   | 6264539999     | Address2   |
 
   Given "Bob" created the following problems:
-  | location | skills          | summary           | description       |
-  | Address1 | water           | broken water pipe | water pipe broken |
-  | Address1 | electricity     | wire broken       | wire broken       |
-  | Address3 | water, mold     | roof is leaking   | roof is leaking   |
+  | location | skills          | summary           | description       | wage |
+  | Address1 | water           | broken water pipe | water pipe broken | 50   |
+  | Address1 | electricity     | wire broken       | wire broken       | 50   |
+  | Address3 | water, mold     | roof is leaking   | roof is leaking   | 50   |
 
   And I am on the home page
   

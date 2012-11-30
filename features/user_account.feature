@@ -7,11 +7,11 @@ Background:
 		Given I add the "electronics" skill to the database
     And I am on the create account page
     And I fill in the following fields:
-        | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | Password | Test | 123456789    | Panama   |
+        | Account Name | Password | Name | Phone Number | Location |
+        | Tester       | Password | Test | 123456789    | Panama   |
     And I press "Create Account"
-    And I log out
-    And I login with "Tester" and "Password"
+    And I confirm through text
+    And I press "Continue to problems index"
 
 Scenario: Checking account status as User
 	Given I go to the profile page

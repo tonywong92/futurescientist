@@ -18,10 +18,12 @@ Futurescientist::Application.routes.draw do
   match 'accounts/changenumber' => 'accounts#changenumber'
   match 'accounts/changelocation' => 'accounts#changelocation'
   match 'accounts/changeskills' => 'accounts#changeskills'
+
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :accounts
   resources :problems
+  resources :skills
   root :to => redirect('/problems')
 
   # Sample resource route with options:

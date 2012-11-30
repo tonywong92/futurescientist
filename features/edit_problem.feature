@@ -15,24 +15,26 @@ Background: problems have been created by some requester
   And I add the "electricity" skill to the database
   Given I go to the create account page
   When I fill in the following fields:
-  | Email                | Account Name | Password | Name | Phone Number | Location |
-  | tester@something.com | Tester       | password | Bob | 6265559999     | Panama   |
-  Then I should see "Water"
-  And I check "water"
-  And I press "Create Account"
-  Then I should be on the problems page
-
+        | Account Name | Password | Name | Phone Number | Location |
+        | Tester       | password | Bob  | 6265559999   | Panama   |
+    Then I should see "Water"
+    And I check "water"
+    And I press "Create Account"
+    And I confirm through text
+    And I press "Continue to problems index"
+    Then I should be on the problems page
+ 
   Given "Bob" created the following problems:
-  | location | skills          | summary           | description       |
-  | Address1 | water           | broken water pipe | water pipe broken |
-  | Address2 | electricity     | wire broken       |                   |
-  | Address3 | electronics     | computer broken   | computer broken   |
-  | Address3 | electronics     | gameboy broken    | gameboy broken    |
-  | Address4 | electronics     | ps3 broken        | ps3 broken        |
+  | location | skills          | summary           | description       | wage |
+  | Address1 | water           | broken water pipe | water pipe broken | 50   | 
+  | Address2 | electricity     | wire broken       |                   | 50   |
+  | Address3 | electronics     | computer broken   | computer broken   | 50   |
+  | Address3 | electronics     | gameboy broken    | gameboy broken    | 50   |
+  | Address4 | electronics     | ps3 broken        | ps3 broken        | 50   |
 
   Given "John" created the following problems:
-  | location | skills          | summary           | description       |
-  | Address3 | electricity     | outlet exploded   |                   |
+  | location | skills          | summary           | description       | wage |
+  | Address3 | electricity     | outlet exploded   |                   | 50   |
 
   And I am on the home page
   When I login with "Tester" and "password"

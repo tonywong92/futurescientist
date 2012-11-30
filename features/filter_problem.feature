@@ -12,13 +12,13 @@ Background: problems have been created by some requester
   | John   | 6264539999     | Address2   |
 
   Given "Bob" created the following problems:
-  | location | skills          | summary           | description       |
-  | Address1 | water           | broken water pipe | water pipe broken |
-  | Address2 | electricity     | wire broken       |                   |
-  | Address3 | electronics     | computer broken   | computer broken   |
-  | Address3 | electronics     | gameboy broken    | gameboy broken    |
-  | Address4 | electronics     | ps3 broken        | ps3 broken        |
-  | Address3 | electricity     | outlet exploded   |                   |
+  | location | skills          | summary           | description       | wage |
+  | Address1 | water           | broken water pipe | water pipe broken | 50   |
+  | Address2 | electricity     | wire broken       |                   | 50   |
+  | Address3 | electronics     | computer broken   | computer broken   | 50   |
+  | Address3 | electronics     | gameboy broken    | gameboy broken    | 50   |
+  | Address4 | electronics     | ps3 broken        | ps3 broken        | 50   |
+  | Address3 | electricity     | outlet exploded   |                   | 50   |
 
   And I am on the home page
   

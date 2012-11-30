@@ -9,7 +9,8 @@
 					= flash[:notice]
 				%h3 Details about #{@problem.summary}
 				%ul
-					%li Requested by: #{@user.name}
+					- if !@user.name.nil? and @user.name.strip != ""
+						%li Requested by: #{@user.name}
 					%li Location: #{@problem.location}
 					%li Skills: #{@problem.skills}
 					%li Description: #{@problem.description}
