@@ -311,6 +311,7 @@ class ProblemsController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       sms_error("Sorry, that problem id does not exist")
     end
+
     if problem.user.phone_number == phone_number
       summary = @sms_summary || problem.summary
       location = @sms_location || problem.location
@@ -321,7 +322,8 @@ class ProblemsController < ApplicationController
         sms_send("Your problem has successfully been edited")
       else
         problem.errors.full_messages.each do |error|
-        sms_error(error)
+           sms_error(error)
+        end
       end
     else
       sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem")
