@@ -82,7 +82,7 @@ class ProblemsController < ApplicationController
           sms_get(0)
         when /^edit$/
           sms_edit
-        when /^delete$/
+        when /^delete$/, /^destroy$/
           sms_delete
         when /^next$/
           offset = session["offset"]
@@ -284,12 +284,19 @@ class ProblemsController < ApplicationController
   end
 
   def save_problem
-    if @user.save!
+    if @user.save
       flash[:notice] = 'You have successfully created a problem!'
+      redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating the problem.'
+      if !@user.errors.empty?
+        flash[:user_errors] = @user.errors.full_messages
+      end
+      if !@problem.errors.empty?
+        flash[:problem_errors] = @problem.errors.full_messages
+      end
+      redirect_to new_problem_path
     end
-    redirect_to problems_path
   end
 
   def save_problem_sms
@@ -424,7 +431,7 @@ class ProblemsController < ApplicationController
         @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
       end
     else
-      body = "Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'"
+      sms_error("Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'")
     end
   end
 
