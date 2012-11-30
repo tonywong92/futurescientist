@@ -5,7 +5,27 @@
       .container
         .span8
           %h3 Problem Submission
-
+          - if flash[:problem_errors] or flash[:user_errors]
+            The following errors occurred:
+          - if flash[:problem_errors]
+            %ul
+              - flash[:problem_errors].each do |error|
+                %li= error
+          - if flash[:user_errors]
+            %ul
+              - flash[:user_errors].each do |error|
+                %li= error
+          - unless @problem.nil? or @problem.errors.empty? or flash[:problem_errors].empty?
+            The following errors occurred:
+            %ul
+              - @problem.errors.full_messages.each do |error|
+                %li= error
+        
+          - unless @user.nil? or @user.errors.empty?
+            The following fields were missing:
+            %ul
+              - @user.errors.full_messages.each do |error|
+                %li= error
           = form_tag problems_path do
 
             = label :user, :name, 'Name'
@@ -13,17 +33,20 @@
   
             = label :user, :phone_number, 'Phone Number'
             = text_field :user, :phone_number, :placeholder=>"xxx-xxx-xxxx", :required=>""
-  
+
             = label :problem, :location, 'Location'
             = text_field :problem, :location, :required=>""
+            Max: #{Problem.LOCATION_LIMIT} Characters
 
             = label :problem, :skills, 'Skills Required'
             = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name'))
 
             = label :problem, :summary, 'Problem Summary'
             = text_field :problem, :summary, :required=>""
+            Max: #{Problem.SUMMARY_LIMIT} Characters
 
             = label :problem, :description, 'Description'
             = text_area :problem, :description
+            Max: #{Problem.DESCRIPTION_LIMIT} Characters
             %br
             = submit_tag 'Submit Problem', :class=>"btn btn-primary span3"

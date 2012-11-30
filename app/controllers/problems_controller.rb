@@ -31,15 +31,13 @@ class ProblemsController < ApplicationController
     @sessionSkills = skills
     @sessionAddresses = addresses
     if skills.include? "All" and addresses.include? "All"
-    @problems = Problem.find(
-          :all,
-            :order => "created_at DESC")
+    @problems = Problem.where(:archived => false).order("created_at DESC")
     elsif skills.include? "All"
-  @problems = Problem.where(:location => addresses).order("created_at DESC")
+  @problems = Problem.where(:location => addresses, :archived => false).order("created_at DESC")
     elsif addresses.include? "All"
-  @problems = Problem.where(:skills => skills).order("created_at DESC")
+  @problems = Problem.where(:skills => skills, :archived => false).order("created_at DESC")
     else
-      @problems = Problem.where(:skills => skills, :location => addresses).order("created_at DESC")
+      @problems = Problem.where(:skills => skills, :location => addresses, :archived => false).order("created_at DESC")
     end
     @curr_skills = Problem.select(:skills).uniq
     @curr_addresses = Problem.select(:location).uniq
@@ -75,13 +73,17 @@ class ProblemsController < ApplicationController
     action = sms_parsing(body)
     if !@sms_error
       case action.downcase
-        when /^add$/
+        when /^add$/,/^insert$/
           sms_create
         when /^accept$/
           sms_accept_problem
         when /^get$/
           @offset = false
           sms_get(0)
+        when /^edit$/
+          sms_edit
+        when /^delete$/, /^destroy$/
+          sms_delete
         when /^next$/
           offset = session["offset"]
           if offset == nil
@@ -170,8 +172,8 @@ class ProblemsController < ApplicationController
 
   def sms_authenticate
     if @client == nil
-      account_sid = 'AC7bec7276c109417979adfc442a675fc9'#'ACafb3d0d7820d6b39613ffdc47d5f074f'
-      auth_token = '6ca5a284c956fc0a444ba453ca63508b'#'71aedf3c912ea6f64b719d671adea8b3'
+      account_sid = 'ACafb3d0d7820d6b39613ffdc47d5f074f'#'AC7bec7276c109417979adfc442a675fc9'#'ACafb3d0d7820d6b39613ffdc47d5f074f'
+      auth_token ='71aedf3c912ea6f64b719d671adea8b3'#'6ca5a284c956fc0a444ba453ca63508b'#'71aedf3c912ea6f64b719d671adea8b3'
       @client = Twilio::REST::Client.new(account_sid, auth_token)
     end
   end
@@ -250,8 +252,6 @@ class ProblemsController < ApplicationController
 
   # sms support for problem creation
   def sms_create
-    success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
-    failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
     summary = @sms_summary
     location = @sms_location
     skills = @sms_skills
@@ -261,9 +261,9 @@ class ProblemsController < ApplicationController
     add_problem_to_user_sms
 
     if save_problem_sms
-      body = success_msg
+      body = "You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     else
-      body = failure_msg
+      body = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
     end
 
     sms_authenticate
@@ -284,12 +284,19 @@ class ProblemsController < ApplicationController
   end
 
   def save_problem
-    if @user.save!
+    if @user.save
       flash[:notice] = 'You have successfully created a problem!'
+      redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating the problem.'
+      if !@user.errors.empty?
+        flash[:user_errors] = @user.errors.full_messages
+      end
+      if !@problem.errors.empty?
+        flash[:problem_errors] = @problem.errors.full_messages
+      end
+      redirect_to new_problem_path
     end
-    redirect_to problems_path
   end
 
   def save_problem_sms
@@ -297,6 +304,52 @@ class ProblemsController < ApplicationController
       return true
     else
       return false
+    end
+  end
+
+  def sms_edit
+    sms_authenticate
+    problem_id = @problem_text[1]
+    phone_number = params[:From]
+    begin
+      problem = Problem.find(problem_id)
+    rescue ActiveRecord::RecordNotFound
+      sms_error("Sorry, that problem id does not exist.")
+    end
+
+    if problem.user.phone_number == phone_number
+      summary = @sms_summary || problem.summary
+      location = @sms_location || problem.location
+      skills = @sms_skills || problem.skills
+      price = @sms_price || problem.price
+
+      if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :price => price)
+        sms_send("Your problem has successfully been edited.")
+      else
+        problem.errors.full_messages.each do |error|
+           sms_error(error)
+        end
+      end
+    else
+      sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem.")
+    end
+  end
+
+  def sms_delete
+    sms_authenticate
+    problem_id = @problem_text[1]
+    phone_number = params[:From]
+    begin
+      problem = Problem.find(problem_id)
+    rescue ActiveRecord::RecordNotFound
+      sms_error("Sorry, that problem id does not exist.")
+    end
+
+    if problem.user.phone_number == phone_number
+        problem.destroy
+        sms_send("Your problem has successfully been deleted.")
+    else
+        sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem.")
     end
   end
 
@@ -337,7 +390,7 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    if account != nil      
+    if account != nil
       @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -363,7 +416,7 @@ class ProblemsController < ApplicationController
     end
     if provider_acc.nil?
       sms_error("There is no verified account for #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
-    elsif provider_acc.password == password
+    elsif provider_acc.password == Account.to_hmac(password)
       problem = Problem.find(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
@@ -378,7 +431,7 @@ class ProblemsController < ApplicationController
         @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
       end
     else
-      body = "Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'"
+      sms_error("Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'")
     end
   end
 
@@ -393,7 +446,7 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = Account.find_by_id(session[:account])    
+    account = Account.find_by_id(session[:account])
     if account != nil
       @is_admin = account.admin
       if account.user.phone_number == @user.phone_number

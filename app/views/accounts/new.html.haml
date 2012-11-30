@@ -46,6 +46,7 @@
   
             = label :user, :location, 'Location'
             = text_field :user, :location, :id => 'location'
+            Max: #{Problem.LOCATION_LIMIT} Characters
 
             = label :account, :skills, 'Skills'
             - @all_skills.each do |skill|

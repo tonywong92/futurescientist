@@ -21,10 +21,6 @@ class AccountsController < ApplicationController
       @account = Account.new(params[:account])
       if params[:account][:password].empty?
         flash[:notice] = 'Password is a required field'
-      else
-        hmac = HMAC::SHA1.new('1234')
-        hmac.update(params[:account][:password])
-        @account.password = hmac.to_s
       end
       if params[:Admin] == '1'
         @account.admin = true
@@ -131,9 +127,7 @@ class AccountsController < ApplicationController
   end
 
   def validate_password
-    hmac = HMAC::SHA1.new('1234')
-    hmac.update(params[:account][:password])
-    if @account.password == hmac.to_s
+    if @account.password == Account.to_hmac(params[:account][:password])
       session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
@@ -163,17 +157,14 @@ class AccountsController < ApplicationController
 
   def changepass
     @account = Account.find_by_id(session[:account])
-    hmac = HMAC::SHA1.new('1234')
-    hmac.update(params[:password][:current])
     if @account.nil?
        flash[:notice] = "You are not logged in"
        redirect_to '/accounts/edit'
-    elsif hmac.to_s != @account.password
+    elsif Account.to_hmac(params[:password][:current]) != @account.password
        flash[:notice] = "Password incorrect"
        redirect_to '/accounts/edit'
     elsif params[:password_new][:new] == params[:reenter][:pass]
-      hmac.update(params[:password_new][:new])
-      @account.update_attributes!(:password => hmac.to_s)
+      @account.update_attributes!(:password => params[:password_new][:new])
       flash[:notice] = "Password changed"
       redirect_to '/accounts/edit'
     else
