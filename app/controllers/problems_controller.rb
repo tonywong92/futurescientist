@@ -252,8 +252,6 @@ class ProblemsController < ApplicationController
 
   # sms support for problem creation
   def sms_create
-    success_msg = "You have successfully posted your problem. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
-    failure_msg = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
     summary = @sms_summary
     location = @sms_location
     skills = @sms_skills
@@ -263,9 +261,9 @@ class ProblemsController < ApplicationController
     add_problem_to_user_sms
 
     if save_problem_sms
-      body = success_msg
+      body = "You have successfully posted your problem id: #{@problem.id}. We will notify you of any updates as soon as possible. Thank you for using Emplify!"
     else
-      body = failure_msg
+      body = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
     end
 
     sms_authenticate
