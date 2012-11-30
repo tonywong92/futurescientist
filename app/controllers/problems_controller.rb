@@ -329,17 +329,20 @@ class ProblemsController < ApplicationController
   end
 
   def sms_delete
+    sms_authenticate
     problem_id = @problem_text[1]
+    phone_number = params[:From]
     begin
       problem = Problem.find(problem_id)
-      problem_details = problem.more_detail
-      current = 0
-      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
-        sms_send(problem_details.slice(current, current + TEXTLENGTH))
-        current += TEXTLENGTH
-      end
     rescue ActiveRecord::RecordNotFound
-      sms_error("Sorry, that problem id does not exist")
+      sms_error("Sorry, that problem id does not exist.")
+    end
+
+    if problem.user.phone_number == phone_number
+        problem.destroy
+        sms_send("Your problem has successfully been deleted.")
+    else
+        sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem.")
     end
   end
 
