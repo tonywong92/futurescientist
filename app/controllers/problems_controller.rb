@@ -31,15 +31,13 @@ class ProblemsController < ApplicationController
     @sessionSkills = skills
     @sessionAddresses = addresses
     if skills.include? "All" and addresses.include? "All"
-    @problems = Problem.find(
-          :all,
-            :order => "created_at DESC")
+    @problems = Problem.where(:archived => false).order("created_at DESC")
     elsif skills.include? "All"
-  @problems = Problem.where(:location => addresses).order("created_at DESC")
+  @problems = Problem.where(:location => addresses, :archived => false).order("created_at DESC")
     elsif addresses.include? "All"
-  @problems = Problem.where(:skills => skills).order("created_at DESC")
+  @problems = Problem.where(:skills => skills, :archived => false).order("created_at DESC")
     else
-      @problems = Problem.where(:skills => skills, :location => addresses).order("created_at DESC")
+      @problems = Problem.where(:skills => skills, :location => addresses, :archived => false).order("created_at DESC")
     end
     @curr_skills = Problem.select(:skills).uniq
     @curr_addresses = Problem.select(:location).uniq
@@ -75,13 +73,17 @@ class ProblemsController < ApplicationController
     action = sms_parsing(body)
     if !@sms_error
       case action.downcase
-        when /^add$/
+        when /^add$/,/^insert$/
           sms_create
         when /^accept$/
           sms_accept_problem
         when /^get$/
           @offset = false
           sms_get(0)
+        when /^edit$/
+          sms_edit
+        when /^delete$/
+          sms_delete
         when /^next$/
           offset = session["offset"]
           if offset == nil
@@ -300,6 +302,47 @@ class ProblemsController < ApplicationController
     end
   end
 
+  def sms_edit
+    sms_authenticate
+    problem_id = @problem_text[1]
+    phone_number = params[:From]
+    begin
+      problem = Problem.find(problem_id)
+    rescue ActiveRecord::RecordNotFound
+      sms_error("Sorry, that problem id does not exist")
+    end
+    if problem.user.phone_number == phone_number
+      summary = @sms_summary || problem.summary
+      location = @sms_location || problem.location
+      skills = @sms_skills || problem.skills
+      price = @sms_price || problem.price
+
+      if problem.update_attributes!(:summary => summary, :location => location, :skills => skills, :price => price)
+        sms_send("Your problem has successfully been edited")
+      else
+        problem.errors.full_messages.each do |error|
+        sms_error(error)
+      end
+    else
+      sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem")
+    end
+  end
+
+  def sms_delete
+    problem_id = @problem_text[1]
+    begin
+      problem = Problem.find(problem_id)
+      problem_details = problem.more_detail
+      current = 0
+      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+        sms_send(problem_details.slice(current, current + TEXTLENGTH))
+        current += TEXTLENGTH
+      end
+    rescue ActiveRecord::RecordNotFound
+      sms_error("Sorry, that problem id does not exist")
+    end
+  end
+
   def show
     id = params[:id]
     @problem = Problem.find(id)
@@ -337,7 +380,7 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @user = @problem.user
     account = Account.find_by_id(session[:account])
-    if account != nil      
+    if account != nil
       @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
         @verifiedUser = true
@@ -393,7 +436,7 @@ class ProblemsController < ApplicationController
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
-    account = Account.find_by_id(session[:account])    
+    account = Account.find_by_id(session[:account])
     if account != nil
       @is_admin = account.admin
       if account.user.phone_number == @user.phone_number
