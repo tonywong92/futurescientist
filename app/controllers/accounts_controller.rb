@@ -53,6 +53,9 @@ class AccountsController < ApplicationController
 
   def save_account
     if @user.save and @account.save
+      if session[:account].nil?
+        session[:account] = @account.id
+      end
       flash[:notice] = 'You have successfully created an account'
       redirect_to problems_path
     else
