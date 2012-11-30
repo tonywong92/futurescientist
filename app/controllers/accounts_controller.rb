@@ -15,10 +15,10 @@ class AccountsController < ApplicationController
   def create
     @all_skills = Skill.find(:all)
     phone_number = normalize_phone(params[:user][:phone_number].strip)
+    @user = User.new(params[:user])
+    @account = Account.new(params[:account])
     if phone_number
-      @user = User.new(params[:user])
       @user.phone_number = phone_number
-      @account = Account.new(params[:account])
       if params[:account][:password].empty?
         flash[:notice] = 'Password is a required field'
       end
@@ -44,7 +44,7 @@ class AccountsController < ApplicationController
       return
     else
       flash[:notice] = 'Phone Number is a required field'
-      redirect_to new_accounts_path
+      redirect_to new_account_path
     end
   end
 
@@ -221,7 +221,7 @@ class AccountsController < ApplicationController
   end
 
   def normalize_phone phone_number
-    if phone_number != nil and phone_number.strip.empty?
+    if phone_number != nil and !phone_number.strip.empty?
       number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
       if number.length == 11
         number.slice!(0)
