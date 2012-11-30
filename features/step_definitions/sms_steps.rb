@@ -10,6 +10,9 @@
 # current_text_message
 # open_last_text_message_for
 
+Given /^I confirm through text$/ do
+  pending # express the regexp above with the code you wish you had
+end
 
 Given /^no text messages have been sent$/ do
   clear_messages
