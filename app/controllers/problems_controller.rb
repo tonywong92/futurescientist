@@ -63,6 +63,7 @@ class ProblemsController < ApplicationController
     @sms_price = nil
     @sms_limit = nil
     @client = nil
+    @sms_error = false
   end
 
   #sms superfunction for receiving texts
@@ -81,6 +82,7 @@ class ProblemsController < ApplicationController
           @offset = false
           sms_get(0)
         when /^edit$/
+        puts body
           sms_edit
         when /^delete$/, /^destroy$/
           sms_delete
@@ -312,6 +314,9 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     phone_number = params[:From]
     begin
+      puts "HERE IT IS ============================================"
+      puts problem_id
+      puts "====================================================="
       problem = Problem.find(problem_id)
       if problem.user.phone_number == phone_number
         summary = @sms_summary || problem.summary

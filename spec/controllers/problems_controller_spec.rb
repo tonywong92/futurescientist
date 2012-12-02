@@ -83,12 +83,12 @@ describe ProblemsController do
         open_last_text_message_for registered_phone_number2
         current_text_message.should have_body "LIMIT must be followed by a integer number"
 
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'EDIT 500'}
-        open_last_text_message_for registered_phone_number2
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Edit 500'}
+        open_last_text_message_for registered_phone_number
         current_text_message.should have_body "Sorry, that problem id does not exist."
 
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'DELETE 500'}
-        open_last_text_message_for registered_phone_number2
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Delete 500'}
+        open_last_text_message_for registered_phone_number
         current_text_message.should have_body "Sorry, that problem id does not exist."
       end
 
