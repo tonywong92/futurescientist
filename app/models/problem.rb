@@ -26,7 +26,7 @@ class Problem < ActiveRecord::Base
     if description == nil
       description = "None"
     end
-    return "id:#{self.id}. Description: #{description} Phone: #{self.user.phone_number} "
+    return "id:#{self.id}. Description: #{description} "
   end
 
   def self.DESCRIPTION_LIMIT

@@ -90,6 +90,8 @@ describe ProblemsController do
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Delete 500'}
         open_last_text_message_for registered_phone_number
         current_text_message.should have_body "Sorry, that problem id does not exist."
+
+
       end
 
       it 'should send me a list of problems with correct attributes' do
@@ -164,6 +166,16 @@ describe ProblemsController do
         textedProblem.location.should == "San Francisco"
         textedProblem.skills.should == "mold electricity"
         textedProblem.price.should == 49.38
+        newString = "i"
+        Problem.SUMMARY_LIMIT.times do |i|
+          newString << "i"
+        end
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} ##{newString}"}
+        open_last_text_message_for registered_phone_number
+        open_last_text_message_for registered_phone_number
+        open_last_text_message_for registered_phone_number
+        current_text_message.should have_body "Summary is too long (maximum is #{Problem.SUMMARY_LIMIT} characters)"
+
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Delete #{problem1_id}"}
         textedProblem = Problem.find_by_id(problem1_id)
         textedProblem.should be_nil

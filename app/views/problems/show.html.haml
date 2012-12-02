@@ -14,7 +14,6 @@
 					%li Location: #{@problem.location}
 					%li Skills: #{@problem.skills}
 					%li Description: #{@problem.description}
-					%li Phone number: #{@user.phone_number}
 				- if @verifiedUser or @is_admin
 					= link_to 'Edit', edit_problem_path(@problem)
 					= button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'

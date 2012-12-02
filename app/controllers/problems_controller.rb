@@ -182,12 +182,20 @@ class ProblemsController < ApplicationController
 
   def sms_error(error_string)
     sms_authenticate
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string)
+    current = 0;
+    (error_string.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string.slice(current, current + TEXTLENGTH))
+      current += TEXTLENGTH
+     end
   end
 
   def sms_send(string)
     sms_authenticate
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string)
+    current = 0;
+    (string.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string.slice(current, current + TEXTLENGTH))
+      current += TEXTLENGTH
+     end
   end
 
   def sms_get(offset)
@@ -314,9 +322,6 @@ class ProblemsController < ApplicationController
     problem_id = @problem_text[1]
     phone_number = params[:From]
     begin
-      puts "HERE IT IS ============================================"
-      puts problem_id
-      puts "====================================================="
       problem = Problem.find(problem_id)
       if problem.user.phone_number == phone_number
         summary = @sms_summary || problem.summary
