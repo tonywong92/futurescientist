@@ -143,8 +143,6 @@ class SmsController < ApplicationController
     location = @sms_location
     skills = @sms_skills
     amountOfTexts = @sms_limit
-    puts location
-    puts skills
     if @offset
       amountOfTexts = @problem_text[1].to_i
       location = session["location"]
@@ -163,7 +161,7 @@ class SmsController < ApplicationController
         problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
       end
       problems.each do |problem|
-            tmpbody = body +  problem.to_s
+            tmpbody = body +  problem.to_s + '\n'
             if tmpbody.length <= TEXTLENGTH
               body = tmpbody
               offset +=1

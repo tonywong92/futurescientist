@@ -30,7 +30,7 @@ end
   end
 
   def to_s
-    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} "# $#{self.wage} "
+    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} $#{self.wage}"
   end
 
   def more_detail
@@ -38,7 +38,7 @@ end
     if description == nil
       description = "None"
     end
-    return "id:#{self.id}. Description: #{description} "
+    return "id:#{self.id}. Description: #{description}"
   end
 
   def self.DESCRIPTION_LIMIT
