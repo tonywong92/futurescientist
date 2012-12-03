@@ -27,7 +27,7 @@ end
     puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     puts skill
     if skill.nil?
-      errors.add(:skills, "is not a current skill we have.")
+      errors.add(:skills, ": #{skills} is not a current skill we have.")
     end
   end
 
