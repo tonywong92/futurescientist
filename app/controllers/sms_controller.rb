@@ -41,15 +41,16 @@ class SmsController < ApplicationController
           end
         when /^detail$/, /^details$/, /^describe$/
           sms_detail
-        when is_num?(action) do
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          session[:received_confirmation] = action
-          sms_confirm_acc
-        end
+        else
+          if is_num?(action)
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            session[:received_confirmation] = action
+            sms_confirm_acc
+          end
       end
     end
     render :nothing => true
