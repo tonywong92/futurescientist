@@ -143,6 +143,7 @@ class SmsController < ApplicationController
     location = @sms_location
     skills = @sms_skills
     amountOfTexts = @sms_limit
+
     if @offset
       amountOfTexts = @problem_text[1].to_i
       location = session["location"]
@@ -169,7 +170,8 @@ class SmsController < ApplicationController
 	      break
 	    end
       end
-      if body.strip! == ""
+      body = body.strip
+      if body == ""
         body = "There are no more additional problems"
         body += (location || skills) ? " for" : "."
         body += (location) ? " Location: #{location}" : ""
@@ -177,7 +179,6 @@ class SmsController < ApplicationController
         sms_send(body)
         break
       else
-        body = body.strip
         sms_send(body)
       end
     end
