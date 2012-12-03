@@ -42,6 +42,11 @@ class ProblemsController < ApplicationController
     @curr_skills = Problem.select(:skills).uniq
     @curr_addresses = Problem.select(:location).uniq
   end
+  
+  def new
+    @all_skills = Skill.find(:all)
+    render 'problems/new'
+  end
 
   def create
     @problem = Problem.new(:location => params[:problem][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
@@ -56,6 +61,7 @@ class ProblemsController < ApplicationController
     return
   end
 
+<<<<<<< HEAD
   def uninitialize_sms
     @sms_location = nil
     @sms_skills = nil
@@ -292,6 +298,8 @@ class ProblemsController < ApplicationController
     render 'problems/new'
   end
 
+=======
+>>>>>>> 051923e0d711e62249fe6786a0d6c317fa429355
   def save_problem
     if @user.save
       flash[:notice] = 'You have successfully created a problem!'
@@ -305,58 +313,6 @@ class ProblemsController < ApplicationController
         flash[:problem_errors] = @problem.errors.full_messages
       end
       redirect_to new_problem_path
-    end
-  end
-
-  def save_problem_sms
-    if @user.save
-      return true
-    else
-      return false
-    end
-  end
-
-  def sms_edit
-    sms_authenticate
-    problem_id = @problem_text[1]
-    phone_number = params[:From]
-    begin
-      problem = Problem.find(problem_id)
-      if problem.user.phone_number == phone_number
-        summary = @sms_summary || problem.summary
-        location = @sms_location || problem.location
-        skills = @sms_skills || problem.skills
-        price = @sms_price || problem.price
-
-        if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :price => price)
-          sms_send("Your problem has successfully been edited.")
-        else
-          problem.errors.full_messages.each do |error|
-            sms_error(error)
-          end
-        end
-      else
-        sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem.")
-    end
-    rescue ActiveRecord::RecordNotFound
-      sms_error("Sorry, that problem id does not exist.")
-    end
-  end
-
-  def sms_delete
-    sms_authenticate
-    problem_id = @problem_text[1]
-    phone_number = params[:From]
-    begin
-      problem = Problem.find(problem_id)
-      if problem.user.phone_number == phone_number
-        problem.destroy
-        sms_send("Your problem has successfully been deleted.")
-      else
-        sms_error("Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem.")
-      end
-    rescue ActiveRecord::RecordNotFound
-      sms_error("Sorry, that problem id does not exist.")
     end
   end
 
@@ -413,43 +369,6 @@ class ProblemsController < ApplicationController
     end
   end
 
-  #Expecting the input to look like: "accept [problem id] [password]"
-  def sms_accept_problem
-    problem_id = @problem_text[1]
-    password = @problem_text[2]
-    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    if !provider_user.nil?
-      provider_acc = provider_user.account
-    end
-    if provider_acc.nil?
-      sms_error("There is no verified account for #{normalize_phone(params[:From])}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
-    elsif provider_acc.password == Account.to_hmac(password)
-      problem = Problem.find(problem_id)
-      if problem.nil?
-        sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
-      else
-        problem.archived = true
-        problem.save
-        requester = problem.user
-        sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
-        #send a notification to the requester saying that a provider will be contacting shortly
-        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
-        sms_authenticate
-        @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
-      end
-    else
-      sms_error("Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'")
-    end
-  end
-
-  def normalize_phone phone_number
-    number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
-    if number.length == 11
-      number.slice!(0)
-    end
-    return '+1' + number
-  end
-
   def destroy
     @problem = Problem.find(params[:id])
     @user = @problem.user
@@ -469,14 +388,6 @@ class ProblemsController < ApplicationController
       flash[:notice] = 'You do not have permission to delete this problem.'
       redirect_to problems_path
     end
-  end
-
-  def is_num?(str)
-    Integer(str)
-    rescue ArgumentError
-      false
-    else
-      true
   end
 
 end

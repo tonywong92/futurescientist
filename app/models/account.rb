@@ -18,7 +18,7 @@ class Account < ActiveRecord::Base
     end
   end
 
-  attr_accessible :admin, :email, :account_name, :password, :skills, :verified_skills
+  attr_accessible :admin, :email, :account_name, :password, :skills, :verified_skills, :verified
 
   serialize :skills
   serialize :verified_skills
@@ -27,8 +27,10 @@ class Account < ActiveRecord::Base
 
   has_many :problems, :through => :users
 
+  validates :email, :presence => true
   validates :account_name, :presence => true
   validates :password, :presence => true
+  validates_uniqueness_of :email
   validates_uniqueness_of :account_name
 
   after_initialize :init

@@ -6,12 +6,18 @@ require 'hmac-sha1'
 
 class AccountsController < ApplicationController
 
+  skip_before_filter :verify_authenticity_token
+
+  # Test numbers: When you create an account in rails server, you need to use one of these numbers. Otherwise it will try to send a text to confirm the number you are using and it will fail.
+  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222"]
+
   # Loads the account creation form
   def new
     @all_skills = Skill.find(:all)
   end
 
   # Creates a new account after user submits the account creation form. Note: we treat phone number specially because that field is associated with a user, not an account, and therefore is not subject to the account model validations
+  # In production, we require a confirmation text to be sent and received in order to create an account
   def create
     @all_skills = Skill.find(:all)
     phone_number = normalize_phone(params[:user][:phone_number].strip)
@@ -20,7 +26,7 @@ class AccountsController < ApplicationController
     if phone_number
       @user.phone_number = phone_number
       if params[:account][:password].empty?
-        flash[:notice] = 'Password is a required field'
+        flash[:notice] = 'Password is a required field.'
       end
       if params[:Admin] == '1'
         @account.admin = true
@@ -32,29 +38,34 @@ class AccountsController < ApplicationController
         @sv.account = @account
         @sv.save!
       end
-=begin
-      begin
-        sms_send(@user.phone_number, "You have successfully created an account! Please reply with the number: #{@account.id}")
-      rescue Twilio::REST::RequestError
-        
-      end
-=end
       @user.account = @account
-      save_account
-      return
+      save_account phone_number
     else
-      flash[:notice] = 'Phone Number is a required field'
-      redirect_to new_account_path
+      flash[:notice] = 'Phone Number is a required field.'
+      render new_account_path
     end
   end
 
-  def save_account
+  def save_account phone_number
     if @user.save and @account.save
-      if session[:account].nil?
-        session[:account] = @account.id
-      end
+      reset_session
+      session[:account] = @account.id
       flash[:notice] = 'You have successfully created an account'
       redirect_to problems_path
+      if TEST_NUMBERS.include? phone_number
+        #don't require a text confirmation
+        @user.account.verified = true
+        @user.account.save
+      else
+        begin
+          sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
+          flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login after this session."
+        rescue Twilio::REST::RequestError
+          flash[:notice] = 'We seem to be having difficulties sending a text to your phone number. Please try another valid phone number or try again later.'
+          render new_account_path
+          return
+        end
+      end
     else
       flash[:error] = 'There was a problem with creating your account'
       if !@user.errors.empty?
@@ -113,6 +124,9 @@ class AccountsController < ApplicationController
     @account = Account.find_by_account_name(params[:account][:account_name])
     if @account.nil?
       flash[:error] = 'No such account exists'
+      render '/accounts/login_form'
+    elsif !@account.verified
+      flash[:error] = 'This account has not yet been verified. Please respond to the text you received with the confirmation number.'
       render '/accounts/login_form'
     else
       validate_password
@@ -224,36 +238,6 @@ class AccountsController < ApplicationController
       flash[:notice] = "Skills to be verified"
       redirect_to edit_account_path(@account.id)
     end
-  end
-
-  def normalize_phone phone_number
-    if phone_number != nil and !phone_number.strip.empty?
-      number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
-      if number.length == 11
-        number.slice!(0)
-      end
-      return '+1' + number
-    else
-      return false
-    end
-  end
-
-  def sms_authenticate
-    if @client == nil
-      account_sid = 'AC7bec7276c109417979adfc442a675fc9'
-      auth_token = '6ca5a284c956fc0a444ba453ca63508b'
-      @client = Twilio::REST::Client.new(account_sid, auth_token)
-    end
-  end
-
-  def sms_error(to, error_string)
-    sms_authenticate
-    @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => error_string)
-  end
-
-  def sms_send(to, string)
-    sms_authenticate
-    @client.account.sms.messages.create(:from => '+16502674928', :to => to, :body => string)
   end
 
 end

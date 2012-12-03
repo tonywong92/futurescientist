@@ -5,7 +5,7 @@ class CreateProblems < ActiveRecord::Migration
       t.string :skills
       t.string :summary
       t.text :description
-      t.float :price
+      t.float :wage
       t.references 'user'
       t.boolean :archived, :default => false
 

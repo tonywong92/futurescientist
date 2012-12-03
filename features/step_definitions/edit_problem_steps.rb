@@ -1,5 +1,7 @@
 # Add a declarative step here for populating the DB with movies.
 
+
+# TODO!!!! WAGE MUST BE A FLOAT. CUCUMBER WILL PASS IT IN AS A STRING. MUST CONVERT BEFORE CREATING A PROBLEM.
 Given /^"(.*?)" created the following problems:$/ do |name, problems_table|
   user = User.find_by_name(name)
   problems_table.hashes.each do |problem|

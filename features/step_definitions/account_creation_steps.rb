@@ -22,7 +22,7 @@ Then /^I should see the "(.*?)" error$/ do |error_message|
     when /^Missing Name$/
       message = "Name can't be blank"
     when /^Missing Phone Number$/
-      message = "Phone number can't be blank"
+      message = "Phone Number is a required field"
   end
   step "I should see \"#{message}\""
 end

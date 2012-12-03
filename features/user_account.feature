@@ -2,16 +2,20 @@ Feature: User should have a user dashboard
 
 Background:
     Given the site is set up
+    And I add the "water" skill to the database
+    Given I am on the problem submission page
+	  And I select "water" from "skills"
+	  And I fill in "Problem Summary" with "Broken Pipe"
+	  And I press "Submit Problem"
     And I log out
+    
     Given I add the "water" skill to the database
 		Given I add the "electronics" skill to the database
     And I am on the create account page
     And I fill in the following fields:
-        | Account Name | Password | Name | Phone Number | Location |
-        | Tester       | Password | Test | 123456789    | Panama   |
+        |Email          | Account Name | Password | Name | Phone Number | Location |
+        | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
     And I press "Create Account"
-    And I confirm through text
-    And I press "Continue to problems index"
 
 Scenario: Checking account status as User
 	Given I go to the profile page

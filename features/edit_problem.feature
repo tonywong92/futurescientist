@@ -7,21 +7,19 @@ Feature: allow problems to be edited or deleted by the poster
 Background: problems have been created by some requester
   Given the site is set up
   And the following users exists:
-  | name   | phone_number   | location   |
-  | John   | 6264539999     | Address2   |
+  | name   | phone_number     | location   |
+  | John   | +11234567890     | Address2   |
 
   And I add the "electronics" skill to the database
   And I add the "water" skill to the database
   And I add the "electricity" skill to the database
   Given I go to the create account page
   When I fill in the following fields:
-        | Account Name | Password | Name | Phone Number | Location |
-        | Tester       | password | Bob  | 6265559999   | Panama   |
+        | Email         | Account Name | Password | Name | Phone Number | Location |
+        | test@test.com | Tester       | password | Bob  | 6265559999   | Panama   |
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
-    And I confirm through text
-    And I press "Continue to problems index"
     Then I should be on the problems page
  
   Given "Bob" created the following problems:
