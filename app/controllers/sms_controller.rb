@@ -354,6 +354,7 @@ class SmsController < ApplicationController
              sms_error(error)
           end
       end
+    end
   end
 
   def forgot_acc
