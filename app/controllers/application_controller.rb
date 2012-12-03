@@ -21,18 +21,21 @@ class ApplicationController < ActionController::Base
      end
   end
 
-  def sms_send(string)
-    sms_authenticate
-    current = 0;
-    (string.length/(TEXTLENGTH.to_f)).ceil.times do |i|
-      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string.slice(current, current + TEXTLENGTH))
-      current += TEXTLENGTH
-     end
-  end
-  
-  def sms_send(phone_number, string)
-    sms_authenticate
-    @client.account.sms.messages.create(:from => TWILIO, :to => phone_number, :body => string)
+  def sms_send *args
+    if args.size == 1:
+	    string = args[0]
+	    sms_authenticate
+	    current = 0;
+	    (string.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+	      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string.slice(current, current + TEXTLENGTH))
+	      current += TEXTLENGTH
+	     end
+    else
+ 	string = args[0]
+	phone_number = args[1]
+    	sms_authenticate
+    	@client.account.sms.messages.create(:from => TWILIO, :to => phone_number, :body => string)
+    end
   end
   
   def is_num?(str)
