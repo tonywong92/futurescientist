@@ -13,12 +13,12 @@ user = User.new({ :name => "dummy1", :phone_number=> "+11231231234", :location =
 user.save!
 user2 = User.new({ :name => "dummy2", :phone_number=> "+15555557777", :location => "Address2"})
 user2.save!
-problem = Problem.new({ :location => "Address1", :skills => "electricity", :summary => "wires", :description => "description1"})
+problem = Problem.new({ :location => "Address1", :skills => "electricity", :summary => "wires", :description => "description1", :wage => 50.0})
 user.problems << problem
 user.save!
-problem2 = Problem.new({ :location => "Address1", :skills => "water", :summary => "water pipe broke", :description => "description2"})
+problem2 = Problem.new({ :location => "Address1", :skills => "water", :summary => "water pipe broke", :description => "description2", :wage => 50.0})
 user.problems << problem2
 user.save!
-problem3 = Problem.new({ :location => "Address2", :skills => "electronics", :summary => "radio broke", :description => "description3"})
+problem3 = Problem.new({ :location => "Address2", :skills => "electronics", :summary => "radio broke", :description => "description3", :wage => 50.0})
 user2.problems << problem3
 user2.save!
