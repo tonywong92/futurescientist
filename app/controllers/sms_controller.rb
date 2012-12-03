@@ -347,13 +347,17 @@ class SmsController < ApplicationController
     if id.nil?
       sms_error("Sorry, please send another request 'password' to this number.")
     else
-      account = Account.find(id)
-      if account.update_attributes(:password => password)
-         sms_send("Your password has successfully been changed.")
+      if (password =~ /[A-Z]{1}/) == nil #currently manually doing this until figure out validate_password_for_update in account.rb
+      	sms_error("Password needs to have at least 1 capital letter")
       else
-          account.errors.full_messages.each do |error|
-             sms_error(error)
-          end
+        account = Account.find(id)
+      	if account.update_attributes(:password => password)
+        	 sms_send("Your password has successfully been changed.")
+      	else
+          	account.errors.full_messages.each do |error|
+             		sms_error(error)
+          	end
+      	end
       end
     end
   end
