@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   
   def sms_authenticate
     if @client == nil
-      account_sid = 'ACafb3d0d7820d6b39613ffdc47d5f074f'#'AC7bec7276c109417979adfc442a675fc9'#'ACafb3d0d7820d6b39613ffdc47d5f074f'
-      auth_token ='71aedf3c912ea6f64b719d671adea8b3'#'6ca5a284c956fc0a444ba453ca63508b'#'71aedf3c912ea6f64b719d671adea8b3'
+      account_sid = 'AC7bec7276c109417979adfc442a675fc9'#'AC7bec7276c109417979adfc442a675fc9'#'ACafb3d0d7820d6b39613ffdc47d5f074f'
+      auth_token ='6ca5a284c956fc0a444ba453ca63508b'#'6ca5a284c956fc0a444ba453ca63508b'#'71aedf3c912ea6f64b719d671adea8b3'
       @client = Twilio::REST::Client.new(account_sid, auth_token)
     end
   end

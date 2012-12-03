@@ -13,7 +13,7 @@ Futurescientist::Application.routes.draw do
   match 'accounts/login' => 'accounts#login'
   match 'accounts/logout' => 'accounts#logout'
   match 'accounts/login_form' => 'accounts#login_form'
-  match 'problems/receive_sms' => 'problems#receive_sms'
+  match 'sms/receive_sms' => 'sms#receive_sms'
   match 'accounts/changepass' => 'accounts#changepass'
   match 'accounts/changenumber' => 'accounts#changenumber'
   match 'accounts/changelocation' => 'accounts#changelocation'
