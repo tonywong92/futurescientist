@@ -73,7 +73,9 @@ class AccountsController < ApplicationController
           puts @account.account_name
           puts @account.email
           puts @account.id
-          puts @account.name
+          puts @account.account_name
+          puts @account.email
+          puts @account.id
           sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
           reset_session
           session[:account] = @account.id
