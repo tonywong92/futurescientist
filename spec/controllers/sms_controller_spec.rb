@@ -23,7 +23,7 @@ describe SmsController do
       it 'should post my problem' do
         textedProblem = Problem.find_by_summary('texted problem')
         textedProblem.should_not be_nil
-        textedProblem.location.should == "San Francisco"
+        textedProblem.location.should == "san francisco"
         textedProblem.skills.should == "water electrical"
         textedProblem.wage.should == 50.00
       end
@@ -166,7 +166,7 @@ describe SmsController do
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} #new texted problem !mold electricity $49.38"}
         textedProblem = Problem.find_by_summary('new texted problem')
         textedProblem.should_not be_nil
-        textedProblem.location.should == "San Francisco"
+        textedProblem.location.should == "san francisco"
         textedProblem.skills.should == "mold electricity"
         textedProblem.wage.should == 49.38
         newString = "i"

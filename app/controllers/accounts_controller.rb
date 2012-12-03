@@ -63,6 +63,8 @@ class AccountsController < ApplicationController
         if !@account.errors.empty?
           flash[:account_errors] = @account.errors.full_messages
         end
+	@user.destroy
+	@account.destroy
         @all_skills = Skill.find(:all)
         redirect_to new_account_path
         return
@@ -88,6 +90,8 @@ class AccountsController < ApplicationController
           if !@account.errors.empty?
             flash[:account_errors] = @account.errors.full_messages
           end
+	  @user.destroy
+ 	  @account.destroy
           @all_skills = Skill.find(:all)
           redirect_to new_account_path
           return
