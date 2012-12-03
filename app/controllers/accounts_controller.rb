@@ -51,7 +51,6 @@ class AccountsController < ApplicationController
       reset_session
       session[:account] = @account.id
       flash[:notice] = 'You have successfully created an account'
-      redirect_to problems_path
       if TEST_NUMBERS.include? phone_number
         #don't require a text confirmation
         @user.account.verified = true
@@ -66,6 +65,7 @@ class AccountsController < ApplicationController
           return
         end
       end
+      redirect_to problems_path
     else
       flash[:error] = 'There was a problem with creating your account'
       if !@user.errors.empty?
