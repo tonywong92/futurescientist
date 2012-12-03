@@ -15,7 +15,7 @@ Futurescientist::Application.routes.draw do
   match 'accounts/login_form' => 'accounts#login_form'
   match 'accounts/forgot_password' => 'accounts#forgot_password'
   match 'accounts/forgot_account' => 'accounts#forgot_account'
-  match 'problems/receive_sms' => 'problems#receive_sms'
+  match 'sms/receive_sms' => 'sms#receive_sms'
   match 'accounts/changepass' => 'accounts#changepass'
   match 'accounts/changenumber' => 'accounts#changenumber'
   match 'accounts/changelocation' => 'accounts#changelocation'

@@ -47,7 +47,7 @@ class SmsController < ApplicationController
           sms_change_password
         when /^forgot password$/
           forgot_password
-        when action.is_num?
+        when is_num?(action) then
           session[:received_confirmation] = action
           sms_confirm_acc
       end
@@ -338,7 +338,7 @@ class SmsController < ApplicationController
     end
   end
 
-  def sms_confirrm_acc
+  def sms_confirm_acc
     acc = Account.find(@problem_text[0])
     acc_name = @problem_text[1]
     if !acc.nil? and acc_name == acc.account_name
