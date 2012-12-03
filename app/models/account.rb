@@ -9,11 +9,17 @@ class Account < ActiveRecord::Base
   include ActiveModel::Dirty
 
   before_create do
+	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+	puts self.password
+	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     self.password = Account.to_hmac password if attribute_present?("password")
   end
 
   before_update do
     if self.password_changed?
+	puts "#######################################"
+	puts self.password
+	puts "##########################################"
       self.password = Account.to_hmac password
     end
   end
@@ -33,11 +39,11 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_uniqueness_of :account_name
   validate :validate_password, :on=>:update_attributes
+  validate :validate_password, :on=>:save
   validates_length_of :password, :minimum => 6, :allow_blank => false
   after_initialize :init
 
   def validate_password
-    puts password
     bool = (password =~ /[A-Z]{1}/) != nil
     if !bool
       errors.add(:password, " needs to have at least 1 capital letter")
