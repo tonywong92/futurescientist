@@ -47,36 +47,53 @@ class AccountsController < ApplicationController
   end
 
   def save_account phone_number
-    if @user.save and @account.save
-      reset_session
-      session[:account] = @account.id
-      flash[:notice] = 'You have successfully created an account'
-      if TEST_NUMBERS.include? phone_number
+    if TEST_NUMBERS.include? phone_number
+      if @user.save and @account.save
+        reset_session
+        session[:account] = @account.id
+        flash[:notice] = 'You have successfully created an account'
         #don't require a text confirmation
         @user.account.verified = true
         @user.account.save
       else
-        begin
-          sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
-          flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login after this session."
-        rescue Twilio::REST::RequestError
-          flash[:notice] = 'We seem to be having difficulties sending a text to your phone number. Please try another valid phone number or try again later.'
-          render new_account_path
+        flash[:error] = 'There was a problem with creating your account'
+        if !@user.errors.empty?
+          flash[:user_errors] = @user.errors.full_messages
+        end
+        if !@account.errors.empty?
+          flash[:account_errors] = @account.errors.full_messages
+        end
+        @all_skills = Skill.find(:all)
+        redirect_to new_account_path
+        return
+      end
+    else
+      begin
+        sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
+        if @user.save and @account.save
+          reset_session
+          session[:account] = @account.id
+          flash[:notice] = 'You have successfully created an account'
+        else
+          flash[:error] = 'There was a problem with creating your account'
+          if !@user.errors.empty?
+            flash[:user_errors] = @user.errors.full_messages
+          end
+          if !@account.errors.empty?
+            flash[:account_errors] = @account.errors.full_messages
+          end
+          @all_skills = Skill.find(:all)
+          redirect_to new_account_path
           return
         end
+        flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login after this session."
+      rescue Twilio::REST::RequestError
+        flash[:notice] = 'We seem to be having difficulties sending a text to your phone number. Please try another valid phone number or try again later.'
+        render new_account_path
+        return
       end
-      redirect_to problems_path
-    else
-      flash[:error] = 'There was a problem with creating your account'
-      if !@user.errors.empty?
-        flash[:user_errors] = @user.errors.full_messages
-      end
-      if !@account.errors.empty?
-        flash[:account_errors] = @account.errors.full_messages
-      end
-      @all_skills = Skill.find(:all)
-      redirect_to new_account_path
     end
+    redirect_to problems_path
   end
 
   def show
