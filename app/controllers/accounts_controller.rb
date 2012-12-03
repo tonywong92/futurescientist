@@ -137,6 +137,16 @@ class AccountsController < ApplicationController
     render '/accounts/login_form'
   end
 
+  def forgot_password
+    @twilio = TWILIO
+    render '/accounts/forgot_password'
+  end
+
+  def forgot_account
+    @twilio = TWILIO
+    render '/accounts/forgot_account'
+  end
+
   def login
     @account = Account.find_by_account_name(params[:account][:account_name])
     if @account.nil?
