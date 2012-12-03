@@ -47,15 +47,16 @@ class SmsController < ApplicationController
           sms_change_password
         when /^password$/
           forgot_password
-        when is_num?(action) do
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          puts "SMS CONFIRMATION IS CALLED"
-          session[:received_confirmation] = action
-          sms_confirm_acc
-        end
+        else
+          if is_num?(action)
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            puts "SMS CONFIRMATION IS CALLED"
+            session[:received_confirmation] = action
+            sms_confirm_acc
+          end
       end
     end
     render :nothing => true
