@@ -19,13 +19,13 @@ module NavigationHelpers
       '/problems'
     
     when /^the create account page$/
-      '/accounts/new'
+      new_account_path
 
     when /^the create admin page$/
-      '/accounts/new'
+      new_account_path
 
     when /^the problem submission page$/
-      '/problems/new'
+      new_problem_path
       
     when /^the login page$/
       '/accounts/login_form'
@@ -34,13 +34,13 @@ module NavigationHelpers
       '/accounts/logout'
 
     when /^the edit account page$/
-      '/accounts/edit'
+      edit_account_path @account_id
 
     when /^the skills verification page$/
       '/accounts/skills_verification'
 
     when /^the profile page$/
-      'accounts/show'
+      account_path @account_id
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

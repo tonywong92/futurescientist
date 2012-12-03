@@ -7,11 +7,14 @@ Background:
 	  And I select "water" from "skills"
 	  And I fill in "Problem Summary" with "Broken Pipe"
 	  And I press "Submit Problem"
+    And I log out
+    
     Given I add the "water" skill to the database
 		Given I add the "electronics" skill to the database
+    And I am on the create account page
     And I fill in the following fields:
-        | Account Name | Password | Name | Phone Number | Location |
-        | Tester       | Password | Test | 1234567890   | Panama   |
+        |Email          | Account Name | Password | Name | Phone Number | Location |
+        | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
     And I press "Create Account"
 
 Scenario: Checking account status as User

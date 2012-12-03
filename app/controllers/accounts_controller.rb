@@ -81,7 +81,6 @@ class AccountsController < ApplicationController
 
   def show
     @user = Account.find_by_id(session[:account]).user
-    render '/accounts/show'
   end
 
   def skills_verification
@@ -153,7 +152,6 @@ class AccountsController < ApplicationController
 
   def edit
     @all_skills = Skill.find(:all)
-    render '/accounts/edit'
   end
 
   def update
@@ -161,11 +159,19 @@ class AccountsController < ApplicationController
 
     if @account.nil?
       flash[:notice] = "You are not logged in"
-      redirect_to '/accounts/edit'
-    elsif
+      redirect_to problems_path
+    elsif params[:type] == 'edit_email'
       @account.update_attributes!(:email => params[:email][:address])
       flash[:notice] = "Email changed!"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
+    elsif params[:type] == 'edit_password'
+      changepass
+    elsif params[:type] == 'edit_phone'
+      changenumber
+    elsif params[:type] == 'edit_location'
+      changelocation
+    elsif params[:type] == 'edit_skills'
+      changeskills
     end
   end
 
@@ -173,17 +179,17 @@ class AccountsController < ApplicationController
     @account = Account.find_by_id(session[:account])
     if @account.nil?
        flash[:notice] = "You are not logged in"
-       redirect_to '/accounts/edit'
+       redirect_to problems_path
     elsif Account.to_hmac(params[:password][:current]) != @account.password
        flash[:notice] = "Password incorrect"
-       redirect_to '/accounts/edit'
+       redirect_to edit_account_path(@account.id)
     elsif params[:password_new][:new] == params[:reenter][:pass]
       @account.update_attributes!(:password => params[:password_new][:new])
       flash[:notice] = "Password changed"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
     else
       flash[:notice] = "The new password you entered doesn't match"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
     end
   end
 
@@ -192,13 +198,13 @@ class AccountsController < ApplicationController
 
     if @account.nil?
       flash[:notice] = "You are not logged in"
-      redirect_to '/accounts/edit'
+      redirect_to problems_path
     else
       phoneNum = params[:phone][:number]
       phoneNum = normalize_phone phoneNum
       @account.user.update_attributes!(:phone_number => phoneNum)
       flash[:notice] = "Phone number changed"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
     end
   end
 
@@ -207,12 +213,12 @@ class AccountsController < ApplicationController
 
     if @account.nil?
       flash[:notice] = "You are not logged in"
-      redirect_to '/accounts/edit'
+      redirect_to problems_path
     else
       newLocation = params[:location][:name]
       @account.user.update_attributes!(:location => newLocation)
       flash[:notice] = "Location changed"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
     end
   end
 
@@ -222,15 +228,15 @@ class AccountsController < ApplicationController
 
     if @account.nil?
       flash[:notice] = "You are not logged in"
-      redirect_to '/accounts/edit'
+      redirect_to problems_path
     elsif @account.admin
       @account.update_attributes!(:verified_skills => params[:skills])
       flash[:notice] = "Skills updated"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
     else
       @account.update_attributes!(:skills => params[:skills])
       flash[:notice] = "Skills to be verified"
-      redirect_to '/accounts/edit'
+      redirect_to edit_account_path(@account.id)
     end
   end
 

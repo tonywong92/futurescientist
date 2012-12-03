@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   TWILIO = "+16502674928"
+  TEXTLENGTH = 160
   
   def sms_authenticate
     if @client == nil
@@ -13,12 +14,20 @@ class ApplicationController < ActionController::Base
 
   def sms_error(error_string)
     sms_authenticate
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string)
+    current = 0;
+    (error_string.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => error_string.slice(current, current + TEXTLENGTH))
+      current += TEXTLENGTH
+     end
   end
 
   def sms_send(string)
     sms_authenticate
-    @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string)
+    current = 0;
+    (string.length/(TEXTLENGTH.to_f)).ceil.times do |i|
+      @client.account.sms.messages.create(:from => params[:To], :to => params[:From], :body => string.slice(current, current + TEXTLENGTH))
+      current += TEXTLENGTH
+     end
   end
   
   def sms_send(phone_number, string)

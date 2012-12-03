@@ -82,6 +82,16 @@ describe ProblemsController do
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location1 !water LIMIT asfsafas'}
         open_last_text_message_for registered_phone_number2
         current_text_message.should have_body "LIMIT must be followed by a integer number"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Edit 500'}
+        open_last_text_message_for registered_phone_number
+        current_text_message.should have_body "Sorry, that problem id does not exist."
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Delete 500'}
+        open_last_text_message_for registered_phone_number
+        current_text_message.should have_body "Sorry, that problem id does not exist."
+
+
       end
 
       it 'should send me a list of problems with correct attributes' do
@@ -146,30 +156,41 @@ describe ProblemsController do
     describe 'edit problem through text' do
       before do
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !water electrical $50.00'}
-       problem1_id = Problem.find_by_summary("texted problem").id
       end
 
       it 'should let me edit/delete the problem through text if it is my problem' do
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Edit #{problem1_id} #new texted problem !mold electricty $49.38'}
+       problem1_id = Problem.find_by_summary("texted problem").id
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} #new texted problem !mold electricity $49.38"}
         textedProblem = Problem.find_by_summary('new texted problem')
         textedProblem.should_not be_nil
         textedProblem.location.should == "San Francisco"
         textedProblem.skills.should == "mold electricity"
         textedProblem.price.should == 49.38
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Delete #{problem1_id}'}
-        textedProblem = Problem.find_by_summary('new texted problem')
+        newString = "i"
+        Problem.SUMMARY_LIMIT.times do |i|
+          newString << "i"
+        end
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} ##{newString}"}
+        open_last_text_message_for registered_phone_number
+        open_last_text_message_for registered_phone_number
+        open_last_text_message_for registered_phone_number
+        current_text_message.should have_body "Summary is too long (maximum is #{Problem.SUMMARY_LIMIT} characters)"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Delete #{problem1_id}"}
+        textedProblem = Problem.find_by_id(problem1_id)
         textedProblem.should be_nil
       end
 
       it 'should not let me edit a problem through text if it is not my problem' do
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Edit #{problem1_id} #new texted problem !mold electricty $49.38'}
+       problem1_id = Problem.find_by_summary("texted problem").id
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => "Edit #{problem1_id} #new texted problem !mold electricty $49.38"}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "Sorry. You do not have permission to edit this problem. This is not the number that created the problem."
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Delete #{problem1_id}'}
+        current_text_message.should have_body "Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem."
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => "Delete #{problem1_id}"}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "Sorry. You do not have permission to edit this problem. This is not the number that created the problem."
+        current_text_message.should have_body "Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem."
       end
     end
 

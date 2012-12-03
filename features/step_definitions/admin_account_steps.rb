@@ -12,6 +12,7 @@ Given /^the site is set up$/ do
 end
 
 When /^I am logged in as an admin$/ do
+  @account_id = Account.find_by_account_name("master")
   step "I go to the login page"
   step "I fill in \"account_account_name\" with \"master\""
   step "I fill in \"account_password\" with \"Password\""
@@ -32,6 +33,7 @@ Given /^the account is set up$/ do
 end
 
 When /^I am logged in as a user$/ do
+  @account_id = Account.find_by_account_name("master2")
   step "I go to the login page"
   step "I fill in \"account_account_name\" with \"master2\""
   step "I fill in \"account_password\" with \"Password\""
