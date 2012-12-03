@@ -69,8 +69,12 @@ class AccountsController < ApplicationController
       end
     else
       begin
-        sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
         if @user.save and @account.save
+          puts @account.account_name
+          puts @account.email
+          puts @account.id
+          puts @account.name
+          sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
           reset_session
           session[:account] = @account.id
           flash[:notice] = 'You have successfully created an account'
