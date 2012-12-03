@@ -41,7 +41,7 @@ class SmsController < ApplicationController
           end
         when /^detail$/, /^details$/, /^describe$/
           sms_detail
-        when is_num? action
+        when is_num?(action)
           session[:received_confirmation] = action
           sms_confirm_acc
       end
