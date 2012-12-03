@@ -1,7 +1,7 @@
 class SmsController < ApplicationController
-  
+
   skip_before_filter :verify_authenticity_token
-  
+
   def uninitialize_sms
     @sms_location = nil
     @sms_skills = nil
@@ -9,6 +9,7 @@ class SmsController < ApplicationController
     @sms_price = nil
     @sms_limit = nil
     @client = nil
+    @sms_error = false
   end
 
   #sms superfunction for receiving texts
@@ -118,7 +119,7 @@ class SmsController < ApplicationController
     end
     return action
   end
-  
+
   def sms_get(offset)
     location = @sms_location
     skills = @sms_skills
@@ -208,7 +209,7 @@ class SmsController < ApplicationController
     end
     @user.problems << @problem
   end
-  
+
   def sms_save_problem
     if @user.save
       return true
@@ -216,7 +217,7 @@ class SmsController < ApplicationController
       return false
     end
   end
-  
+
   def sms_edit
     sms_authenticate
     problem_id = @problem_text[1]
@@ -260,7 +261,7 @@ class SmsController < ApplicationController
       sms_error("Sorry, that problem id does not exist.")
     end
   end
-  
+
   #Expecting the input to look like: "accept [problem id] [password]"
   def sms_accept_problem
     problem_id = @problem_text[1]
@@ -289,7 +290,7 @@ class SmsController < ApplicationController
       sms_error("Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'")
     end
   end
-  
+
   def sms_confirrm_acc
     acc = Account.find(@problem_text[0])
     acc_name = @problem_text[1]
@@ -301,7 +302,7 @@ class SmsController < ApplicationController
       sms_error("Sorry, the reply we received doesn't seem to match the information we sent. Please check your confirmation number and try again.")
     end
   end
-  
+
   def normalize_phone phone_number
     if phone_number != nil and !phone_number.strip.empty?
       number = phone_number.gsub('(','').gsub(')','').gsub('-','').gsub('+','')
@@ -313,5 +314,5 @@ class SmsController < ApplicationController
       return false
     end
   end
-  
+
 end
