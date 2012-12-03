@@ -348,7 +348,7 @@ class SmsController < ApplicationController
       sms_error("Sorry, please send another request 'password' to this number.")
     else
       account = Account.find(id)
-      if account.update_attributes!(:password => password)
+      if account.update_attributes(:password => password)
          sms_send("Your password has successfully been changed.")
       else
           account.errors.full_messages.each do |error|
