@@ -82,7 +82,6 @@ class ProblemsController < ApplicationController
           @offset = false
           sms_get(0)
         when /^edit$/
-        puts body
           sms_edit
         when /^delete$/, /^destroy$/
           sms_delete
