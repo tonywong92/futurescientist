@@ -21,8 +21,8 @@ class ApplicationController < ActionController::Base
      end
   end
 
-  def sms_send *args
-    if args.size == 1:
+  def sms_send(*args)
+    if(args.size == 1)
 	    string = args[0]
 	    sms_authenticate
 	    current = 0;
