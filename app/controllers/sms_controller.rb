@@ -41,11 +41,11 @@ class SmsController < ApplicationController
           end
         when /^detail$/, /^details$/, /^describe$/
           sms_detail
-        when /^forgot account name$/
+        when /^account$/
           forgot_acc
         when /^change$/
           sms_change_password
-        when /^forgot password$/
+        when /^password$/
           forgot_password
         when is_num?(action) do
           puts "SMS CONFIRMATION IS CALLED"
