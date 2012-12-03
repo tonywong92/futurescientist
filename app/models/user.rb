@@ -18,10 +18,8 @@ attr_accessible :location, :name, :phone_number
   validate :validate_phone_number
 
   def sanitize number
-    puts number
     number = number.gsub(/^\+*1/,"").gsub("-","").gsub(/\D/,"")
     number.insert(0,"+1")
-    puts number
     number
   end
 

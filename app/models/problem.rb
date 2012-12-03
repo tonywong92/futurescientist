@@ -4,14 +4,14 @@ class Problem < ActiveRecord::Base
   @@LOCATION_LIMIT = @@TEXTLENGTH/4
   @@SUMMARY_LIMIT = @@TEXTLENGTH/2
 
-  attr_accessible :description, :location, :skills, :summary, :price, :archived
+  attr_accessible :description, :location, :skills, :summary, :price, :archived, :wage
 
   belongs_to :user
 
   validates :location, :presence => true
   validates :skills, :presence => true
   validates :summary, :presence => true
- #validates :price, :presence => true
+  validates :wage, :presence => true
 
   validates_length_of :description, :maximum => @@DESCRIPTION_LIMIT, :allow_blank => true
   validates_length_of :location, :maximum => @@LOCATION_LIMIT, :allow_blank => false

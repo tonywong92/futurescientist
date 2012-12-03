@@ -7,9 +7,9 @@ I want to be able to click on the problem to see more information.
 Background: problems have been created by some requester
   Given the site is set up
   Given the following users exists:
-  | name   | phone_number   | location   |
-  | Bob    | 6265559999     | Address1   |
-  | John   | 6264539999     | Address2   |
+  | name   | phone_number    | location   |
+  | Bob    | +11234567890    | Address1   |
+  | John   | +19994441111    | Address2   |
 
   Given "Bob" created the following problems:
   | location | skills          | summary           | description       | wage |

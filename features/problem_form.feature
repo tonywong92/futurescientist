@@ -35,13 +35,11 @@ Scenario: Problem submits successfully
 Scenario: Problem submission page should be prepopulated if logged in
   Given I am on the create account page
   When I fill in the following fields:
-        | Account Name | Password | Name | Phone Number | Location |
-        | Tester       | Password | Test | 123456789    | Panama   |
+        | Email         | Account Name | Password | Name | Phone Number | Location |
+        | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
   And I press "Create Account"
-  And I confirm through text
-  And I press "Continue to problems index"
   And I go to the problem submission page
   Then I should see "Test"
-  And I should see "123456789"
+  And I should see "1234567890"
   And I should see "Panama"
 

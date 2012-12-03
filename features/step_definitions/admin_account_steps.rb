@@ -8,8 +8,6 @@ Given /^the site is set up$/ do
   step "I fill in \"phone_number\" with \"1234567890\""
   step "I check \"Admin\""
   step "I press \"Create Account\""
-  step "I confirm through text"
-  step "I press \"Continue to problems index\""
   step "I should be on the problems page"
 end
 
@@ -30,8 +28,6 @@ Given /^the account is set up$/ do
   step "I fill in \"name\" with \"Master\""
   step "I fill in \"phone_number\" with \"1234567890\""
   step "I press \"Create Account\""
-  step "I confirm through text"
-  step "I press \"Continue to problems index\""
   step "I should be on the problems page"
 end
 
