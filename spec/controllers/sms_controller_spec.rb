@@ -106,7 +106,7 @@ describe SmsController do
         problem8 = Problem.find_by_summary("Problem8").id
         problem7 = Problem.find_by_summary("Problem7").id
 
-        current_text_message.should have_body "id:#{problem10}. @location1 !water #Problem10 id:#{problem9}. @location1 !water #Problem9 id:#{problem8}. @location1 !water #Problem8 id:#{problem7}. @location1 !water #Problem7 "
+        current_text_message.should have_body "id:#{problem10}. @location1 !water #Problem10 $50.0 id:#{problem9}. @location1 !water #Problem9 $50.0 id:#{problem8}. @location1 !water #Problem8 $50.0"
         #current_text_message.should have_body "id:#{problem2}. @Location1 !water #Problem2 $50 id:#{problem1}. @Location1 !water #Problem1 $50 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
@@ -116,7 +116,7 @@ describe SmsController do
         problem4 = Problem.find_by_summary("Problem4").id
         problem3 = Problem.find_by_summary("Problem3").id
 
-        current_text_message.should have_body "id:#{problem6}. @location1 !water #Problem6 id:#{problem5}. @location1 !water #Problem5 id:#{problem4}. @location1 !water #Problem4 id:#{problem3}. @location1 !water #Problem3 "
+        current_text_message.should have_body "id:#{problem7}. @location1 !water #Problem7 $50.0 id:#{problem6}. @location1 !water #Problem6 $50.0 id:#{problem5}. @location1 !water #Problem5 $50.0"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
@@ -130,7 +130,7 @@ describe SmsController do
         problem29 = Problem.find_by_summary("Problem29").id
         problem28 = Problem.find_by_summary("Problem28").id
 
-        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 id:#{problem29}. @location2 !electronics #Problem29 id:#{problem28}. @location2 !electronics #Problem28 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 $50.0 id:#{problem29}. @location2 !electronics #Problem29 $50.0 id:#{problem28}. @location2 !electronics #Problem28 $50.0"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET !electronics LIMIT 1'}
         open_last_text_message_for registered_phone_number2
@@ -140,7 +140,7 @@ describe SmsController do
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET LIMIT 1'}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 id:#{problem10}. @location1 !water #Problem10 id:#{problem29}. @location2 !electronics #Problem29 id:#{problem9}. @location1 !water #Problem9 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 $50.0 id:#{problem10}. @location1 !water #Problem10 $50.0 id:#{problem29}. @location2 !electronics #Problem29 $50.0 id:#{problem9}. @location1 !water #Problem9 $50.0"
       end
 
       it 'should describe a problem correctly' do

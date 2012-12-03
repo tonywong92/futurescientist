@@ -161,15 +161,15 @@ class SmsController < ApplicationController
         problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
       end
       problems.each do |problem|
-            tmpbody = body +  problem.to_s + '\n'
-            if tmpbody.length <= TEXTLENGTH
-              body = tmpbody
-              offset +=1
-            else
-              break
-            end
+	    tmpbody = body +  problem.to_s + " "
+	    if tmpbody.length <= TEXTLENGTH
+	      body = tmpbody
+	      offset +=1
+	    else
+	      break
+	    end
       end
-      if body == ""
+      if body.strip! == ""
         body = "There are no more additional problems"
         body += (location || skills) ? " for" : "."
         body += (location) ? " Location: #{location}" : ""
@@ -177,6 +177,7 @@ class SmsController < ApplicationController
         sms_send(body)
         break
       else
+        body = body.strip
         sms_send(body)
       end
     end
@@ -189,7 +190,7 @@ class SmsController < ApplicationController
     problem_id = @problem_text[1]
     begin
       problem = Problem.find(problem_id)
-      problem_details = problem.more_detail
+      problem_details = problem.more_detail + " "
       current = 0
       (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
         sms_send(problem_details.slice(current, current + TEXTLENGTH))
