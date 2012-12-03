@@ -263,4 +263,13 @@ class AccountsController < ApplicationController
     end
   end
 
+  def forgot_password
+    @twilio = TWILIO
+    render '/accounts/forgot_password'
+  end
+
+  def forgot_account
+    @twilio = TWILIO
+    render '/accounts/forgot_account'
+  end
 end

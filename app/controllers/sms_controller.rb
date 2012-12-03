@@ -41,6 +41,12 @@ class SmsController < ApplicationController
           end
         when /^detail$/, /^details$/, /^describe$/
           sms_detail
+        when /^forgot account name$/
+          forgot_acc
+        when /^change$/
+          sms_change_password
+        when /^forgot password$/
+          forgot_password
         else
           if is_num?(action)
             puts "SMS CONFIRMATION IS CALLED"
@@ -322,4 +328,45 @@ class SmsController < ApplicationController
     end
   end
 
+  def forgot_password
+    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
+    if !provider_user.nil?
+      provider_acc = provider_user.account
+    end
+    if provider_acc.nil?
+      sms_error("There is no account associated with this number.")
+    else
+      session[:change_account] = provider_acc.id
+      sms_send("Please text back 'change [new password]' Please keep in mind that your password must be at least 6 characters with 1 capital letter.")
+    end
+  end
+
+  def sms_change_password
+    password = @problem_text[1]
+    id = session[:change_account]
+    if id.nil?
+      sms_error("Sorry, please sendanother request 'forgot password' to this number.")
+    else
+      account = Account.find(id)
+      if account.update_attributes!(:password => password)
+         sms_send("Your password has successfully been changed.")
+      else
+          account.errors.full_messages.each do |error|
+             sms_error(error)
+          end
+      end
+    end
+  end
+
+  def forgot_acc
+    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
+    if !provider_user.nil?
+      provider_acc = provider_user.account
+    end
+    if provider_acc.nil?
+      sms_error("There is no account associated with this number.")
+    else
+      sms_send("Your account name is #{provider_acc.account_name}")
+    end
+  end
 end
