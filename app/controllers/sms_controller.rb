@@ -344,7 +344,7 @@ class SmsController < ApplicationController
     password = @problem_text[1]
     id = session[:change_account]
     if id.nil?
-      sms_error("Sorry, please sendanother request 'forgot password' to this number.")
+      sms_error("Sorry, please send another request 'password' to this number.")
     else
       account = Account.find(id)
       if account.update_attributes!(:password => password)
