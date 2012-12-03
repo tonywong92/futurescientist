@@ -167,7 +167,7 @@ class AccountsController < ApplicationController
   end
 
   def validate_password
-    if @account.password == Account.to_hmac(params[:account][:password])
+    if @account.has_password?(params[:account][:password])
       session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
@@ -210,7 +210,7 @@ class AccountsController < ApplicationController
     if @account.nil?
        flash[:notice] = "You are not logged in"
        redirect_to problems_path
-    elsif Account.to_hmac(params[:password][:current]) != @account.password
+    elsif @account.has_password?(params[:password][:current])
        flash[:notice] = "Password incorrect"
        redirect_to edit_account_path(@account.id)
     elsif params[:password_new][:new] == params[:reenter][:pass]

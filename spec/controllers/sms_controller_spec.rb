@@ -8,6 +8,7 @@ describe SmsController do
     Skill.create(:skill_name => "water")
     Skill.create(:skill_name => "water electrical")
     Skill.create(:skill_name => "electronics")
+    Skill.create(:skill_name => "mold electricity")
   end
 
   describe 'sms interactions' do
@@ -31,18 +32,18 @@ describe SmsController do
 
     describe 'requester accepting a problem through text' do
       before do
-        provider_account = Account.create(:account_name => 'tony', :password => 'Password')
+        provider_account = Account.create(:account_name => 'tony', :password => 'Password', :email => 'test@test.com')
         provider_user = User.create(:phone_number => registered_phone_number2)
         provider_user.account = provider_account
         provider_user.save!
         #User.stub(:find_by_phone_number).and_return(provider_user)
         requester = User.create(:phone_number => registered_phone_number)
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #textedProblem2 @Location !water'}
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #textedProblem2 @Location !water $50.00'}
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Accept 1 Password'}
       end
 
       it 'should mark the problem as done' do
-        problem = Problem.find(1)
+        problem = Problem.find(1) 
         problem.summary.should == "textedProblem2"
         problem.archived.should == true
       end
@@ -105,7 +106,7 @@ describe SmsController do
         problem8 = Problem.find_by_summary("Problem8").id
         problem7 = Problem.find_by_summary("Problem7").id
 
-        current_text_message.should have_body "id:#{problem10}. @Location1 !water #Problem10 id:#{problem9}. @Location1 !water #Problem9 id:#{problem8}. @Location1 !water #Problem8 id:#{problem7}. @Location1 !water #Problem7 "
+        current_text_message.should have_body "id:#{problem10}. @location1 !water #Problem10 id:#{problem9}. @location1 !water #Problem9 id:#{problem8}. @location1 !water #Problem8 id:#{problem7}. @location1 !water #Problem7 "
         #current_text_message.should have_body "id:#{problem2}. @Location1 !water #Problem2 $50 id:#{problem1}. @Location1 !water #Problem1 $50 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
@@ -115,13 +116,13 @@ describe SmsController do
         problem4 = Problem.find_by_summary("Problem4").id
         problem3 = Problem.find_by_summary("Problem3").id
 
-        current_text_message.should have_body "id:#{problem6}. @Location1 !water #Problem6 id:#{problem5}. @Location1 !water #Problem5 id:#{problem4}. @Location1 !water #Problem4 id:#{problem3}. @Location1 !water #Problem3 "
+        current_text_message.should have_body "id:#{problem6}. @location1 !water #Problem6 id:#{problem5}. @location1 !water #Problem5 id:#{problem4}. @location1 !water #Problem4 id:#{problem3}. @location1 !water #Problem3 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
-        current_text_message.should have_body "There are no more additional problems for Location: Location1 Skills: water."
+        current_text_message.should have_body "There are no more additional problems for Location: location1 Skills: water."
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location2 LIMIT 1'}
         open_last_text_message_for registered_phone_number2
@@ -129,17 +130,17 @@ describe SmsController do
         problem29 = Problem.find_by_summary("Problem29").id
         problem28 = Problem.find_by_summary("Problem28").id
 
-        current_text_message.should have_body "id:#{problem210}. @Location2 !electronics #Problem210 id:#{problem29}. @Location2 !electronics #Problem29 id:#{problem28}. @Location2 !electronics #Problem28 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 id:#{problem29}. @location2 !electronics #Problem29 id:#{problem28}. @location2 !electronics #Problem28 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET !electronics LIMIT 1'}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "id:#{problem210}. @Location2 !electronics #Problem210 id:#{problem29}. @Location2 !electronics #Problem29 id:#{problem28}. @Location2 !electronics #Problem28 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 id:#{problem29}. @location2 !electronics #Problem29 id:#{problem28}. @location2 !electronics #Problem28 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET LIMIT 1'}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "id:#{problem210}. @Location2 !electronics #Problem210 id:#{problem10}. @Location1 !water #Problem10 id:#{problem29}. @Location2 !electronics #Problem29 id:#{problem9}. @Location1 !water #Problem9 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 id:#{problem10}. @location1 !water #Problem10 id:#{problem29}. @location2 !electronics #Problem29 id:#{problem9}. @location1 !water #Problem9 "
       end
 
       it 'should describe a problem correctly' do

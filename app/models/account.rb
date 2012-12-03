@@ -9,17 +9,11 @@ class Account < ActiveRecord::Base
   include ActiveModel::Dirty
 
   before_create do
-	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-	puts self.password
-	puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     self.password = Account.to_hmac password if attribute_present?("password")
   end
 
   before_update do
     if self.password_changed?
-	puts "#######################################"
-	puts self.password
-	puts "##########################################"
       self.password = Account.to_hmac password
     end
   end
