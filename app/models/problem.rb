@@ -24,7 +24,9 @@ end
 
   def validate_skill
     skill = Skill.find_by_skill_name(skills)
-    if skills.nil?
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+    puts skill
+    if skill.nil?
       errors.add(:skills, "is not a current skill we have.")
     end
   end
