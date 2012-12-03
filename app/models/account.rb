@@ -32,7 +32,7 @@ class Account < ActiveRecord::Base
   validates :password, :presence => true
   validates_uniqueness_of :email
   validates_uniqueness_of :account_name
-  validate :validate_password, :on => :save
+  validate :validate_password, :on=>:update_attributes
   validates_length_of :password, :minimum => 6, :allow_blank => false
   after_initialize :init
 
