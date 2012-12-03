@@ -269,14 +269,14 @@ class ProblemsController < ApplicationController
     @problem = Problem.new(:location => location, :summary => summary, :skills => skills, :price => price)
     add_problem_to_user_sms
 
-    if save_problem_sms
-      body = "You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!"
-    else
-      body = "Sorry, something seems to have gone wrong. We can't post your problem at this time."
-    end
-
     sms_authenticate
-    sms_send(body)
+    if save_problem_sms
+      sms_send("You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!")
+    else
+      problem.errors.full_messages.each do |error|
+          sms_error(error)
+      end
+    end
   end
 
   def add_problem_to_user_sms
