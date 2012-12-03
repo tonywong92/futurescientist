@@ -67,7 +67,7 @@ class SmsController < ApplicationController
   #sets @sms_location if there's a "@location"
   #sets @sms_skills if there's a !skills
   #sets @sms_summary if there's a #summary
-  #sets @sms_price if there's a $price
+  #sets @sms_wage if there's a $wage
   #sets @sms_limit if there's a LIMIT #
   #sets @sms_error to true if there's a specific error that cannot allow the text to continue processing
   #add more parsing logic here if there's more.
@@ -108,7 +108,7 @@ class SmsController < ApplicationController
             end
             @sms_summary.chop!
           when "$"
-            @sms_price = nextWord.to_f
+            @sms_wage = nextWord.to_f
             words.slice!(0)
         end
       else
@@ -200,13 +200,13 @@ class SmsController < ApplicationController
     summary = @sms_summary
     location = @sms_location
     skills = @sms_skills
-    price = @sms_price
+    wage = @sms_wage
 
-    @problem = Problem.new(:location => location, :summary => summary, :skills => skills, :price => price)
+    @problem = Problem.new(:location => location, :summary => summary, :skills => skills, :wage => wage)
     add_problem_to_user_sms
 
     sms_authenticate
-    if save_problem_sms
+    if sms_save_problem
       sms_send("You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!")
     else
       @problem.errors.full_messages.each do |error|
@@ -241,9 +241,9 @@ class SmsController < ApplicationController
         summary = @sms_summary || problem.summary
         location = @sms_location || problem.location
         skills = @sms_skills || problem.skills
-        price = @sms_price || problem.price
+        wage = @sms_wage || problem.wage
 
-        if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :price => price)
+        if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :wage => wage)
           sms_send("Your problem has successfully been edited.")
         else
           problem.errors.full_messages.each do |error|

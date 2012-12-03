@@ -8,7 +8,7 @@ end
   @@LOCATION_LIMIT = @@TEXTLENGTH/4
   @@SUMMARY_LIMIT = @@TEXTLENGTH/2
 
-  attr_accessible :description, :location, :skills, :summary, :price, :archived, :wage
+  attr_accessible :description, :location, :skills, :summary, :archived, :wage
 
   belongs_to :user
 
@@ -25,12 +25,12 @@ end
   def validate_skill
     skill = Skill.find_by_skill_name(skills)
     if skill.nil?
-      errors.add(:skills, ": #{skills} is not a current skill we have.")
+      errors.add(:skills, ": #{skills} is not a current skill we have. Text 'Skills' to get a list of skills we currently have.")
     end
   end
 
   def to_s
-    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} "# $#{self.price} "
+    return "id:#{self.id}. @#{self.location} !#{self.skills} ##{self.summary} "# $#{self.wage} "
   end
 
   def more_detail
