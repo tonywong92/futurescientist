@@ -273,7 +273,7 @@ class ProblemsController < ApplicationController
     if save_problem_sms
       sms_send("You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!")
     else
-      problem.errors.full_messages.each do |error|
+      @problem.errors.full_messages.each do |error|
           sms_error(error)
       end
     end
