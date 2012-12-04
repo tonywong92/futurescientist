@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe SmsController do
   include SmsSpec::Helpers
+  let(:twilio_phone_number) {"+16502674928"}
+  let(:registered_phone_number) {"+16263204917"}
+  let(:registered_phone_number2) {"+14154393733"}
 
   before do
     clear_messages
@@ -9,12 +12,14 @@ describe SmsController do
     Skill.create(:skill_name => "water electrical")
     Skill.create(:skill_name => "electronics")
     Skill.create(:skill_name => "mold electricity")
+    user = User.new(:name => "Test", :phone_number => registered_phone_number)
+    user.save!
+    account = Account.new(:account_name => "testaccount", :password => "Password", :email => "test2@test.com")
+    user.account = account
+    user.save!
   end
 
   describe 'sms interactions' do
-    let(:twilio_phone_number) {"+16502674928"}
-    let(:registered_phone_number) {"+16263204917"}
-    let(:registered_phone_number2) {"+14154393733"}
 
     describe 'problem submission through text' do
       before do
@@ -203,14 +208,129 @@ describe SmsController do
       end
 
       it 'should send me the right error message if I text something incorrectly' do
+        num_skills_to_add = 18
+        num_skills_to_add.times do |i|
+          Skill.create(:skill_name => "skillname#{i+1}")
+        end
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !asdf $50.00'}
         open_last_text_message_for registered_phone_number
 
         current_text_message.should have_body "Skills : asdf is not a current skill we have. Text 'Skills' to get a list of skills we currently have."
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Get @San Francisco !asdf $50.00'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Skills: asdf is not a current skill we have. Text 'Skills' to get a list of skills we currently have."
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Skills'}
         open_last_text_message_for registered_phone_number
 
-        current_text_message.should have_body "water, water electrical, electronics, mold electricity"
+        current_text_message.should have_body "water, water electrical, electronics, mold electricity, skillname1, skillname2, skillname3, skillname4, skillname5, skillname6, skillname7, skillname8"
+
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "skillname9, skillname10, skillname11, skillname12, skillname13, skillname14, skillname15, skillname16, skillname17, skillname18"
+      end
+
+      it 'should guide me if I am completely lost in using the SMS framework' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'randomKeyWord'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Wrong keyword. Text 'keywords' to get the list of valid keywords"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'keywords'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Get, Add, Accept, Delete, Next, Detail, Edit, Skills are the valid keywords. Text 'Explain [keyword]' to get a description of the keyword."
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain add'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Create a Problem: Text Add #[Problem Summary] ![Skills Needed] @[Location] $[Wage]'"
+
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain get'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Get a List of Problems: Text 'Get ![Filter by this skill] @[Filter by this location] LIMIT [Amount of texts you want to recieve]'"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain accept'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Accept a Problem if you are a verified provider: Text 'Accept [Problem ID] [Password to your account]'"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain delete'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Delete a Problem: Text 'Delete [Problem Id]'"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain next'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Continues the list of your previous 'GET' text with the same fields: Text 'Next [Amount of texts you want to recieve]'"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain detail'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "More details on a specific problem: Text 'Detail [Problem ID]'"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain edit'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Edit a Problem: Text 'Edit [Problem Id] #[New Problem Summary] ![New Skills Needed] @[New Location] $[New Wage]'"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Explain skills'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "A list of skills we currently have: Text 'Skills'"
+      end
+    end
+
+     describe 'forgot account or password' do
+      before do
+      end
+
+      it 'should send informative texts during the process of forgot password/account' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Account'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Your account name is testaccount"
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Password'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Please text back 'change [new password]' Please keep in mind that your password must be at least 6 characters with 1 capital letter."
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Change Password2'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Your password has successfully been changed."
+
+        account = Account.find_by_account_name("testaccount")
+        account.should_not be_nil
+        assert account.has_password?("Password2"), "Password is suppose to be: Password2"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Change undercased'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Password needs to have at least 1 capital letter"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Change ASDF'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Password is too short (minimum is 6 characters)"
+      end
+
+      it 'should give correct errors if I do not have an account' do
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Account'}
+        open_last_text_message_for registered_phone_number2
+
+        current_text_message.should have_body "There is no account associated with this number."
+
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Password'}
+        open_last_text_message_for registered_phone_number2
+
+        current_text_message.should have_body "There is no account associated with this number."
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Change Password2'}
+        open_last_text_message_for registered_phone_number2
+
+        current_text_message.should have_body "Sorry, please send another request 'password' to this number."
       end
     end
 
