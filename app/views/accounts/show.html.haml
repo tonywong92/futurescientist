@@ -1,12 +1,13 @@
 =render :partial => 'layouts/header'
 %br
-	.span8.offset1
+	.span10.offset1
 		.well
 			.container
 				.span3
 					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
 						%legend Admin - #{@user.account.account_name}
-						%ul
+						%ul.no-bullets
+							%li= link_to "Edit Profile", edit_account_path(@user.account.id)
 							%li
 								%a#profile{:href => "/accounts/skills_verification"} Skills Verification
 							%li
@@ -15,16 +16,35 @@
 								%a#profile{:href => new_skill_path} Add a New Skill
 					- else
 						%h4 User - #{@user.account.account_name}
+						%ul.no-bullets
+							%li= link_to "Edit Profile", edit_account_path(@user.account.id)
 				.span6
 					%h5 My profile:
-					%ul
+					%ul.no-bullets
 						%li Name: #{@user.name}
 						%li Location: #{@user.location}
 						%li Email: #{@user.account.email}
 						%li Phone number: #{@user.phone_number}
 					%h5 My verified skills:
-					%ul
+					%ul.no-bullets
 						- if not @user.account.verified_skills.empty?
 							- @user.account.verified_skills.each do |skill|
 								%li #{skill}
-					%a#account_edit{:href => edit_account_path(@user.account.id)} Edit Profile
+					%h5 My submitted problems:
+					%table#listings_table.table.table-striped.table-bordered
+						%thead
+							%tr
+								%th Problem Summary
+								%th Skills
+								%th Location
+								%th Wage
+						%tbody
+							- @user.problems.each do |problem|
+								%tr
+									%td= link_to "#{problem.summary}", problem_path(problem.id)
+									%td= problem.skills
+									%td= problem.location
+									%td= problem.wage
+
+
+

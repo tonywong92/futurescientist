@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   # Test numbers: When you create an account in rails server, you need to use one of these numbers. Otherwise it will try to send a text to confirm the number you are using and it will fail.
-  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222"]
+  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222", "+16667777888"]
 
   # Loads the account creation form
   def new
@@ -39,6 +39,7 @@ class AccountsController < ApplicationController
         @sv.save!
       end
       @user.account = @account
+      @user.location = @user.location.downcase
       save_account phone_number
     else
       flash[:notice] = 'Phone Number is a required field.'
@@ -173,7 +174,14 @@ class AccountsController < ApplicationController
   end
 
   def edit
+    account = Account.find_by_id(session[:account])
+    user = account.user
+    @account_email = account.email
+    @user_phone = user.phone_number
+    @user_location = user.location
     @all_skills = Skill.find(:all)
+    @skills_array = Array.new
+    @user = Account.find_by_id(session[:account]).user
   end
 
   def update
@@ -246,7 +254,7 @@ class AccountsController < ApplicationController
       flash[:notice] = "You are not logged in"
       redirect_to problems_path
     else
-      newLocation = params[:location][:name]
+      newLocation = params[:location][:name].downcase
       if @account.user.update_attributes(:location => newLocation)
      	 flash[:notice] = "Location changed"
       else

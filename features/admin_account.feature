@@ -28,7 +28,7 @@ Background:
 Scenario: Happy Path - Admin successfully creates an account
     Given I fill in the following fields:
         | Email           | Account Name | Password | Name  | Phone Number | Location |
-        | admin@admin.com | admin        | password | Admin | 1234567890   | US       |
+        | admin@admin.com | admin        | Password | Admin | 9994441111   | US       |
     And I check "Admin"
     And I press "Create Account"
     Then I should be on the problems page
