@@ -16,7 +16,7 @@ Background: problems have been created by some requester
   Given I go to the create account page
   When I fill in the following fields:
         | Email         | Account Name | Password | Name | Phone Number | Location |
-        | test@test.com | Tester       | password | Bob  | 6265559999   | Panama   |
+        | test@test.com | Tester       | Password | Bob  | 6265559999   | Panama   |
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
@@ -35,7 +35,7 @@ Background: problems have been created by some requester
   | Address3 | electricity     | outlet exploded   |                   | 50   |
 
   And I am on the home page
-  When I login with "Tester" and "password"
+  When I login with "Tester" and "Password"
   Given I am on the home page
   
 Scenario: successfully edit and delete a problem that was created by the poster
