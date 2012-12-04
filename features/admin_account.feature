@@ -18,8 +18,8 @@ Background:
     Then I should be on the problems page
     And I login with "Tester" and "Password"
     Given "Test" created the following problems:
-        | location | skills          | summary           | description       |
-        | Address1 | water           | broken water pipe | water pipe broken |
+        | location | skills          | summary           | description       | wage |
+        | Address1 | water           | broken water pipe | water pipe broken | 50   |
     And I log out
     And I am logged in as an admin
     And I am on the create account page
@@ -28,7 +28,7 @@ Background:
 Scenario: Happy Path - Admin successfully creates an account
     Given I fill in the following fields:
         | Email           | Account Name | Password | Name  | Phone Number | Location |
-        | admin@admin.com | admin        | password | Admin | 1234567890   | US       |
+        | admin@admin.com | admin        | Password | Admin | 9994441111   | US       |
     And I check "Admin"
     And I press "Create Account"
     Then I should be on the problems page

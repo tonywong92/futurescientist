@@ -31,8 +31,8 @@ class ApplicationController < ActionController::Base
 	      current += TEXTLENGTH
 	     end
     else
- 	string = args[0]
-	phone_number = args[1]
+ 	phone_number = args[0]
+	string = args[1]
     	sms_authenticate
     	@client.account.sms.messages.create(:from => TWILIO, :to => phone_number, :body => string)
     end

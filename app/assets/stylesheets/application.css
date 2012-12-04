@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+
+.category {
+	font-weight: bold;
+}
+
+.no-bullets {
+	list-style: none;
+}

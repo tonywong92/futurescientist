@@ -53,8 +53,8 @@ class Account < ActiveRecord::Base
     self.verified_skills ||= []
   end
 
-  def self.has_password? string
-    if self.password == to_hmac(string)
+  def has_password? string
+    if self.password == Account.to_hmac(string)
       return true
     else
       return false

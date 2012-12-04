@@ -18,7 +18,7 @@
                   %td= link_to "#{problem.summary}", problem_path(problem)
                   %td= problem.skills
                   %td= problem.location
-                  %td= '50'
+                  %td= problem.wage
       .filter
         = form_tag problems_path, :method => :get, :id => "problems_form" do
           .filter_skills

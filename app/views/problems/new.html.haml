@@ -28,25 +28,29 @@
                 %li= error
           = form_tag problems_path do
 
-            = label :user, :name, 'Name'
+            = label :user, :name, 'Name', :class => 'category'
             = text_field :user, :name
   
-            = label :user, :phone_number, 'Phone Number'
+            = label :user, :phone_number, 'Phone Number', :class => 'category'
             = text_field :user, :phone_number, :placeholder=>"xxx-xxx-xxxx", :required=>""
 
-            = label :problem, :location, 'Location'
+            = label :problem, :location, 'Location', :class => 'category'
             = text_field :problem, :location, :required=>""
             Max: #{Problem.LOCATION_LIMIT} Characters
 
-            = label :problem, :skills, 'Skills Required'
+            = label :problem, :skills, 'Skills Required', :class => 'category'
             = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name'))
 
-            = label :problem, :summary, 'Problem Summary'
+            = label :problem, :wage, 'Wage'
+            = text_field :problem, :wage, :required=>""
+
+            = label :problem, :summary, 'Problem Summary', :class => 'category'
+
             = text_field :problem, :summary, :required=>""
             Max: #{Problem.SUMMARY_LIMIT} Characters
 
-            = label :problem, :description, 'Description'
-            = text_area :problem, :description
+            = label :problem, :description, 'Description', :class => 'category'
+            = text_area :problem, :description, :rows => '10'
             Max: #{Problem.DESCRIPTION_LIMIT} Characters
             %br
             = submit_tag 'Submit Problem', :class=>"btn btn-primary span3"
