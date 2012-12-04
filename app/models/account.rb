@@ -53,7 +53,7 @@ class Account < ActiveRecord::Base
     self.verified_skills ||= []
   end
 
-  def self.has_password? string
+  def has_password? string
     if self.password == to_hmac(string)
       return true
     else
@@ -61,7 +61,7 @@ class Account < ActiveRecord::Base
     end
   end
 
-  def self.to_hmac string
+  def to_hmac string
     hmac = HMAC::SHA1.new(@@PUBLIC_KEY)
     hmac.update(string)
     return hmac.to_s
