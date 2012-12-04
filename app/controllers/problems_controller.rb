@@ -151,4 +151,9 @@ class ProblemsController < ApplicationController
     end
   end
 
+  def instructions
+    #TODO: allow this to be changed by an admin, so it's not static instructions, and instructions can constantly change.
+    @TWILIO = TWILIO
+    render '/problems/instructions'
+  end
 end

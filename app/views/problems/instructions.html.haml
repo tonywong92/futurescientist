@@ -1,0 +1,54 @@
+=render :partial => 'layouts/header'
+%br
+  .span8.offset1
+    .well
+      .container
+        .span8
+          %h1 Texting Instructions
+          %h2 Text us at: #{@TWILIO}
+          %ul
+            %li Texts are always in this format: '[Key Word] [fields]'
+            %li The following keys are available: Get, Add, Accept, Delete, Next, Detail, Edit
+            %li The following fields are available: Problem Summary, Skills, Location, Wage, Limit
+            %li Use symbols for some fields:
+            %ul
+              %li '#' ~ Problem Summary
+              %li '!' ~ Skills
+              %li '@' ~ Location
+              %li '$' ~ Wage
+            %h5 Create a Problem: 'Add #[Problem Summary] ![Skills Needed] @[Location] $[Wage]
+            %ul
+              %li Ex: 'Add #Broken Water Pipe !water @Berkeley, CA $50.00'
+            %h5 Edit a Problem: 'Edit [Problem Id] #[New Problem Summary] ![New Skills Needed] @[New Location] $[New Wage]'
+            %ul
+              %li Ex: 'Edit 3 #Broken Water Pipe !water @Berkeley, CA $50.00'
+              %li Note: You have to remember the problem id, which is given in the confirmation text, or you can find it in the list of problems with the 'Get' command.
+              %li Note: You only need to add the fields that need to be changed.
+              %li Note: You can only edit on the phone that created the problem.
+            %h5 Delete a Problem: 'Delete [Problem Id]'
+            %ul
+              %li Ex: 'Delete 3'
+              %li Note: You have to remember the problem id, which is given in the confirmation text, or you can find it in the list of problems with the 'Get' command.
+              %li Note: You can only delete on the phone that created the problem.
+            %h5 Get a List of Problems: 'Get ![Filter by this skill] @[Filter by this location] LIMIT [Amount of texts you want to recieve]'
+            %ul
+              %li Ex: 'Get !water @Berkeley, CA Limit 2'
+              %li Note: You can omit the fields, for a broader range of problems, but you must have the LIMIT field to limit the amount of texts you recieve.
+              %li Note: They will be returned in symboled format in the same way you would send in the text, as well with the problem id associated witht each problem.
+            %h5 Get More Problems: 'Next [Amount of texts you want to recieve]'
+            %ul
+              %li Ex: 'Next 1'
+              %li Note: This will continue the list of your previous 'GET' text, and get the next set of problems with the same fields you provided in your 'GET' text.
+              %li Note: They will be returned in symboled format in the same way you would send in the text, as well with the problem id associated witht each problem.
+            %h5 More details on a specific problem: 'Detail [Problem ID]'
+            %ul
+              %li Ex: 'Detail 3'
+              %li Note: This will provide a more detailed description of the problem, if the problem creator provided it.
+              %li Note: You can find the problem id from the list of problems with the 'Get' command.
+            %h5 Accept a problem if you are a verified provider: 'Accept [Problem ID] [Password to your account]'
+            %ul
+              %li Ex: 'Accept 3 Password'
+              %li Note: You must use the phone that is on your verified account.
+              %li Note: You can find the problem id from the list of problems with the 'Get' command.
+            %li Tip: You can put most fields in any order.
+          = link_to 'Back to problems list', problems_path
