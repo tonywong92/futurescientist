@@ -29,34 +29,36 @@
 
           = form_tag '/accounts' do
 
-            = label :account, :email, 'Email'
+            = label :account, :email, 'Email', :class => 'category'
             = text_field :account, :email, :id => 'email', :type=>"email"
 
-            = label :account, :account_name, 'Account Name'
+            = label :account, :account_name, 'Account Name', :class => 'category'
             = text_field :account, :account_name, :id => 'account_name'
 
-            = label :account, :password, 'Password(6 chars w/ at least 1 uppercase)'
+            = label :account, :password, 'Password (6 chars w/ at least 1 uppercase)', :class => 'category'
             = text_field :account, :password, :id => 'password', :type=>"password", :pattern=>"^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$"
 
-            = label :user, :name, 'Name'
+            = label :user, :name, 'Name', :class => 'category'
             = text_field :user, :name, :id => 'name'
 
-            = label :user, :phone_number, 'Phone Number'
+            = label :user, :phone_number, 'Phone Number', :class => 'category'
             = text_field :user, :phone_number, :id => 'phone_number'
   
-            = label :user, :location, 'Location'
+            = label :user, :location, 'Location', :class => 'category'
             = text_field :user, :location, :id => 'location'
             Max: #{Problem.LOCATION_LIMIT} Characters
 
-            = label :account, :skills, 'Skills'
+            = label :account, :skills, 'Skills', :class => 'category'
             - @all_skills.each do |skill|
-              = label :skill, skill.skill_name
+              = label :skill, skill.skill_name + ': ', :style => 'display: inline;'
               = check_box_tag "skills[]", skill.skill_name, false, :id => skill.skill_name
+              %br
             
             - account = Account.find_by_id(session[:account])
             - if Account.find(:all).empty? or (!account.nil? and account.admin)
-              = label :account, :admin, 'Admin'
+              = label :account, :admin, 'Admin', :style => 'display: inline;'
               = check_box_tag "Admin", 1, true, :id => 'admin'
+              %br
     
             %p NOTE: Skills will be verified by an admin
     

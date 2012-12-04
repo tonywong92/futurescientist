@@ -39,6 +39,7 @@ class AccountsController < ApplicationController
         @sv.save!
       end
       @user.account = @account
+      @user.location = @user.location.downcase
       save_account phone_number
     else
       flash[:notice] = 'Phone Number is a required field.'
@@ -179,6 +180,8 @@ class AccountsController < ApplicationController
     @user_phone = user.phone_number
     @user_location = user.location
     @all_skills = Skill.find(:all)
+    @skills_array = Array.new
+    @user = Account.find_by_id(session[:account]).user
   end
 
   def update
@@ -251,7 +254,7 @@ class AccountsController < ApplicationController
       flash[:notice] = "You are not logged in"
       redirect_to problems_path
     else
-      newLocation = params[:location][:name]
+      newLocation = params[:location][:name].downcase
       if @account.user.update_attributes(:location => newLocation)
      	 flash[:notice] = "Location changed"
       else
