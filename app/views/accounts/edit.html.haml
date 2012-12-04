@@ -8,7 +8,7 @@
           = form_tag account_path(session[:account]), :method => :put  do
             = hidden_field_tag :type, "edit_email"
             = label :email, :address, 'Email'
-            = text_field :email, :address, :type => 'email', :required => 'required'
+            = text_field :email, :address, :type => 'email', :value => @account_email, :required => 'required'
             %br
             = submit_tag 'Update', :class=>"btn btn-primary span2"
 
@@ -29,7 +29,7 @@
           = form_tag account_path(session[:account]), :method => :put  do
             = hidden_field_tag :type, "edit_phone"
             = label :phone, :number, 'New Phone Number'
-            = text_field :phone, :number, :required => 'required'
+            = text_field :phone, :number, :value => @user_phone, :required => 'required'
             %br
             = submit_tag 'Change Phone', :class=>"btn btn-primary span2"
 
@@ -37,7 +37,7 @@
           = form_tag account_path(session[:account]), :method => :put  do
             = hidden_field_tag :type, "edit_location"
             = label :location, :name, 'New Location'
-            = text_field :location, :name, :required => 'required' 
+            = text_field :location, :name, :value => @user_location, :required => 'required' 
             Max: #{Problem.SUMMARY_LIMIT} Characters
             %br
             = submit_tag 'Change Location', :class=>"btn btn-primary span2"
