@@ -6,17 +6,21 @@ Feature: allow problems to be edited or deleted by the poster
 
 Background: problems have been created by some requester
   Given the site is set up
-  And the following users exists:
-  | name   | phone_number     | location   |
-  | John   | +11234567890     | Address2   |
-
   And I add the "electronics" skill to the database
   And I add the "water" skill to the database
   And I add the "electricity" skill to the database
   Given I go to the create account page
   When I fill in the following fields:
         | Email         | Account Name | Password | Name | Phone Number | Location |
-        | test@test.com | Tester       | password | Bob  | 6265559999   | Panama   |
+        | test@test.com | Tester       | Password | Bob  | +19994441111   | Panama   |
+    Then I should see "Water"
+    And I check "water"
+    And I press "Create Account"
+    Then I should be on the problems page
+  Given I go to the create account page
+  When I fill in the following fields:
+        | Email         | Account Name | Password | Name | Phone Number | Location |
+        | test2@test.com | Tester2       | Password | John  | +11234567890   | Address2  |
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
@@ -35,7 +39,7 @@ Background: problems have been created by some requester
   | Address3 | electricity     | outlet exploded   |                   | 50   |
 
   And I am on the home page
-  When I login with "Tester" and "password"
+  When I login with "Tester" and "Password"
   Given I am on the home page
   
 Scenario: successfully edit and delete a problem that was created by the poster

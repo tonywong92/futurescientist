@@ -105,7 +105,7 @@ class ProblemsController < ApplicationController
     id = params[:id]
     @problem = Problem.find_by_id(id)
     @user = @problem.user
-    
+
   end
 =end
   def edit
