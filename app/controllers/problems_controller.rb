@@ -100,11 +100,6 @@ class ProblemsController < ApplicationController
         @verifiedUser = true
       end
     end
-		puts "####################################"
-		puts "THIS IS THE ACCOUNT.ID"
-		puts @account.id
-		puts "####################################"
-		
   end
 
   def accept_problem
@@ -119,7 +114,7 @@ class ProblemsController < ApplicationController
         problem.archived = true
         problem.save
         requester = problem.user
-				sms_send(provider.user.phone_number, "You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
+        sms_send(provider.user.phone_number, "You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
         requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.user.phone_number}."
         sms_send(requester.phone_number, requester_msg)
@@ -132,7 +127,7 @@ class ProblemsController < ApplicationController
     flash[:notice] = "You have sucessfully accepted #{problem.summary} problem. Please follow the instructions on the text you received."
     redirect_to problems_path
   end
-  
+
   def edit
     @problem = Problem.find(params[:id])
     @user = @problem.user

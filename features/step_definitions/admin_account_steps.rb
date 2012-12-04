@@ -9,6 +9,7 @@ Given /^the site is set up$/ do
   step "I check \"Admin\""
   step "I press \"Create Account\""
   step "I should be on the problems page"
+  step "I log out"
 end
 
 When /^I am logged in as an admin$/ do

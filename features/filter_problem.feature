@@ -11,6 +11,10 @@ Background: problems have been created by some requester
   | Bob    | +11234567890     | Address1   |
   | John   | +19994441111     | Address2   |
 
+  And I add the "electronics" skill to the database
+  And I add the "water" skill to the database
+  And I add the "electricity" skill to the database
+
   Given "Bob" created the following problems:
   | location | skills          | summary           | description       | wage |
   | Address1 | water           | broken water pipe | water pipe broken | 50   |
@@ -34,7 +38,7 @@ Scenario: successfully show only problems with the skill 'water'
   And I should not see "outlet exploded"
 
 Scenario: successfully show only problems with the location 'Address1' and make sure preferences for filter is saved as I roam the site.
-  When I select "Address2" from "address"
+  When I select "address2" from "address"
   And I unselect "All" from "address"
   And I press "problems_submit"
   Then I should not see "broken water pipe"
@@ -54,7 +58,7 @@ Scenario: successfully show only problems with the location 'Address1' and make 
 
 Scenario: successfully show only problems with the skill 'water' and location 'address3'
   When I select "electronics" from "skills"
-  And I select "Address3" from "address"
+  And I select "address3" from "address"
   And I unselect "All" from "skills"
   And I unselect "All" from "address"
   And I press "problems_submit"

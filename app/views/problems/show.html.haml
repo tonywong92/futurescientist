@@ -13,7 +13,7 @@
 						%li Requested by: #{@user.name}
 					%li Location: #{@problem.location}
 					%li Skills: #{@problem.skills}
-					%li Wage: #{@problem.wage}
+					%li Wage: $#{@problem.wage}
 					%li Description: #{@problem.description}
 				- if @qualified_provider
 					= link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id, :confirm => "Are you sure you wish to accept this problem?"}
