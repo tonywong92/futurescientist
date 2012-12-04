@@ -100,11 +100,6 @@ class ProblemsController < ApplicationController
         @verifiedUser = true
       end
     end
-    puts "####################################"
-    puts "THIS IS THE ACCOUNT.ID"
-    puts @account.id
-    puts "####################################"
-
   end
 
   def accept_problem

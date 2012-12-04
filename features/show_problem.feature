@@ -10,7 +10,9 @@ Background: problems have been created by some requester
   | name   | phone_number    | location   |
   | Bob    | +11234567890    | Address1   |
   | John   | +19994441111    | Address2   |
-
+  And I add the "water, mold" skill to the database
+  And I add the "water" skill to the database
+  And I add the "electricity" skill to the database
   Given "Bob" created the following problems:
   | location | skills          | summary           | description       | wage |
   | Address1 | water           | broken water pipe | water pipe broken | 50   |
