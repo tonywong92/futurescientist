@@ -44,6 +44,16 @@ class ProblemsController < ApplicationController
   end
 
   def new
+    if !session[:account].nil?
+      user = Account.find_by_id(session[:account]).user
+      @user_name = user.name
+      @user_phone = user.phone_number
+      @user_location = user.location
+    else
+      @user_name = ""
+      @user_phone = ""
+      @user_location = ""
+    end
     @all_skills = Skill.find(:all)
     render 'problems/new'
   end
