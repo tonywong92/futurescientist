@@ -46,6 +46,7 @@ class AccountsController < ApplicationController
     end
   end
 
+  #TODO: Make sure unverified accounts can't do stuff through text.
   def save_account phone_number
     if TEST_NUMBERS.include? phone_number
       if @user.save and @account.save
