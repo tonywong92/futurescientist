@@ -22,9 +22,9 @@ Scenario: View the listings table
 
 Scenario: View the table cells
   Given the following problems exists:
-  | location | skills          | summary           | description       |
-  | Address1 | water           | broken water pipe | water pipe broken |
-  | Address3 | water, mold     | roof is leaking   | roof is leaking   |
+  | location | skills          | summary           | description       | wage |
+  | Address1 | water           | broken water pipe | water pipe broken | 50   |
+  | Address3 | water, mold     | roof is leaking   | roof is leaking   | 50   |
   
   Given I am on the home page
   Then I should see "Address1"

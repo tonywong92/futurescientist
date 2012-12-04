@@ -18,8 +18,8 @@ Background:
     Then I should be on the problems page
     And I login with "Tester" and "Password"
     Given "Test" created the following problems:
-        | location | skills          | summary           | description       |
-        | Address1 | water           | broken water pipe | water pipe broken |
+        | location | skills          | summary           | description       | wage |
+        | Address1 | water           | broken water pipe | water pipe broken | 50   |
     And I log out
     And I am logged in as an admin
     And I am on the create account page

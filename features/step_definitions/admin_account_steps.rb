@@ -5,7 +5,7 @@ Given /^the site is set up$/ do
   step "I fill in \"account_name\" with \"master\""
   step "I fill in \"password\" with \"Password\""
   step "I fill in \"name\" with \"Master\""
-  step "I fill in \"phone_number\" with \"1234567890\""
+  step "I fill in \"phone_number\" with \"0008882222\""
   step "I check \"Admin\""
   step "I press \"Create Account\""
   step "I should be on the problems page"
