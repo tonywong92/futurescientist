@@ -6,7 +6,7 @@
 				.span3
 					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
 						%legend Admin - #{@user.account.account_name}
-						%ul
+						%ul.no-bullets
 							%li
 								%a#profile{:href => "/accounts/skills_verification"} Skills Verification
 							%li
@@ -17,13 +17,13 @@
 						%h4 User - #{@user.account.account_name}
 				.span6
 					%h5 My profile:
-					%ul
+					%ul.no-bullets
 						%li Name: #{@user.name}
 						%li Location: #{@user.location}
 						%li Email: #{@user.account.email}
 						%li Phone number: #{@user.phone_number}
 					%h5 My verified skills:
-					%ul
+					%ul.no-bullets
 						- if not @user.account.verified_skills.empty?
 							- @user.account.verified_skills.each do |skill|
 								%li #{skill}
