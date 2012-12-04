@@ -47,8 +47,12 @@ class SmsController < ApplicationController
           sms_change_password
         when /^password$/
           forgot_password
-        when /^skill$/, /%skills$/
+        when /^skill$/, /^skills$/
           sms_skill
+        when /^keywords$/, /^key$/, /^keys$/
+          sms_keywords
+        when /^explain$/
+          sms_explain
         else
           if is_num?(action)
             puts "SMS CONFIRMATION IS CALLED"
@@ -58,6 +62,8 @@ class SmsController < ApplicationController
             puts "SMS CONFIRMATION IS CALLED"
             session[:received_confirmation] = action
             sms_confirm_acc
+          else
+            sms_wrong_keyword
           end
       end
     end
@@ -152,41 +158,43 @@ class SmsController < ApplicationController
       skills = session["skills"]
     end
 
-    amountOfTexts.times do |i|
-      body = ""
-      if !skills.nil? and !location.nil?
-        problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
-      elsif !skills.nil?
-        problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
-      elsif !location.nil?
-        problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
-      else
-        problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
+    if skill_check?(skills)
+      amountOfTexts.times do |i|
+        body = ""
+        if !skills.nil? and !location.nil?
+          problems = Problem.where(:skills => skills, :location => location).order("created_at DESC").limit(5).offset(offset)
+        elsif !skills.nil?
+          problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
+        elsif !location.nil?
+          problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
+        else
+          problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
+        end
+        problems.each do |problem|
+        tmpbody = body +  problem.to_s + " "
+        if tmpbody.length <= TEXTLENGTH
+          body = tmpbody
+          offset +=1
+        else
+          break
+        end
+        end
+        body = body.strip
+        if body == ""
+          body = "There are no more additional problems"
+          body += (location || skills) ? " for" : "."
+          body += (location) ? " Location: #{location}" : ""
+          body += (skills) ? " Skills: #{skills}." : "."
+          sms_send(body)
+          break
+        else
+          sms_send(body)
+        end
       end
-      problems.each do |problem|
-      tmpbody = body +  problem.to_s + " "
-      if tmpbody.length <= TEXTLENGTH
-        body = tmpbody
-        offset +=1
-      else
-        break
-      end
-      end
-      body = body.strip
-      if body == ""
-        body = "There are no more additional problems"
-        body += (location || skills) ? " for" : "."
-        body += (location) ? " Location: #{location}" : ""
-        body += (skills) ? " Skills: #{skills}." : "."
-        sms_send(body)
-        break
-      else
-        sms_send(body)
-      end
+      session["offset"] = offset
+      session["location"] = location
+      session["skills"] = skills
     end
-    session["offset"] = offset
-    session["location"] = location
-    session["skills"] = skills
   end
 
   def sms_detail
@@ -398,4 +406,52 @@ class SmsController < ApplicationController
     sms_send(body)
   end
 
+
+  def sms_keywords
+    sms_send("Get, Add, Accept, Delete, Next, Detail, Edit, Skills are the valid keywords. Text 'Explain [keyword]' to get a description of the keyword.")
+  end
+
+  def sms_explain
+    keyword = @problem_text[1]
+    case keyword.downcase
+      when /^get$/
+        sms_send("Get a List of Problems: Text 'Get ![Filter by this skill] @[Filter by this location] LIMIT [Amount of texts you want to recieve]'")
+      when /^add$/, /^insert$/
+        sms_send("Create a Problem: Text Add #[Problem Summary] ![Skills Needed] @[Location] $[Wage]'")
+      when /^accept$/
+        sms_send("Accept a Problem if you are a verified provider: Text 'Accept [Problem ID] [Password to your account]'")
+      when /^delete$/, /^destroy$/
+        sms_send("Delete a Problem: Text 'Delete [Problem Id]'")
+      when /^next$/
+        sms_send("Continues the list of your previous 'GET' text with the same fields: Text 'Next [Amount of texts you want to recieve]'")
+      when /^detail$/, /^details$/, /^describe$/
+        sms_send("More details on a specific problem: Text 'Detail [Problem ID]'")
+      when /^edit$/
+        sms_send("Edit a Problem: Text 'Edit [Problem Id] #[New Problem Summary] ![New Skills Needed] @[New Location] $[New Wage]'")
+      when /^skills$/, /^skill$/
+        sms_send("A list of skills we currently have: Text 'Skills'")
+    end
+
+  end
+
+  def sms_wrong_keyword
+    sms_error("Wrong keyword. Text 'keywords' to get the list of valid keywords")
+  end
+
+  #Return's true if the skill exists,
+  #else it returns false and sends an error SMS to the person who texted in.
+  #Use only in sms functions
+  #Doesn't do anything if input is nil. Returns true.
+  def skill_check? skill
+    if !skill.nil?
+      curr_skill = Skill.find_by_skill_name(skill)
+      if curr_skill.nil?
+        sms_error("Skills: #{skill} is not a current skill we have. Text 'Skills' to get a list of skills we currently have.")
+        return false
+      else
+        return true
+      end
+    end
+    return true
+  end
 end
