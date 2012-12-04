@@ -45,7 +45,7 @@
             = text_field :user, :phone_number, :id => 'phone_number'
   
             = label :user, :location, 'Location', :class => 'category'
-            = text_field :user, :location, :id => 'location'
+            = text_field :user, :location, :id => 'location', :placeholder=>'Zip code', :pattern => "(\\d{5}([\\-]\\d{4})?)"
             Max: #{Problem.LOCATION_LIMIT} Characters
 
             = label :account, :skills, 'Skills', :class => 'category'
