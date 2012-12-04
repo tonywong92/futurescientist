@@ -43,7 +43,7 @@ describe SmsController do
       end
 
       it 'should mark the problem as done' do
-        problem = Problem.find(1) 
+        problem = Problem.find(1)
         problem.summary.should == "textedProblem2"
         problem.archived.should == true
       end
@@ -148,7 +148,7 @@ describe SmsController do
         open_last_text_message_for registered_phone_number2
         problem1 = Problem.find_by_summary("Problem1").id
 
-        current_text_message.should have_body "id:#{problem1}. Description: description1 "
+        current_text_message.should have_body "id:#{problem1}. Description: description1"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Describe 999'}
         open_last_text_message_for registered_phone_number2
@@ -207,6 +207,10 @@ describe SmsController do
         open_last_text_message_for registered_phone_number
 
         current_text_message.should have_body "Skills : asdf is not a current skill we have. Text 'Skills' to get a list of skills we currently have."
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Skills'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "water, water electrical, electronics, mold electricity"
       end
     end
 
