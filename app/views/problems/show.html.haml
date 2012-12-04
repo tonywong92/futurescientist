@@ -13,7 +13,7 @@
 						%li Requested by: #{@user.name}
 					%li Location: #{@problem.location}
 					%li Skills: #{@problem.skills}
-          %li Wage: #{@problem.wage}
+					%li Wage: #{@problem.wage}
 					%li Description: #{@problem.description}
 				- if @verifiedUser or @is_admin
 					= link_to 'Edit', edit_problem_path(@problem)
