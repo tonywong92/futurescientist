@@ -54,14 +54,14 @@ class Account < ActiveRecord::Base
   end
 
   def has_password? string
-    if self.password == to_hmac(string)
+    if self.password == Account.to_hmac(string)
       return true
     else
       return false
     end
   end
 
-  def to_hmac string
+  def self.to_hmac string
     hmac = HMAC::SHA1.new(@@PUBLIC_KEY)
     hmac.update(string)
     return hmac.to_s
