@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe SmsController do
   include SmsSpec::Helpers
+  let(:twilio_phone_number) {"+16502674928"}
+  let(:registered_phone_number) {"+16263204917"}
+  let(:registered_phone_number2) {"+14154393733"}
 
   before do
     clear_messages
@@ -9,12 +12,14 @@ describe SmsController do
     Skill.create(:skill_name => "water electrical")
     Skill.create(:skill_name => "electronics")
     Skill.create(:skill_name => "mold electricity")
+    user = User.new(:name => "Test", :phone_number => registered_phone_number)
+    user.save!
+    account = Account.new(:account_name => "testaccount", :password => "Password", :email => "test@test.com")
+    user.account = account
+    user.save!
   end
 
   describe 'sms interactions' do
-    let(:twilio_phone_number) {"+16502674928"}
-    let(:registered_phone_number) {"+16263204917"}
-    let(:registered_phone_number2) {"+14154393733"}
 
     describe 'problem submission through text' do
       before do
@@ -211,6 +216,51 @@ describe SmsController do
         open_last_text_message_for registered_phone_number
 
         current_text_message.should have_body "water, water electrical, electronics, mold electricity"
+      end
+    end
+
+     describe 'forgot account or password' do
+      before do
+      end
+
+      it 'should send informative texts during the process of forgot password/account' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Account'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Your account name is testaccount"
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Password'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Please text back 'change [new password]' Please keep in mind that your password must be at least 6 characters with 1 capital letter."
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Change Password2'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Your password has successfully been changed."
+
+        account = Account.find_by_account_name("testaccount")
+        account.should_not be_nil
+        assert account.has_password?("Password2"), "Password is suppose to be: Password2"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Change undercased'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Password needs to have at least 1 capital letter"
+      end
+
+      it 'should give correct errors if I do not have an account' do
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Account'}
+        open_last_text_message_for registered_phone_number2
+
+        current_text_message.should have_body "There is no account associated with this number."
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Password'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "There is no account associated with this number."
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Change Password2'}
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "Sorry, please send another request 'password' to this number."
       end
     end
 
