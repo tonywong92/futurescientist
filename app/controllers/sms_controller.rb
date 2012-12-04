@@ -6,7 +6,7 @@ class SmsController < ApplicationController
     @sms_location = nil
     @sms_skills = nil
     @sms_summary = nil
-    @sms_price = nil
+    @sms_wage = nil
     @sms_limit = nil
     @client = nil
     @sms_error = false
@@ -47,6 +47,8 @@ class SmsController < ApplicationController
           sms_change_password
         when /^password$/
           forgot_password
+        when /^skill$/, /%skills$/
+          sms_skill
         else
           if is_num?(action)
             puts "SMS CONFIRMATION IS CALLED"
@@ -67,7 +69,7 @@ class SmsController < ApplicationController
   #sets @sms_location if there's a "@location"
   #sets @sms_skills if there's a !skills
   #sets @sms_summary if there's a #summary
-  #sets @sms_price if there's a $price
+  #sets @sms_wage if there's a $wage
   #sets @sms_limit if there's a LIMIT #
   #sets @sms_error to true if there's a specific error that cannot allow the text to continue processing
   #add more parsing logic here if there's more.
@@ -108,7 +110,7 @@ class SmsController < ApplicationController
             end
             @sms_summary.chop!
           when "$"
-            @sms_price = nextWord.to_f
+            @sms_wage = nextWord.to_f
             words.slice!(0)
         end
       else
@@ -129,6 +131,12 @@ class SmsController < ApplicationController
           words.slice!(0)
         end
       end
+    end
+    if !@sms_location.nil?
+      @sms_location = @sms_location.downcase.strip
+    end
+    if !@sms_skills.nil?
+      @sms_skills = @sms_skills.downcase.strip
     end
     return action
   end
@@ -156,14 +164,15 @@ class SmsController < ApplicationController
         problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
       end
       problems.each do |problem|
-            tmpbody = body +  problem.to_s
-            if tmpbody.length <= TEXTLENGTH
-              body = tmpbody
-              offset +=1
-            else
-              break
-            end
+      tmpbody = body +  problem.to_s + " "
+      if tmpbody.length <= TEXTLENGTH
+        body = tmpbody
+        offset +=1
+      else
+        break
       end
+      end
+      body = body.strip
       if body == ""
         body = "There are no more additional problems"
         body += (location || skills) ? " for" : "."
@@ -185,11 +194,7 @@ class SmsController < ApplicationController
     begin
       problem = Problem.find(problem_id)
       problem_details = problem.more_detail
-      current = 0
-      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
-        sms_send(problem_details.slice(current, current + TEXTLENGTH))
-        current += TEXTLENGTH
-      end
+      sms_send(problem_details)
     rescue ActiveRecord::RecordNotFound
       sms_error("Sorry, that problem id does not exist")
     end
@@ -200,13 +205,13 @@ class SmsController < ApplicationController
     summary = @sms_summary
     location = @sms_location
     skills = @sms_skills
-    price = @sms_price
+    wage = @sms_wage
 
-    @problem = Problem.new(:location => location, :summary => summary, :skills => skills, :price => price)
+    @problem = Problem.new(:location => location, :summary => summary, :skills => skills, :wage => wage)
     add_problem_to_user_sms
 
     sms_authenticate
-    if save_problem_sms
+    if sms_save_problem
       sms_send("You have successfully posted your problem(id: #{@problem.id}). We will notify you of any updates as soon as possible. Thank you for using Emplify!")
     else
       @problem.errors.full_messages.each do |error|
@@ -241,9 +246,9 @@ class SmsController < ApplicationController
         summary = @sms_summary || problem.summary
         location = @sms_location || problem.location
         skills = @sms_skills || problem.skills
-        price = @sms_price || problem.price
+        wage = @sms_wage || problem.wage
 
-        if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :price => price)
+        if problem.update_attributes(:summary => summary, :location => location, :skills => skills, :wage => wage)
           sms_send("Your problem has successfully been edited.")
         else
           problem.errors.full_messages.each do |error|
@@ -286,7 +291,7 @@ class SmsController < ApplicationController
     if provider_acc.nil?
       sms_error("There is no verified account for #{params[:From]}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
     elsif provider_acc.password == Account.to_hmac(password)
-      problem = Problem.find(problem_id)
+      problem = Problem.find_by_id(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
@@ -347,13 +352,17 @@ class SmsController < ApplicationController
     if id.nil?
       sms_error("Sorry, please send another request 'password' to this number.")
     else
-      account = Account.find(id)
-      if account.update_attributes(:password => password)
-         sms_send("Your password has successfully been changed.")
+      if (password =~ /[A-Z]{1}/) == nil #currently manually doing this until figure out validate_password_for_update in account.rb
+        sms_error("Password needs to have at least 1 capital letter")
       else
-          account.errors.full_messages.each do |error|
-             sms_error(error)
-          end
+        account = Account.find(id)
+        if account.update_attributes(:password => password)
+           sms_send("Your password has successfully been changed.")
+        else
+            account.errors.full_messages.each do |error|
+                sms_error(error)
+            end
+        end
       end
     end
   end
@@ -369,4 +378,25 @@ class SmsController < ApplicationController
       sms_send("Your account name is #{provider_acc.account_name}")
     end
   end
+
+  def sms_skill
+    body = ""
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@############################"
+    all_skills = Skill.find(:all)
+    all_skills.each do |skill|
+       tmpbody = body +  skill.skill_name + ", "
+       if tmpbody.length <= TEXTLENGTH
+           body = tmpbody
+       else
+          body.chop!
+          body.chop! #chop off the comma and space"
+          sms_send(body)
+          body = skill.skill_name + ", "
+       end
+    end
+    body.chop!
+    body.chop!
+    sms_send(body)
+  end
+
 end

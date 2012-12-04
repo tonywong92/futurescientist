@@ -1,10 +1,14 @@
 require 'spec_helper'
 
-describe ProblemsController do
+describe SmsController do
   include SmsSpec::Helpers
 
   before do
     clear_messages
+    Skill.create(:skill_name => "water")
+    Skill.create(:skill_name => "water electrical")
+    Skill.create(:skill_name => "electronics")
+    Skill.create(:skill_name => "mold electricity")
   end
 
   describe 'sms interactions' do
@@ -20,21 +24,21 @@ describe ProblemsController do
       it 'should post my problem' do
         textedProblem = Problem.find_by_summary('texted problem')
         textedProblem.should_not be_nil
-        textedProblem.location.should == "San Francisco"
+        textedProblem.location.should == "san francisco"
         textedProblem.skills.should == "water electrical"
-        textedProblem.price.should == 50.00
+        textedProblem.wage.should == 50.00
       end
     end
 
     describe 'requester accepting a problem through text' do
       before do
-        provider_account = Account.create(:account_name => 'tony', :password => 'Password')
+        provider_account = Account.create(:account_name => 'tony', :password => 'Password', :email => 'test@test.com')
         provider_user = User.create(:phone_number => registered_phone_number2)
         provider_user.account = provider_account
         provider_user.save!
         #User.stub(:find_by_phone_number).and_return(provider_user)
         requester = User.create(:phone_number => registered_phone_number)
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #textedProblem2 @Location !water'}
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #textedProblem2 @Location !water $50.00'}
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Accept 1 Password'}
       end
 
@@ -64,11 +68,11 @@ describe ProblemsController do
         user = User.new({ :name => "dummy1", :phone_number=> registered_phone_number2, :location => "Address1"})
         user.save!
         NUM_PROBLEMS.times do |i|
-          problem = Problem.new({ :location => "Location1", :skills => "water", :summary => "Problem#{i+1}", :description => "description#{i+1}"})
+          problem = Problem.new({ :location => "Location1", :skills => "water", :summary => "Problem#{i+1}", :description => "description#{i+1}", :wage => 50.00})
           user.problems << problem
           user.save!
 
-          problem = Problem.new({ :location => "Location2", :skills => "electronics", :summary => "Problem2#{i+1}", :description => "description2#{i+1}"})
+          problem = Problem.new({ :location => "Location2", :skills => "electronics", :summary => "Problem2#{i+1}", :description => "description2#{i+1}", :wage => 50.00})
           user.problems << problem
           user.save!
         end
@@ -102,7 +106,7 @@ describe ProblemsController do
         problem8 = Problem.find_by_summary("Problem8").id
         problem7 = Problem.find_by_summary("Problem7").id
 
-        current_text_message.should have_body "id:#{problem10}. @Location1 !water #Problem10 id:#{problem9}. @Location1 !water #Problem9 id:#{problem8}. @Location1 !water #Problem8 id:#{problem7}. @Location1 !water #Problem7 "
+        current_text_message.should have_body "id:#{problem10}. @location1 !water #Problem10 $50.0 id:#{problem9}. @location1 !water #Problem9 $50.0 id:#{problem8}. @location1 !water #Problem8 $50.0"
         #current_text_message.should have_body "id:#{problem2}. @Location1 !water #Problem2 $50 id:#{problem1}. @Location1 !water #Problem1 $50 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
@@ -112,13 +116,13 @@ describe ProblemsController do
         problem4 = Problem.find_by_summary("Problem4").id
         problem3 = Problem.find_by_summary("Problem3").id
 
-        current_text_message.should have_body "id:#{problem6}. @Location1 !water #Problem6 id:#{problem5}. @Location1 !water #Problem5 id:#{problem4}. @Location1 !water #Problem4 id:#{problem3}. @Location1 !water #Problem3 "
+        current_text_message.should have_body "id:#{problem7}. @location1 !water #Problem7 $50.0 id:#{problem6}. @location1 !water #Problem6 $50.0 id:#{problem5}. @location1 !water #Problem5 $50.0"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
-        current_text_message.should have_body "There are no more additional problems for Location: Location1 Skills: water."
+        current_text_message.should have_body "There are no more additional problems for Location: location1 Skills: water."
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location2 LIMIT 1'}
         open_last_text_message_for registered_phone_number2
@@ -126,17 +130,17 @@ describe ProblemsController do
         problem29 = Problem.find_by_summary("Problem29").id
         problem28 = Problem.find_by_summary("Problem28").id
 
-        current_text_message.should have_body "id:#{problem210}. @Location2 !electronics #Problem210 id:#{problem29}. @Location2 !electronics #Problem29 id:#{problem28}. @Location2 !electronics #Problem28 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 $50.0 id:#{problem29}. @location2 !electronics #Problem29 $50.0 id:#{problem28}. @location2 !electronics #Problem28 $50.0"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET !electronics LIMIT 1'}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "id:#{problem210}. @Location2 !electronics #Problem210 id:#{problem29}. @Location2 !electronics #Problem29 id:#{problem28}. @Location2 !electronics #Problem28 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 $50.0 id:#{problem29}. @location2 !electronics #Problem29 $50.0 id:#{problem28}. @location2 !electronics #Problem28 $50.0"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET LIMIT 1'}
         open_last_text_message_for registered_phone_number2
 
-        current_text_message.should have_body "id:#{problem210}. @Location2 !electronics #Problem210 id:#{problem10}. @Location1 !water #Problem10 id:#{problem29}. @Location2 !electronics #Problem29 id:#{problem9}. @Location1 !water #Problem9 "
+        current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 $50.0 id:#{problem10}. @location1 !water #Problem10 $50.0 id:#{problem29}. @location2 !electronics #Problem29 $50.0"
       end
 
       it 'should describe a problem correctly' do
@@ -144,7 +148,7 @@ describe ProblemsController do
         open_last_text_message_for registered_phone_number2
         problem1 = Problem.find_by_summary("Problem1").id
 
-        current_text_message.should have_body "id:#{problem1}. Description: description1 Phone: #{registered_phone_number2} "
+        current_text_message.should have_body "id:#{problem1}. Description: description1"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Describe 999'}
         open_last_text_message_for registered_phone_number2
@@ -163,9 +167,9 @@ describe ProblemsController do
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} #new texted problem !mold electricity $49.38"}
         textedProblem = Problem.find_by_summary('new texted problem')
         textedProblem.should_not be_nil
-        textedProblem.location.should == "San Francisco"
+        textedProblem.location.should == "san francisco"
         textedProblem.skills.should == "mold electricity"
-        textedProblem.price.should == 49.38
+        textedProblem.wage.should == 49.38
         newString = "i"
         Problem.SUMMARY_LIMIT.times do |i|
           newString << "i"
@@ -199,19 +203,14 @@ describe ProblemsController do
       end
 
       it 'should send me the right error message if I text something incorrectly' do
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !asdfasfsdafas $50.00'}
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !asdf $50.00'}
         open_last_text_message_for registered_phone_number
 
-        current_text_message.should have_body "Error. We currently do not have anyone with that skill. Text 'Skills' to get a list of skills our providers currently have."
-      end
+        current_text_message.should have_body "Skills : asdf is not a current skill we have. Text 'Skills' to get a list of skills we currently have."
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Skills'}
+        open_last_text_message_for registered_phone_number
 
-      it 'should let me be flexible with my texting' do
-        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !broken pipe $50.00'}
-        textedProblem = Problem.find_by_summary('texted problem')
-        textedProblem.should_not be_nil
-        textedProblem.location.should == "San Francisco"
-        textedProblem.skills.should == "water"
-        textedProblem.price.should == 50.00
+        current_text_message.should have_body "water, water electrical, electronics, mold electricity"
       end
     end
 

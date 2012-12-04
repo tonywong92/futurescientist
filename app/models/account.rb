@@ -32,15 +32,20 @@ class Account < ActiveRecord::Base
   validates :password, :presence => true
   validates_uniqueness_of :email
   validates_uniqueness_of :account_name
-  validate :validate_password
+  validate :validate_password, :unless => :persisted?
+  validate :validate_password_for_update, :if => :persisted?
   validates_length_of :password, :minimum => 6, :allow_blank => false
   after_initialize :init
 
-  def validate_password
+  def validate_password	
     bool = (password =~ /[A-Z]{1}/) != nil
     if !bool
       errors.add(:password, " needs to have at least 1 capital letter")
     end
+  end
+
+  def validate_password_for_update
+	#TODO: need a way to be able to validate the password when 		doing an update. Right now, the encryption is a one way hash, 		thus there's not a way I can check for a capital letter, when 		it's already in the database, since we only save encrypted 		passwords, and hmac only is a one way hash. Currently self-   checking...
   end
 
   def init

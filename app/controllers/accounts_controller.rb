@@ -63,6 +63,8 @@ class AccountsController < ApplicationController
         if !@account.errors.empty?
           flash[:account_errors] = @account.errors.full_messages
         end
+	@user.destroy
+	@account.destroy
         @all_skills = Skill.find(:all)
         redirect_to new_account_path
         return
@@ -88,6 +90,8 @@ class AccountsController < ApplicationController
           if !@account.errors.empty?
             flash[:account_errors] = @account.errors.full_messages
           end
+	  @user.destroy
+ 	  @account.destroy
           @all_skills = Skill.find(:all)
           redirect_to new_account_path
           return
@@ -163,7 +167,7 @@ class AccountsController < ApplicationController
   end
 
   def validate_password
-    if @account.password == Account.to_hmac(params[:account][:password])
+    if @account.has_password?(params[:account][:password])
       session[:account] = @account.id
       flash[:notice] = "Welcome, #{@account.account_name}"
       redirect_to problems_path
@@ -184,8 +188,11 @@ class AccountsController < ApplicationController
       flash[:notice] = "You are not logged in"
       redirect_to problems_path
     elsif params[:type] == 'edit_email'
-      @account.update_attributes!(:email => params[:email][:address])
-      flash[:notice] = "Email changed!"
+      if @account.update_attributes(:email => params[:email][:address])
+     	 flash[:notice] = "Email changed!"
+      else
+         flash[:notice] = @account.errors.full_messages
+      end	
       redirect_to edit_account_path(@account.id)
     elsif params[:type] == 'edit_password'
       changepass
@@ -203,12 +210,15 @@ class AccountsController < ApplicationController
     if @account.nil?
        flash[:notice] = "You are not logged in"
        redirect_to problems_path
-    elsif Account.to_hmac(params[:password][:current]) != @account.password
+    elsif @account.has_password?(params[:password][:current])
        flash[:notice] = "Password incorrect"
        redirect_to edit_account_path(@account.id)
     elsif params[:password_new][:new] == params[:reenter][:pass]
-      @account.update_attributes!(:password => params[:password_new][:new])
-      flash[:notice] = "Password changed"
+      if @account.update_attributes(:password => params[:password_new][:new])
+     	 flash[:notice] = "Password changed"
+      else
+         flash[:notice] = @account.errors.full_messages
+      end
       redirect_to edit_account_path(@account.id)
     else
       flash[:notice] = "The new password you entered doesn't match"
@@ -225,8 +235,11 @@ class AccountsController < ApplicationController
     else
       phoneNum = params[:phone][:number]
       phoneNum = normalize_phone phoneNum
-      @account.user.update_attributes!(:phone_number => phoneNum)
-      flash[:notice] = "Phone number changed"
+      if @account.user.update_attributes(:phone_number => phoneNum)
+     	 flash[:notice] = "Phone number changed"
+      else
+         flash[:notice] = @account.user.errors.full_messages
+      end
       redirect_to edit_account_path(@account.id)
     end
   end
@@ -239,8 +252,11 @@ class AccountsController < ApplicationController
       redirect_to problems_path
     else
       newLocation = params[:location][:name]
-      @account.user.update_attributes!(:location => newLocation)
-      flash[:notice] = "Location changed"
+      if @account.user.update_attributes(:location => newLocation)
+     	 flash[:notice] = "Location changed"
+      else
+         flash[:notice] = @account.user.errors.full_messages
+      end
       redirect_to edit_account_path(@account.id)
     end
   end
@@ -253,12 +269,18 @@ class AccountsController < ApplicationController
       flash[:notice] = "You are not logged in"
       redirect_to problems_path
     elsif @account.admin
-      @account.update_attributes!(:verified_skills => params[:skills])
-      flash[:notice] = "Skills updated"
+      if @account.update_attributes(:verified_skills => params[:skills])
+     	 flash[:notice] = "Skills updated"
+      else
+         flash[:notice] = @account.errors.full_messages
+      end
       redirect_to edit_account_path(@account.id)
     else
-      @account.update_attributes!(:skills => params[:skills])
-      flash[:notice] = "Skills to be verified"
+      if @account.update_attributes(:skills => params[:skills])
+      	flash[:notice] = "Skills to be verified"
+      else
+         flash[:notice] = @account.errors.full_messages
+      end
       redirect_to edit_account_path(@account.id)
     end
   end
