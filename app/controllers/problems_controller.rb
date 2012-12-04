@@ -88,26 +88,51 @@ class ProblemsController < ApplicationController
   end
 
   def show
-    id = params[:id]
-    @problem = Problem.find_by_id(id)
+    @id = params[:id]
+    @problem = Problem.find_by_id(@id)
     @user = @problem.user
     @verifiedUser = false
-    account = Account.find_by_id(session[:account])
-    if account != nil
-      @is_admin = account.admin
-      if account.user.phone_number == @user.phone_number
+    @account = Account.find_by_id(session[:account])
+    if @account != nil
+      @qualified_provider = @account.verified_skills.include?(@problem.skills)
+      @is_admin = @account.admin
+      if @account.user.phone_number == @user.phone_number
         @verifiedUser = true
       end
     end
-  end
-=begin
-  def accept_problem
-    id = params[:id]
-    @problem = Problem.find_by_id(id)
-    @user = @problem.user
+    puts "####################################"
+    puts "THIS IS THE ACCOUNT.ID"
+    puts @account.id
+    puts "####################################"
 
   end
-=end
+
+  def accept_problem
+    provider_id = params[:provider_id]
+    if provider_id.to_s == session[:account].to_s
+      problem_id = params[:problem_id]
+      problem = Problem.find_by_id(problem_id)
+      requester = problem.user
+      provider = Account.find_by_id(provider_id)
+      provider.accepted_problems << problem_id
+      if provider.save
+        problem.archived = true
+        problem.save
+        requester = problem.user
+        sms_send(provider.user.phone_number, "You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
+        #send a notification to the requester saying that a provider will be contacting shortly
+        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.user.phone_number}."
+        sms_send(requester.phone_number, requester_msg)
+      end
+    else
+      flash[:notice] = 'You are not currently logged in. Please log in before accepting problems.'
+      redirect_to problems_path
+      return
+    end
+    flash[:notice] = "You have sucessfully accepted #{problem.summary} problem. Please follow the instructions on the text you received."
+    redirect_to problems_path
+  end
+
   def edit
     @problem = Problem.find(params[:id])
     @user = @problem.user
