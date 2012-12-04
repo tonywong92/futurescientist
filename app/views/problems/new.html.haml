@@ -29,13 +29,14 @@
           = form_tag problems_path do
 
             = label :user, :name, 'Name', :class => 'category'
-            = text_field :user, :name
+            = text_field :user, :name, :value => @user_name
   
             = label :user, :phone_number, 'Phone Number', :class => 'category'
-            = text_field :user, :phone_number, :placeholder=>"xxx-xxx-xxxx", :required=>""
+            = text_field :user, :phone_number, :placeholder=>"xxx-xxx-xxxx", :value => @user_phone, :required=>""
 
             = label :problem, :location, 'Location', :class => 'category'
-            = text_field :problem, :location, :required=>""
+            = text_field :problem, :location, :value => @user_location, :required=>""
+                        
             Max: #{Problem.LOCATION_LIMIT} Characters
 
             = label :problem, :skills, 'Skills Required', :class => 'category'

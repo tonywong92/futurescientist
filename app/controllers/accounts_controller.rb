@@ -174,6 +174,11 @@ class AccountsController < ApplicationController
   end
 
   def edit
+    account = Account.find_by_id(session[:account])
+    user = account.user
+    @account_email = account.email
+    @user_phone = user.phone_number
+    @user_location = user.location
     @all_skills = Skill.find(:all)
     @skills_array = Array.new
     @user = Account.find_by_id(session[:account]).user
