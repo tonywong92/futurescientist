@@ -41,7 +41,11 @@
             = label :problem, :skills, 'Skills Required', :class => 'category'
             = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name'))
 
+            = label :problem, :wage, 'Wage'
+            = text_field :problem, :wage, :required=>""
+
             = label :problem, :summary, 'Problem Summary', :class => 'category'
+
             = text_field :problem, :summary, :required=>""
             Max: #{Problem.SUMMARY_LIMIT} Characters
 

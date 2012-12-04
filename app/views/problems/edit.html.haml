@@ -17,6 +17,9 @@
             = label :problem, :skills, 'Skills Required'
             = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name', {:selected => [@curr_skills]}))
 
+            = label :problem, :wage, 'Wage'
+            = text_field :problem, :wage
+
             = label :problem, :summary, 'Problem Summary'
             = text_field :problem, :summary
 

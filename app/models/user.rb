@@ -10,6 +10,7 @@ attr_accessible :location, :name, :phone_number
 
   validates :phone_number, :presence => true
   validate :validate_phone_number
+  validates_uniqueness_of :phone_number
   validates_length_of :location, :maximum => Problem.LOCATION_LIMIT, :allow_blank => true
 
   def sanitize number

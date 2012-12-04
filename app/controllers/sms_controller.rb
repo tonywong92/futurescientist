@@ -310,7 +310,7 @@ class SmsController < ApplicationController
   end
 
   def sms_confirm_acc
-    acc = Account.find(@problem_text[0])
+    acc = Account.find_by_id(@problem_text[0])
     acc_name = @problem_text[1]
     if !acc.nil? and acc_name == acc.account_name
       acc.verified = true
@@ -381,7 +381,6 @@ class SmsController < ApplicationController
 
   def sms_skill
     body = ""
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@############################"
     all_skills = Skill.find(:all)
     all_skills.each do |skill|
        tmpbody = body +  skill.skill_name + ", "

@@ -49,9 +49,9 @@ class ProblemsController < ApplicationController
   end
 
   def create
-    @problem = Problem.new(:location => params[:problem][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
+    @problem = Problem.new(:wage => params[:problem][:wage], :location => params[:problem][:location], :summary => params[:problem][:summary], :description => params[:problem][:description], :skills => params[:skills])
 
-    @user = User.find_by_phone_number(params[:user][:phone_number])
+    @user = User.find_by_phone_number(normalize_phone(params[:user][:phone_number]))
     if @user.nil?
       @user = User.new
       @user.attributes = params[:user]
@@ -79,7 +79,7 @@ class ProblemsController < ApplicationController
 
   def show
     id = params[:id]
-    @problem = Problem.find(id)
+    @problem = Problem.find_by_id(id)
     @user = @problem.user
     @verifiedUser = false
     account = Account.find_by_id(session[:account])
@@ -90,7 +90,14 @@ class ProblemsController < ApplicationController
       end
     end
   end
-
+=begin
+  def accept_problem
+    id = params[:id]
+    @problem = Problem.find_by_id(id)
+    @user = @problem.user
+    
+  end
+=end
   def edit
     @problem = Problem.find(params[:id])
     @user = @problem.user

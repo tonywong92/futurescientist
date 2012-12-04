@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   # Test numbers: When you create an account in rails server, you need to use one of these numbers. Otherwise it will try to send a text to confirm the number you are using and it will fail.
-  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222"]
+  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222", "+16667777888"]
 
   # Loads the account creation form
   def new
@@ -47,6 +47,7 @@ class AccountsController < ApplicationController
     end
   end
 
+  #TODO: Make sure unverified accounts can't do stuff through text.
   def save_account phone_number
     if TEST_NUMBERS.include? phone_number
       if @user.save and @account.save
@@ -73,16 +74,8 @@ class AccountsController < ApplicationController
     else
       begin
         if @user.save and @account.save
-          puts @account.account_name
-          puts @account.email
-          puts @account.id
-          puts @account.account_name
-          puts @account.email
-          puts @account.id
           sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
           reset_session
-          session[:account] = @account.id
-          flash[:notice] = 'You have successfully created an account'
         else
           flash[:error] = 'There was a problem with creating your account'
           if !@user.errors.empty?
@@ -91,15 +84,17 @@ class AccountsController < ApplicationController
           if !@account.errors.empty?
             flash[:account_errors] = @account.errors.full_messages
           end
-	  @user.destroy
- 	  @account.destroy
+          @user.destroy
+          @account.destroy
           @all_skills = Skill.find(:all)
           redirect_to new_account_path
           return
         end
-        flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login after this session."
+        flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login."
       rescue Twilio::REST::RequestError
         flash[:notice] = 'We seem to be having difficulties sending a text to your phone number. Please try another valid phone number or try again later.'
+        @user.destroy
+        @account.destroy
         render new_account_path
         return
       end
