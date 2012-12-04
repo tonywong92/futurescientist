@@ -416,19 +416,19 @@ class SmsController < ApplicationController
     case keyword.downcase
       when /^get$/
         sms_send("Get a List of Problems: Text 'Get ![Filter by this skill] @[Filter by this location] LIMIT [Amount of texts you want to recieve]'")
-      when /^add$/
+      when /^add$/, /^insert$/
         sms_send("Create a Problem: Text Add #[Problem Summary] ![Skills Needed] @[Location] $[Wage]'")
       when /^accept$/
         sms_send("Accept a Problem if you are a verified provider: Text 'Accept [Problem ID] [Password to your account]'")
-      when /^delete$/
+      when /^delete$/, /^destroy$/
         sms_send("Delete a Problem: Text 'Delete [Problem Id]'")
       when /^next$/
         sms_send("Continues the list of your previous 'GET' text with the same fields: Text 'Next [Amount of texts you want to recieve]'")
-      when /^detail$/
+      when /^detail$/, /^details$/, /^describe$/
         sms_send("More details on a specific problem: Text 'Detail [Problem ID]'")
       when /^edit$/
         sms_send("Edit a Problem: Text 'Edit [Problem Id] #[New Problem Summary] ![New Skills Needed] @[New Location] $[New Wage]'")
-      when /^skills$/
+      when /^skills$/, /^skill$/
         sms_send("A list of skills we currently have: Text 'Skills'")
     end
 
