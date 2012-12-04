@@ -18,10 +18,11 @@ class Account < ActiveRecord::Base
     end
   end
 
-  attr_accessible :admin, :email, :account_name, :password, :skills, :verified_skills, :verified
+  attr_accessible :admin, :email, :account_name, :password, :skills, :verified_skills, :verified, :accepted_problems
 
   serialize :skills
   serialize :verified_skills
+  serialize :accepted_problems
 
   belongs_to :user
 
@@ -51,6 +52,7 @@ class Account < ActiveRecord::Base
   def init
     self.skills ||= []
     self.verified_skills ||= []
+    self.accepted_problems ||= []
   end
 
   def has_password? string

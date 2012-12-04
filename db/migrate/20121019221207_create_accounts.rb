@@ -7,6 +7,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :email
       t.text :skills
       t.text :verified_skills
+      t.text :accepted_problems
       t.boolean :verified, :default => false
       t.references 'user'
 

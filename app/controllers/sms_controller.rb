@@ -295,14 +295,16 @@ class SmsController < ApplicationController
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
-        problem.archived = true
-        problem.save
-        requester = problem.user
-        sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
-        #send a notification to the requester saying that a provider will be contacting shortly
-        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
-        sms_authenticate
-        @client.account.sms.messages.create(:from => params[:To], :to => requester.phone_number, :body => requester_msg)
+        provider.accepted_problems << problem_id
+        if provider.save
+          problem.archived = true
+          problem.save
+          requester = problem.user
+          sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
+          #send a notification to the requester saying that a provider will be contacting shortly
+          requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
+          sms_send(requester.phone_number, requester_msg)
+        end
       end
     else
       sms_error("Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'")

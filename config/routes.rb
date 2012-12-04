@@ -21,6 +21,7 @@ Futurescientist::Application.routes.draw do
   match 'accounts/changelocation' => 'accounts#changelocation'
   match 'accounts/changeskills' => 'accounts#changeskills'
   match 'instructions' => 'problems#instructions'
+	match '/accept' => 'problems#accept_problem'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
