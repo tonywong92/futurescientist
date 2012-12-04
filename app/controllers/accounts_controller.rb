@@ -74,8 +74,6 @@ class AccountsController < ApplicationController
         if @user.save and @account.save
           sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
           reset_session
-          session[:account] = @account.id
-          flash[:notice] = 'You have successfully created an account'
         else
           flash[:error] = 'There was a problem with creating your account'
           if !@user.errors.empty?
@@ -90,7 +88,7 @@ class AccountsController < ApplicationController
           redirect_to new_account_path
           return
         end
-        flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login after this session."
+        flash[:notice] = "Your account has been created, but will not be verified until you have replied to the text with the number indicated. Until you verify, you will not be able to login."
       rescue Twilio::REST::RequestError
         flash[:notice] = 'We seem to be having difficulties sending a text to your phone number. Please try another valid phone number or try again later.'
         @user.destroy
