@@ -381,7 +381,7 @@ class SmsController < ApplicationController
 
   def sms_skill
     body = ""
-    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@$@$@############################"
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@############################"
     all_skills = Skill.find(:all)
     all_skills.each do |skill|
        tmpbody = body +  skill.skill_name + ", "
