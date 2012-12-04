@@ -18,10 +18,7 @@ module NavigationHelpers
     when /^the problems page$/
       '/problems'
     
-    when /^the create account page$/
-      new_account_path
-
-    when /^the create admin page$/
+    when /^the create account page$/, /^the create admin page$/
       new_account_path
 
     when /^the problem submission page$/

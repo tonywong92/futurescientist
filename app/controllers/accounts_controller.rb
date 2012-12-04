@@ -51,8 +51,7 @@ class AccountsController < ApplicationController
   def save_account phone_number
     if TEST_NUMBERS.include? phone_number
       if @user.save and @account.save
-        reset_session
-        session[:account] = @account.id
+        session[:account] = !Account.find_by_id(session[:account]).nil?
         flash[:notice] = 'You have successfully created an account'
         #don't require a text confirmation
         @user.account.verified = true
@@ -75,7 +74,7 @@ class AccountsController < ApplicationController
       begin
         if @user.save and @account.save
           sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
-          reset_session
+          reset_session unless !Account.find_by_id(session[:account]).nil?
         else
           flash[:error] = 'There was a problem with creating your account'
           if !@user.errors.empty?
