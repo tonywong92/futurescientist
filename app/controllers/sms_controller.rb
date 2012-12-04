@@ -6,7 +6,7 @@ class SmsController < ApplicationController
     @sms_location = nil
     @sms_skills = nil
     @sms_summary = nil
-    @sms_price = nil
+    @sms_wage = nil
     @sms_limit = nil
     @client = nil
     @sms_error = false
@@ -132,6 +132,12 @@ class SmsController < ApplicationController
         end
       end
     end
+    if !@sms_location.nil?
+      @sms_location = @sms_location.downcase.strip
+    end
+    if !@sms_skills.nil?
+      @sms_skills = @sms_skills.downcase.strip
+    end
     return action
   end
 
@@ -158,14 +164,15 @@ class SmsController < ApplicationController
         problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
       end
       problems.each do |problem|
-            tmpbody = body +  problem.to_s
-            if tmpbody.length <= TEXTLENGTH
-              body = tmpbody
-              offset +=1
-            else
-              break
-            end
+      tmpbody = body +  problem.to_s + " "
+      if tmpbody.length <= TEXTLENGTH
+        body = tmpbody
+        offset +=1
+      else
+        break
       end
+      end
+      body = body.strip
       if body == ""
         body = "There are no more additional problems"
         body += (location || skills) ? " for" : "."
@@ -187,11 +194,7 @@ class SmsController < ApplicationController
     begin
       problem = Problem.find(problem_id)
       problem_details = problem.more_detail
-      current = 0
-      (problem_details.length/(TEXTLENGTH.to_f)).ceil.times do |i|
-        sms_send(problem_details.slice(current, current + TEXTLENGTH))
-        current += TEXTLENGTH
-      end
+      sms_send(problem_details)
     rescue ActiveRecord::RecordNotFound
       sms_error("Sorry, that problem id does not exist")
     end
@@ -288,7 +291,7 @@ class SmsController < ApplicationController
     if provider_acc.nil?
       sms_error("There is no verified account for #{params[:From]}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
     elsif provider_acc.password == Account.to_hmac(password)
-      problem = Problem.find(problem_id)
+      problem = Problem.find_by_id(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
@@ -349,13 +352,17 @@ class SmsController < ApplicationController
     if id.nil?
       sms_error("Sorry, please send another request 'password' to this number.")
     else
-      account = Account.find(id)
-      if account.update_attributes(:password => password)
-         sms_send("Your password has successfully been changed.")
+      if (password =~ /[A-Z]{1}/) == nil #currently manually doing this until figure out validate_password_for_update in account.rb
+        sms_error("Password needs to have at least 1 capital letter")
       else
-          account.errors.full_messages.each do |error|
-             sms_error(error)
-          end
+        account = Account.find(id)
+        if account.update_attributes(:password => password)
+           sms_send("Your password has successfully been changed.")
+        else
+            account.errors.full_messages.each do |error|
+                sms_error(error)
+            end
+        end
       end
     end
   end
@@ -374,6 +381,7 @@ class SmsController < ApplicationController
 
   def sms_skill
     body = ""
+    puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@$@$@############################"
     all_skills = Skill.find(:all)
     all_skills.each do |skill|
        tmpbody = body +  skill.skill_name + ", "
