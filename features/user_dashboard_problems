@@ -24,7 +24,14 @@ Background:
   And I fill in the following fields:
       |Email             | Account Name   | Password | Name     | Phone Number | Location |
       | provider@pvd.com | helper         | Password | Provider | 9994441111   | Panama   |
+  And I check "water"
   And I press "Create Account"
+  Given I login with "master" and "Password"
+  And I go to the skills verification page
+  And I should see "water"
+  And I choose "water yes"
+  And I press "Verify Skill"
+  And I log out
   And I login with "Tester" and "Password"
 
 Scenario: User should be able to interact with all of his submitted problems
@@ -44,4 +51,15 @@ Scenario: User should be able to interact with all of his submitted problems
   And I should not see "Broken Pipe"
 
 Scenario: User should be able to interact with all of his accepted problems
-  Given I am on the home page
+  Given I am on the problem submission page
+  And I select "water" from "skills"
+  And I fill in "Problem Summary" with "Broken Sink"
+  And I fill in "Wage" with "100"
+  And I press "Submit Problem"
+  And I log out
+  When I login with "helper" and "Password"
+  And I follow "Broken Sink"
+  And I follow "accept_problem"
+  When I go to the profile page
+  Then I should see "Broken Sink"
+

@@ -14,6 +14,8 @@
 							%li Requested by: #{@user.name + " (" + @user.phone_number + ")"}
 						- else 
 							%li Requested by: #{@user.name}
+					- else
+						%li Requested by: #{@user.phone_number}
 					%li Location: #{@problem.location}
 					%li Skills: #{@problem.skills}
 					%li Wage: $#{@problem.wage}
