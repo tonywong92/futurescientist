@@ -4,6 +4,9 @@
 # TODO!!!! WAGE MUST BE A FLOAT. CUCUMBER WILL PASS IT IN AS A STRING. MUST CONVERT BEFORE CREATING A PROBLEM.
 Given /^"(.*?)" created the following problems:$/ do |name, problems_table|
   user = User.find_by_name(name)
+	if user.nil?
+		user = User.new(:name => name, :phone_number => "+12223334444")
+	end
   problems_table.hashes.each do |problem|
     # each returned element will be a hash whose key is the table header.
     # you should arrange to add that movie to the database here.

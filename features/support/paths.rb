@@ -38,6 +38,9 @@ module NavigationHelpers
 
     when /^the profile page$/
       account_path @account_id
+      
+    when /^the problem details page for the first problem$/
+      problem_path(1)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

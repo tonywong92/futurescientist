@@ -16,7 +16,7 @@
 					%li Wage: $#{@problem.wage}
 					%li Description: #{@problem.description}
 				- if @qualified_provider
-					= link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id, :confirm => "Are you sure you wish to accept this problem?"}
+					= link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id}, :id => 'accept_problem'
 				- if @verifiedUser or @is_admin
 					= link_to 'Edit', edit_problem_path(@problem)
 					= button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
