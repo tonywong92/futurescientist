@@ -15,7 +15,7 @@
 					%li Skills: #{@problem.skills}
 					%li Wage: $#{@problem.wage}
 					%li Description: #{@problem.description}
-				- if @qualified_provider
+				- if @qualified_provider and !@problem.archived
 					= link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id}, :id => 'accept_problem'
 				- if @verifiedUser or @is_admin
 					= link_to 'Edit', edit_problem_path(@problem)
