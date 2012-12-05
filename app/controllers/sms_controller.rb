@@ -49,7 +49,7 @@ class SmsController < ApplicationController
           forgot_password
         when /^skill$/, /^skills$/
           sms_skill
-        when /^keywords$/, /^key$/, /^keys$/
+        when /^keywords$/, /^key$/, /^keys$/, /^help$/
           sms_keywords
         when /^explain$/
           sms_explain
