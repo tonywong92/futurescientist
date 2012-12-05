@@ -11,6 +11,7 @@ end
   attr_accessible :description, :location, :skills, :summary, :archived, :wage
 
   belongs_to :user
+  belongs_to :account
 
   validates :location, :presence => true
   validates :skills, :presence => true

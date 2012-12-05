@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.text     "description"
     t.float    "wage"
     t.integer  "user_id"
+    t.integer  "account_id"
     t.boolean  "archived",    :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false

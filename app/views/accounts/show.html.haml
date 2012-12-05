@@ -1,8 +1,9 @@
 =render :partial => 'layouts/header'
 %br
-	.span10.offset1
+	.span11.offset1
 		.well
-			.container
+			.container			
+				%h3.dashboard THE DASHBOARD
 				.span3
 					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
 						%legend Admin - #{@user.account.account_name}
@@ -18,7 +19,7 @@
 						%h4 User - #{@user.account.account_name}
 						%ul.no-bullets
 							%li= link_to "Edit Profile", edit_account_path(@user.account.id)
-				.span6
+				.span7
 					%h5 My profile:
 					%ul.no-bullets
 						%li Name: #{@user.name}
@@ -43,6 +44,7 @@
 									%th Skills
 									%th Location
 									%th Wage
+									%th Accepted?
 							%tbody
 								- @user.problems.each do |problem|
 									%tr
@@ -50,8 +52,12 @@
 										%td= problem.skills
 										%td= problem.location
 										%td= problem.wage
+										- if problem.archived == true
+											%td.yes= problem.account.account_name + " (" + problem.account.user.phone_number + ")"
+										- else
+											%td.no= "No"
 					%h5 My accepted problems:
-					- if @account.accepted_problems.empty?
+					- if @account.problems.nil?
 						%p You have not accepted any problems.
 					- else
 						%table#listings_table.table.table-striped.table-bordered
@@ -61,14 +67,19 @@
 									%th Skills
 									%th Location
 									%th Wage
+									%th Problem owner
 							%tbody
-								- @account.accepted_problems.each do |problem_id|
+								- @account.problems.each do |problem_id|
 									%tr
 										- problem = Problem.find_by_id(problem_id)
 										%td= link_to "#{problem.summary}", problem_path(problem_id)
 										%td= problem.skills
 										%td= problem.location
 										%td= problem.wage
+										- if problem.user.account.nil?
+											%td= problem.user.phone_number
+										- else
+											%td= problem.user.account.account_name + " (" + problem.user.phone_number + ")"
 
 
 

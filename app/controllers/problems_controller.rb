@@ -109,7 +109,7 @@ class ProblemsController < ApplicationController
       problem = Problem.find_by_id(problem_id)
       requester = problem.user
       provider = Account.find_by_id(provider_id)
-      provider.accepted_problems << problem_id
+      provider.problems << problem
       if provider.save
         problem.archived = true
         problem.save

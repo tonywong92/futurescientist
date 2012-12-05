@@ -20,3 +20,15 @@
 	list-style: none;
 	margin: 0;
 }
+
+.dashboard {
+	margin-left: 20px;
+}
+
+.yes {
+	color: green;
+}
+
+.no {
+	color: red;
+}
