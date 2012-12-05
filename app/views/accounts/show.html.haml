@@ -57,7 +57,7 @@
 										- else
 											%td.no= "No"
 					%h5 My accepted problems:
-					- if @account.problems.nil?
+					- if @account.problems.empty?
 						%p You have not accepted any problems.
 					- else
 						%table#listings_table.table.table-striped.table-bordered

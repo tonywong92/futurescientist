@@ -20,6 +20,11 @@ Background:
       | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
   And I press "Create Account"
   And I log out
+  And I am on the create account page
+  And I fill in the following fields:
+      |Email             | Account Name   | Password | Name     | Phone Number | Location |
+      | provider@pvd.com | helper         | Password | Provider | 9994441111   | Panama   |
+  And I press "Create Account"
   And I login with "Tester" and "Password"
 
 Scenario: User should be able to interact with all of his submitted problems
@@ -37,3 +42,6 @@ Scenario: User should be able to interact with all of his submitted problems
   Then I should see "Broken Sink"
   And I should see "Broken TV"
   And I should not see "Broken Pipe"
+
+Scenario: User should be able to interact with all of his accepted problems
+  Given I am on the home page
