@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
   create_table "accounts", :force => true do |t|
     t.string   "account_name"
     t.string   "password"
-    t.boolean  "admin",             :default => false
+    t.boolean  "admin",           :default => false
     t.string   "email"
     t.text     "skills"
     t.text     "verified_skills"
-    t.boolean  "verified",          :default => false
+    t.boolean  "verified",        :default => false
     t.integer  "user_id"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   create_table "problems", :force => true do |t|
