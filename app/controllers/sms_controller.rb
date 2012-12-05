@@ -302,6 +302,8 @@ class SmsController < ApplicationController
       problem = Problem.find_by_id(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
+      elsif problem.archived
+        sms_error("Sorry, problem ID #{problem_id} has already been accepted by another provider. Please choose another problem.")
       else
         provider_acc.problems << problem
         if provider_acc.save
