@@ -27,26 +27,20 @@ Scenario: Happy Path - A qualified provider accepts a problem, and the problem i
   Then I should be on the problems page
   And I should not see "Address1"
   
-Scenario: Sad Path - An unqualified provider accepts a problem
+Scenario: Sad Path - An unqualified provider tries to accepts a problem
   Given I go to the create account page
   And I fill in the following fields:
     | Email         | Account Name | Password | Name | Phone Number | Location |
     | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
   And I check "water"
   And I press "Create Account"
-  When I click on the first available "water" problem
-  Then I should be on the problem details page
+  When I go to the problem details page for the first problem
   Then I should not see "Accept this problem"
   
   Scenario: Sad Path - A provider qualified for the wrong skill accepts a problem
-  Given I have created a "electricity" provider account with the following fields:
-    | Account Name | Password | Name | Phone Number | Location |
-    | Tester       | Password | Test | 1234567890   | Panama   |
+  Given I have created the following "electricity" provider accounts with the following fields:
+    | Email          | Account Name | Password | Name | Phone Number | Location |
+    | test@tester.com| Tester       | Password | Test | 1234567890   | Panama   |
   And I am on the problems page
-  When I click on the first available "water" problem
-  Then I should be on the problem details page
-  When I click on "Accept this problem"
-  Then I should be on the problem acceptance confirmation page
-  When I press "Continue to problems index"
-  Then I should be on the problems page
-  And there should be no remaining problems
+  When I go to the problem details page for the first problem
+  Then I should not see "Accept this problem"

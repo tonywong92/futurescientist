@@ -303,8 +303,8 @@ class SmsController < ApplicationController
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       else
-        provider.accepted_problems << problem_id
-        if provider.save
+        provider_acc.accepted_problems << problem_id
+        if provider_acc.save
           problem.archived = true
           problem.save
           requester = problem.user
