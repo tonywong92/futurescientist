@@ -10,15 +10,23 @@
 				%h3 Details about #{@problem.summary}
 				%ul
 					- if !@user.name.nil? and @user.name.strip != ""
-						%li Requested by: #{@user.name}
+						- if @problem.archived == true
+							%li Requested by: #{@user.name + " (" + @user.phone_number + ")"}
+						- else 
+							%li Requested by: #{@user.name}
 					%li Location: #{@problem.location}
 					%li Skills: #{@problem.skills}
 					%li Wage: $#{@problem.wage}
 					%li Description: #{@problem.description}
+					- if @problem.archived == true
+						%li Accepted by: #{@problem.account.account_name + " (" + @problem.account.user.phone_number + ")"}
+				%p
 				- if @qualified_provider and !@problem.archived
 					= link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id}, :id => 'accept_problem'
+				%p
 				- if @verifiedUser or @is_admin
 					= link_to 'Edit', edit_problem_path(@problem)
+					%p
 					= button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
 				%br
 				= link_to 'Back to problems list', problems_path
