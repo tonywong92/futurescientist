@@ -30,21 +30,45 @@
 						- if not @user.account.verified_skills.empty?
 							- @user.account.verified_skills.each do |skill|
 								%li #{skill}
+						- else
+							%p You have no verified skills.
 					%h5 My submitted problems:
-					%table#listings_table.table.table-striped.table-bordered
-						%thead
-							%tr
-								%th Problem Summary
-								%th Skills
-								%th Location
-								%th Wage
-						%tbody
-							- @user.problems.each do |problem|
+					- if @user.problems.empty?
+						%p You have not submitted any problems.
+					- else
+						%table#listings_table.table.table-striped.table-bordered
+							%thead
 								%tr
-									%td= link_to "#{problem.summary}", problem_path(problem.id)
-									%td= problem.skills
-									%td= problem.location
-									%td= problem.wage
+									%th Problem Summary
+									%th Skills
+									%th Location
+									%th Wage
+							%tbody
+								- @user.problems.each do |problem|
+									%tr
+										%td= link_to "#{problem.summary}", problem_path(problem.id)
+										%td= problem.skills
+										%td= problem.location
+										%td= problem.wage
+					%h5 My accepted problems:
+					- if @account.accepted_problems.empty?
+						%p You have not accepted any problems.
+					- else
+						%table#listings_table.table.table-striped.table-bordered
+							%thead
+								%tr
+									%th Problem Summary
+									%th Skills
+									%th Location
+									%th Wage
+							%tbody
+								- @account.accepted_problems.each do |problem_id|
+									%tr
+										- problem = Problem.find_by_id(problem_id)
+										%td= link_to "#{problem.summary}", problem_path(problem_id)
+										%td= problem.skills
+										%td= problem.location
+										%td= problem.wage
 
 
 
