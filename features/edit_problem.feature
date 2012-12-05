@@ -1,8 +1,7 @@
 Feature: allow problems to be edited or deleted by the poster
-
- As a Requester,
- So that I can keep providers updated,
- I want to be able to edit or delete my post.
+  As a Requester,
+  So that I can keep Providers updated,
+  I want to be able to edit or delete my post.
 
 Background: problems have been created by some requester
   Given the site is set up
@@ -13,18 +12,18 @@ Background: problems have been created by some requester
   When I fill in the following fields:
         | Email         | Account Name | Password | Name | Phone Number | Location |
         | test@test.com | Tester       | Password | Bob  | +19994441111   | Panama   |
-    Then I should see "Water"
-    And I check "water"
-    And I press "Create Account"
-    Then I should be on the problems page
+  Then I should see "Water"
+  And I check "water"
+  And I press "Create Account"
+  Then I should be on the problems page
   Given I go to the create account page
   When I fill in the following fields:
         | Email         | Account Name | Password | Name | Phone Number | Location |
         | test2@test.com | Tester2       | Password | John  | +11234567890   | Address2  |
-    Then I should see "Water"
-    And I check "water"
-    And I press "Create Account"
-    Then I should be on the problems page
+  Then I should see "Water"
+  And I check "water"
+  And I press "Create Account"
+  Then I should be on the problems page
  
   Given "Bob" created the following problems:
   | location | skills          | summary           | description       | wage |

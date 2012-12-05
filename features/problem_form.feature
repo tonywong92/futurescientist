@@ -1,8 +1,7 @@
 Feature: allow submission of problems
-
   As a Requester
-  So that I can post a problem
-  I want to be able to fill out and submit a problem form
+  So that I can post a problem,
+  I want to be able to fill out and submit a problem form.
 
 Background: Go to the Problem Submission view
   Given the site is set up
@@ -32,17 +31,3 @@ Scenario: Problem submits successfully
   And I press "Submit Problem"
   And I go to the home page
   Then I should see "Broken Sink"
-
-Scenario: Problem submission page should be prepopulated if logged in
-  Given I am on the create account page
-  When I fill in the following fields:
-        | Email         | Account Name | Password | Name | Phone Number | Location |
-        | test@test.com | Tester       | Password | Test | 1234567890   | 94704    |
-  And I press "Create Account"
-  And I log out
-  And I login with "Tester" and "Password"
-  And I go to the problem submission page
-  Then the "Name" field should contain "Test"
-  And the "Phone Number" field should contain "\+11234567890"
-  And the "Location" field should contain "94704"
-

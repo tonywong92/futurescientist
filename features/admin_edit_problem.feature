@@ -1,7 +1,7 @@
-Feature: Admin can make an admin account
+Feature: Admin can edit/delete problems
     As an Admin,
-    So that I can moderate the site,
-    I want to be able to create an administrative account
+    So that I can enforce rules in postings and prevent spam,
+    I want to be able to edit/delete posts.
 
 Background:
     Given the site is set up
@@ -24,12 +24,9 @@ Background:
     And I am on the create account page
     And I should see "Admin"
 
-Scenario: Happy Path - Admin successfully creates an account
-    Given I fill in the following fields:
-        | Email           | Account Name | Password | Name  | Phone Number | Location |
-        | admin@admin.com | admin        | Password | Admin | 9994441111   | US       |
-    And I check "Admin"
-    And I press "Create Account"
-    Then I should be on the problems page
-    When I go to the profile page
-    Then I should see "Admin"
+Scenario: Admin can edit or delete problems
+    Given I am on the problems page
+    When I follow "broken water pipe"
+    Then I should see "Edit"
+    And I press "Delete"
+    Then I should see "Problem 'broken water pipe' deleted."

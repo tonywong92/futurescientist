@@ -1,4 +1,7 @@
 Feature: User should have a user dashboard
+  As a User,
+  So that I can see my account status,
+  I should be able to see whether I am a user or not.
 
 Background:
     Given the site is set up
@@ -23,19 +26,3 @@ Scenario: Checking account status as User
 	Given I go to the profile page
 	Then I should see "User"
 	And I should not see "Admin"
-
-Scenario: User should be able to interact with all of his submitted problems
-  Given I am on the problem submission page
-  And I select "water" from "skills"
-  And I fill in "Problem Summary" with "Broken Sink"
-  And I fill in "Wage" with "100"
-  And I press "Submit Problem"
-  Given I am on the problem submission page
-  And I select "electronics" from "skills"
-  And I fill in "Problem Summary" with "Broken TV"  
-  And I fill in "Wage" with "100"
-  And I press "Submit Problem"
-  When I go to the profile page
-  Then I should see "Broken Sink"
-  And I should see "Broken TV"
-  And I should not see "Broken Pipe"

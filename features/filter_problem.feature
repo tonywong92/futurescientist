@@ -1,10 +1,9 @@
 Feature: Filtering Problems
+  As a Provider,
+  So that I can quickly find problems relevant to me,
+  I want to be able to filter them by skillset or region
 
-As a Provider,
-So that I can quickly find problems relevant to me,
-I want to be able to filter them by skillset or region
-
-Background: problems have been created by some requester
+Background: problems have been created by some Requester
   Given the site is set up
   Given the following users exists:
   | name   | phone_number     | location   |

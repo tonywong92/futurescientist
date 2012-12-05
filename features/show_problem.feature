@@ -1,8 +1,7 @@
 Feature: be able to see more information about problems
-
-As a Provider,
-So that I can understand more about the problem,
-I want to be able to click on the problem to see more information.
+  As a Provider,
+  So that I can understand more about the problem,
+  I want to be able to click on the problem to see more information.
 
 Background: problems have been created by some requester
   Given the site is set up

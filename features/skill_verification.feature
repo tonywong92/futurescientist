@@ -1,7 +1,7 @@
-Feature: Admin can make an admin account
+Feature: Admin can verify Provider's skills
     As an Admin,
-    So that I can moderate the site,
-    I want to be able to create an administrative account
+    So that I can make sure Providers can actually help the Requesters,
+    I want to be able to verify/approve Provider skills.
 
 Background:
     Given the site is set up
@@ -24,12 +24,12 @@ Background:
     And I am on the create account page
     And I should see "Admin"
 
-Scenario: Happy Path - Admin successfully creates an account
-    Given I fill in the following fields:
-        | Email           | Account Name | Password | Name  | Phone Number | Location |
-        | admin@admin.com | admin        | Password | Admin | 9994441111   | US       |
-    And I check "Admin"
-    And I press "Create Account"
-    Then I should be on the problems page
-    When I go to the profile page
-    Then I should see "Admin"
+Scenario: Verification of Provider's skills (non-admin)
+    Given I go to the skills verification page
+    And I should see "water"
+    And I choose "water yes"
+    And I choose "electronics yes"
+    And I press "Verify Skill"
+    Then I should be on the skills verification page
+    And I should not see "water"
+    And I should not see "electronics"

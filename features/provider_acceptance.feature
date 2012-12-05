@@ -1,7 +1,7 @@
 Feature: Provider can accept a Problem
-  As a provider,
+  As a Provider,
   So that I can accept problems through the website,
-  I want to be given an option to do so on the problem details page, and for myself and the requester to be notified through text after I do so.
+  I want to be given an option to do so on the problem details page, and for myself and the Requester to be notified through text after I do so.
   
 Background:
   Given the site is set up

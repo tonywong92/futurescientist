@@ -32,19 +32,6 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
 		Then I should be on the problems page
 		And I should see "Tester"
     
-Scenario: User tries to logout
-    When I fill in the following fields:
-        | Email         | Account Name | Password | Name | Phone Number | Location |
-        | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
-    And I press "Create Account"
-    Then I should be on the problems page
-    And I should not see "Tester"
-    When I login with "Tester" and "password"
-    Then I should see "Your password is incorrect"
-    When I login with "Tester" and "Password"
-    And I log out
-    Then I should see "You have successfully logged out"
-    
 Scenario: User tries to create an account with an existing account name
     When I fill in the following fields:
         | Email         | Account Name | Password | Name | Phone Number | Location |
@@ -75,23 +62,6 @@ Scenario Outline: User submits an invalid account creation form
         | test@test.com |              | Password | Test | 1234567890   | Panama   | Missing Account Name |
         | test@test.com | Tester       |          | Test | 1234567890   | Panama   | Missing Password     |
         | test@test.com | Tester       | Password | Test |              | Panama   | Missing Phone Number |
-
-Scenario: User tries to login with wrong id or password
-    When I login with "Runner" and "Nike"
-    Then I should see "No such account exists"
-
-Scenario: If you are an admin, when you create another account, you should stay logged in as yourself
-    Given I login with "master" and "Password"
-    And I go to the profile page
-    And I follow "Add Admin Account"
-    When I fill in the following fields:
-        | Email                | Account Name | Password | Name | Phone Number | Location |
-        | tester@something.com | Tester       | Password | Test | 1234567890   | Panama   |
-    And I press "Create Account"
-    And I am on the problems page
-    And I should see "master"
-    And I should not see "Tester"
-
 
         
     
