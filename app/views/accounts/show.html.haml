@@ -1,6 +1,6 @@
 =render :partial => 'layouts/header'
 %br
-	.span10.offset1
+	.span11.offset1
 		.well
 			.container			
 				%h3.dashboard THE DASHBOARD
@@ -19,7 +19,7 @@
 						%h4 User - #{@user.account.account_name}
 						%ul.no-bullets
 							%li= link_to "Edit Profile", edit_account_path(@user.account.id)
-				.span6
+				.span7
 					%h5 My profile:
 					%ul.no-bullets
 						%li Name: #{@user.name}
@@ -53,9 +53,9 @@
 										%td= problem.location
 										%td= problem.wage
 										- if problem.archived == true
-											%td= "Yes"
+											%td.yes= "Yes"
 										- else
-											%td= "No"
+											%td.no= "No"
 					%h5 My accepted problems:
 					- if @account.accepted_problems.empty?
 						%p You have not accepted any problems.
@@ -67,6 +67,7 @@
 									%th Skills
 									%th Location
 									%th Wage
+									%th Requester's phone number
 							%tbody
 								- @account.accepted_problems.each do |problem_id|
 									%tr
@@ -75,6 +76,7 @@
 										%td= problem.skills
 										%td= problem.location
 										%td= problem.wage
+										%td= problem.user.phone_number
 
 
 

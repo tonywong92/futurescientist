@@ -24,3 +24,11 @@
 .dashboard {
 	margin-left: 20px;
 }
+
+.yes {
+	color: green;
+}
+
+.no {
+	color: red;
+}
