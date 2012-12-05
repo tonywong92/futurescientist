@@ -37,7 +37,7 @@
           = form_tag account_path(session[:account]), :method => :put  do
             = hidden_field_tag :type, "edit_location"
             = label :location, :name, 'New Location'
-            = text_field :location, :name, :value => @user_location, :required => 'required' 
+            = text_field :location, :name, :value => @user_location, :pattern => "(\\d{5}([\\-]\\d{4})?)"
             Max: #{Problem.SUMMARY_LIMIT} Characters
             %br
             = submit_tag 'Change Location', :class=>"btn btn-primary span2"

@@ -23,6 +23,7 @@ class AccountsController < ApplicationController
     phone_number = normalize_phone(params[:user][:phone_number].strip)
     @user = User.new(params[:user])
     @account = Account.new(params[:account])
+
     if phone_number
       @user.phone_number = phone_number
       if params[:account][:password].empty?
@@ -39,7 +40,7 @@ class AccountsController < ApplicationController
         @sv.save!
       end
       @user.account = @account
-      @user.location = @user.location.downcase
+
       save_account phone_number
     else
       flash[:notice] = 'Phone Number is a required field.'
