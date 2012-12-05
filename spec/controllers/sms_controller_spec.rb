@@ -40,6 +40,7 @@ describe SmsController do
 
       before do
         provider_account = Account.create(:account_name => 'tony', :password => 'Password', :email => 'test@test.com')
+        provider_account.verified_skills << 'water'
         provider_user = User.create(:phone_number => registered_phone_number2)
         provider_user.account = provider_account
         provider_user.save!
@@ -359,24 +360,6 @@ describe SmsController do
 
         current_text_message.should have_body "Sorry, please send another request 'password' to this number."
       end
-    end
-    
-    describe 'account verification through text' do
-      before do
-        post :create, {:email => 'test@test.com', :password => 'Password', :account_name => 'Tester', :name => 'tester', :phone_number => registered_phone_number2, :location => '94112'}
-      end
-      
-      it 'should send a text to the phone number' do
-        open_last_text_message_for registered_phone_number2
-        current_text_message.should have_body "Please reply to this text with the number: 2 followed by a space and your account name: [Account ID] [Account Name]."
-      end
-      
-      it 'should send a confirmation text when a user sends valid reply to a verification text' do
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => '2 Tester'}
-        open_last_text_message_for registered_phone_number2
-        current_text_message.should have_body "We have received your confirmation. Thank you for creating an account with Emplify!"
-      end
-       
     end
 
   end
