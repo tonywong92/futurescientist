@@ -212,7 +212,7 @@ class AccountsController < ApplicationController
     if @account.nil?
        flash[:notice] = "You are not logged in"
        redirect_to problems_path
-    elsif @account.has_password?(params[:password][:current])
+    elsif !@account.has_password?(params[:password][:current])
        flash[:notice] = "Password incorrect"
        redirect_to edit_account_path(@account.id)
     elsif params[:password_new][:new] == params[:reenter][:pass]

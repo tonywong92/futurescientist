@@ -56,7 +56,7 @@ class Account < ActiveRecord::Base
   end
 
   def has_password? string
-    if self.password == Account.to_hmac(string)
+    if password == Account.to_hmac(string)
       return true
     else
       return false
