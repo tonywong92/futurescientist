@@ -22,6 +22,7 @@ describe SmsController do
   describe 'sms interactions' do
 
     describe 'problem submission through text' do
+
       before do
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #texted problem @San Francisco !water electrical $50.00'}
       end
@@ -36,12 +37,12 @@ describe SmsController do
     end
 
     describe 'requester accepting a problem through text' do
+
       before do
         provider_account = Account.create(:account_name => 'tony', :password => 'Password', :email => 'test@test.com')
         provider_user = User.create(:phone_number => registered_phone_number2)
         provider_user.account = provider_account
         provider_user.save!
-        #User.stub(:find_by_phone_number).and_return(provider_user)
         requester = User.create(:phone_number => registered_phone_number)
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add #textedProblem2 @Location !water $50.00'}
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Accept 1 Password'}
@@ -99,27 +100,27 @@ describe SmsController do
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Delete 500'}
         open_last_text_message_for registered_phone_number
         current_text_message.should have_body "Sorry, that problem id does not exist."
-
-
       end
 
       it 'should send me a list of problems with correct attributes' do
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location1 !water LIMIT 1'}
-        open_last_text_message_for registered_phone_number2
+
         problem10 = Problem.find_by_summary("Problem10").id
         problem9 = Problem.find_by_summary("Problem9").id
         problem8 = Problem.find_by_summary("Problem8").id
         problem7 = Problem.find_by_summary("Problem7").id
+        problem6 = Problem.find_by_summary("Problem6").id
+        problem5 = Problem.find_by_summary("Problem5").id
+        problem4 = Problem.find_by_summary("Problem4").id
+        problem3 = Problem.find_by_summary("Problem3").id
+
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location1 !water LIMIT 1'}
+        open_last_text_message_for registered_phone_number2
 
         current_text_message.should have_body "id:#{problem10}. @location1 !water #Problem10 $50.0 id:#{problem9}. @location1 !water #Problem9 $50.0 id:#{problem8}. @location1 !water #Problem8 $50.0"
         #current_text_message.should have_body "id:#{problem2}. @Location1 !water #Problem2 $50 id:#{problem1}. @Location1 !water #Problem1 $50 "
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
-        problem6 = Problem.find_by_summary("Problem6").id
-        problem5 = Problem.find_by_summary("Problem5").id
-        problem4 = Problem.find_by_summary("Problem4").id
-        problem3 = Problem.find_by_summary("Problem3").id
 
         current_text_message.should have_body "id:#{problem7}. @location1 !water #Problem7 $50.0 id:#{problem6}. @location1 !water #Problem6 $50.0 id:#{problem5}. @location1 !water #Problem5 $50.0"
 
@@ -128,12 +129,17 @@ describe SmsController do
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'NEXT 1'}
         open_last_text_message_for registered_phone_number2
         current_text_message.should have_body "There are no more additional problems for Location: location1 Skills: water."
+      end
 
-        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location2 LIMIT 1'}
-        open_last_text_message_for registered_phone_number2
+      it 'should be flexible with what fields I want to filter by' do
+
         problem210 = Problem.find_by_summary("Problem210").id
         problem29 = Problem.find_by_summary("Problem29").id
         problem28 = Problem.find_by_summary("Problem28").id
+        problem10 = Problem.find_by_summary("Problem10").id
+
+        post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'GET @Location2 LIMIT 1'}
+        open_last_text_message_for registered_phone_number2
 
         current_text_message.should have_body "id:#{problem210}. @location2 !electronics #Problem210 $50.0 id:#{problem29}. @location2 !electronics #Problem29 $50.0 id:#{problem28}. @location2 !electronics #Problem28 $50.0"
 
@@ -149,17 +155,20 @@ describe SmsController do
       end
 
       it 'should describe a problem correctly' do
+
+        problem1 = Problem.find_by_summary("Problem1").id
+
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Describe 1'}
         open_last_text_message_for registered_phone_number2
-        problem1 = Problem.find_by_summary("Problem1").id
 
         current_text_message.should have_body "id:#{problem1}. Description: description1"
 
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => 'Describe 999'}
         open_last_text_message_for registered_phone_number2
 
-         current_text_message.should have_body "Sorry, that problem id does not exist"
+        current_text_message.should have_body "Sorry, that problem id does not exist"
       end
+
     end
 
     describe 'edit problem through text' do
@@ -168,7 +177,8 @@ describe SmsController do
       end
 
       it 'should let me edit/delete the problem through text if it is my problem' do
-       problem1_id = Problem.find_by_summary("texted problem").id
+        problem1_id = Problem.find_by_summary("texted problem").id
+
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} #new texted problem !mold electricity $49.38"}
         textedProblem = Problem.find_by_summary('new texted problem')
         textedProblem.should_not be_nil
@@ -179,6 +189,7 @@ describe SmsController do
         Problem.SUMMARY_LIMIT.times do |i|
           newString << "i"
         end
+
         post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => "Edit #{problem1_id} ##{newString}"}
         open_last_text_message_for registered_phone_number
         open_last_text_message_for registered_phone_number
@@ -191,11 +202,12 @@ describe SmsController do
       end
 
       it 'should not let me edit a problem through text if it is not my problem' do
-       problem1_id = Problem.find_by_summary("texted problem").id
+        problem1_id = Problem.find_by_summary("texted problem").id
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => "Edit #{problem1_id} #new texted problem !mold electricty $49.38"}
         open_last_text_message_for registered_phone_number2
 
         current_text_message.should have_body "Sorry. You do not have permission to edit this problem as this is not the phone number that created this problem."
+
         post :receive_sms, {:From => registered_phone_number2, :To => twilio_phone_number, :Body => "Delete #{problem1_id}"}
         open_last_text_message_for registered_phone_number2
 
@@ -205,6 +217,21 @@ describe SmsController do
 
      describe 'intelligent parsing of text' do
       before do
+      end
+
+      it 'should allow me to be flexible with the order of the fields I send' do
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add @San Francisco #texted problem1 !water $50.00'}
+        textedProblem1 = Problem.find_by_summary("texted problem1").id
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "You have successfully posted your problem(id: #{textedProblem1}). We will notify you of any updates as soon as possible. Thank you for using Emplify!"
+
+        post :receive_sms, {:From => registered_phone_number, :To => twilio_phone_number, :Body => 'Add $50.00 !water #texted problem2 @San Francisco'}
+
+        textedProblem2 = Problem.find_by_summary("texted problem2").id
+        open_last_text_message_for registered_phone_number
+
+        current_text_message.should have_body "You have successfully posted your problem(id: #{textedProblem2}). We will notify you of any updates as soon as possible. Thank you for using Emplify!"
       end
 
       it 'should send me the right error message if I text something incorrectly' do
