@@ -7,6 +7,7 @@ class CreateProblems < ActiveRecord::Migration
       t.text :description
       t.float :wage
       t.references 'user'
+      t.references 'account'
       t.boolean :archived, :default => false
 
       t.timestamps
