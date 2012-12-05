@@ -124,7 +124,7 @@ class ProblemsController < ApplicationController
       redirect_to problems_path
       return
     end
-    flash[:notice] = "You have sucessfully accepted #{problem.summary} problem. Please follow the instructions on the text you received."
+    flash[:notice] = "You have sucessfully accepted the problem: #{problem.summary}. Please follow the instructions on the text you received."
     redirect_to problems_path
   end
 

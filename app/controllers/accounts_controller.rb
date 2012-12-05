@@ -9,7 +9,7 @@ class AccountsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   # Test numbers: When you create an account in rails server, you need to use one of these numbers. Otherwise it will try to send a text to confirm the number you are using and it will fail.
-  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222", "+16667777888"]
+  TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222", "+16667777888", "+12223334444"]
 
   # Loads the account creation form
   def new
@@ -51,8 +51,7 @@ class AccountsController < ApplicationController
   def save_account phone_number
     if TEST_NUMBERS.include? phone_number
       if @user.save and @account.save
-        reset_session
-        session[:account] = @account.id
+        session[:account] = !Account.find_by_id(session[:account]).nil?
         flash[:notice] = 'You have successfully created an account'
         #don't require a text confirmation
         @user.account.verified = true
@@ -75,7 +74,7 @@ class AccountsController < ApplicationController
       begin
         if @user.save and @account.save
           sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
-          reset_session
+          reset_session unless !Account.find_by_id(session[:account]).nil?
         else
           flash[:error] = 'There was a problem with creating your account'
           if !@user.errors.empty?
@@ -103,7 +102,8 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @user = Account.find_by_id(session[:account]).user
+    @account = Account.find_by_id(session[:account])
+    @user = @account.user
   end
 
   def skills_verification
@@ -213,7 +213,7 @@ class AccountsController < ApplicationController
     if @account.nil?
        flash[:notice] = "You are not logged in"
        redirect_to problems_path
-    elsif @account.has_password?(params[:password][:current])
+    elsif !@account.has_password?(params[:password][:current])
        flash[:notice] = "Password incorrect"
        redirect_to edit_account_path(@account.id)
     elsif params[:password_new][:new] == params[:reenter][:pass]

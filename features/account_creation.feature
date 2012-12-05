@@ -5,7 +5,6 @@ Feature: User can make an account and submit a skillset
 
 Background:
     Given the site is set up
-    And I log out
     And I am on the create account page
     Then I should see "Create New Account"
 
@@ -19,7 +18,8 @@ Scenario: Happy Path - User successfully creates an account and submits skills
     And I check "water"
     And I press "Create Account"
     Then I should be on the problems page
-    And I should see "Tester"
+    And I should not see "Tester"
+		And I should see "You have successfully created an account"
     
 Scenario: Happy Path - User successfully creates an account and doesn't submit skills
     When I fill in the following fields:
@@ -27,7 +27,10 @@ Scenario: Happy Path - User successfully creates an account and doesn't submit s
         | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
     And I press "Create Account"
     Then I should be on the problems page
-    And I should see "Tester"
+    And I should not see "Tester"
+		When I login with "Tester" and "Password"
+		Then I should be on the problems page
+		And I should see "Tester"
     
 Scenario: User tries to logout
     When I fill in the following fields:
@@ -35,7 +38,7 @@ Scenario: User tries to logout
         | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
     And I press "Create Account"
     Then I should be on the problems page
-    And I should see "Tester"
+    And I should not see "Tester"
     When I login with "Tester" and "password"
     Then I should see "Your password is incorrect"
     When I login with "Tester" and "Password"

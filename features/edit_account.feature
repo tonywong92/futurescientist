@@ -96,7 +96,13 @@ Scenario: Edit Skills (Happy Path - Regular user)
 
 Scenario: Add Skills
 	Given the site is set up
-	And I am logged in as an admin
+	And I login with "master" and "Password"
+	And I add the "water" skill to the database
+	And I add the "electricity" skill to the database
 	And I am on the edit account page
-	Then "water" should be checked
-	And "electricity" should not be checked
+        And I check "water"
+	And I press "Change Skills"
+	Then I should be on the edit account page
+	And I should not see "water"
+	And I should see "Electricity"
+	

@@ -18,10 +18,7 @@ module NavigationHelpers
     when /^the problems page$/
       '/problems'
     
-    when /^the create account page$/
-      new_account_path
-
-    when /^the create admin page$/
+    when /^the create account page$/, /^the create admin page$/
       new_account_path
 
     when /^the problem submission page$/
@@ -41,6 +38,9 @@ module NavigationHelpers
 
     when /^the profile page$/
       account_path @account_id
+      
+    when /^the problem details page for the first problem$/
+      problem_path(1)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

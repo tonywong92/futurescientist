@@ -13,7 +13,6 @@ Background:
         | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
     And I check "water"
     And I check "electronics"
-    And I uncheck "admin"
     And I press "Create Account"
     Then I should be on the problems page
     And I login with "Tester" and "Password"
