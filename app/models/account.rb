@@ -24,7 +24,7 @@ class Account < ActiveRecord::Base
   serialize :verified_skills
 
   belongs_to :user
-  has_many :problems, :as => :accepted_problems
+  has_many :problems
 
   validates :email, :presence => true
   validates :account_name, :presence => true
