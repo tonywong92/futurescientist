@@ -45,6 +45,22 @@
 									%td= problem.skills
 									%td= problem.location
 									%td= problem.wage
+					%h5 My accepted problems:
+					%table#listings_table.table.table-striped.table-bordered
+						%thead
+							%tr
+								%th Problem Summary
+								%th Skills
+								%th Location
+								%th Wage
+						%tbody
+							- @account.accepted_problems.each do |problem_id|
+								%tr
+									- problem = Problem.find_by_id(problem_id)
+									%td= link_to "#{problem.summary}", problem_path(problem_id)
+									%td= problem.skills
+									%td= problem.location
+									%td= problem.wage
 
 
 
