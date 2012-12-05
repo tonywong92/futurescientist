@@ -2,7 +2,8 @@
 %br
 	.span10.offset1
 		.well
-			.container
+			.container			
+				%h3.dashboard THE DASHBOARD
 				.span3
 					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
 						%legend Admin - #{@user.account.account_name}
@@ -43,6 +44,7 @@
 									%th Skills
 									%th Location
 									%th Wage
+									%th Accepted?
 							%tbody
 								- @user.problems.each do |problem|
 									%tr
@@ -50,6 +52,10 @@
 										%td= problem.skills
 										%td= problem.location
 										%td= problem.wage
+										- if problem.archived == true
+											%td= "Yes"
+										- else
+											%td= "No"
 					%h5 My accepted problems:
 					- if @account.accepted_problems.empty?
 						%p You have not accepted any problems.
