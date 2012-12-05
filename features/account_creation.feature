@@ -13,13 +13,13 @@ Scenario: Happy Path - User successfully creates an account and submits skills
     And I go to the create account page
     When I fill in the following fields:
         | Email         | Account Name | Password | Name | Phone Number | Location |
-        | test@test.com | Tester       | Password | Test | 1234567890   | Panama   |
+        | test@test.com | Tester       | Password | Test | 4154393333   | Panama   |
     Then I should see "Water"
     And I check "water"
     And I press "Create Account"
     Then I should be on the problems page
     And I should not see "Tester"
-		And I should see "You have successfully created an account"
+		And I should see "Your account has been created"
     
 Scenario: Happy Path - User successfully creates an account and doesn't submit skills
     When I fill in the following fields:
@@ -63,5 +63,15 @@ Scenario Outline: User submits an invalid account creation form
         | test@test.com | Tester       |          | Test | 1234567890   | Panama   | Missing Password     |
         | test@test.com | Tester       | Password | Test |              | Panama   | Missing Phone Number |
 
+Scenario: User creates and account and tries to login without verification
+  When I fill in the following fields:
+        | Email         | Account Name | Password | Name | Phone Number | Location |
+        | test@test.com | Tester       | Password | Test | 4154447777   | Panama   |
+    And I press "Create Account"
+    Then I should be on the problems page
+    And I should not see "Tester"
+		When I login with "Tester" and "Password"
+		Then I should see "This account has not yet been verified."
+  
         
     

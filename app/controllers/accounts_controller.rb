@@ -150,7 +150,7 @@ class AccountsController < ApplicationController
       flash[:error] = 'No such account exists'
       render '/accounts/login_form'
     elsif !@account.verified
-      flash[:error] = 'This account has not yet been verified. Please respond to the text you received with the confirmation number.'
+      flash[:error] = 'This account has not yet been verified. Please respond to the text you received with the confirmation nuberm.'
       render '/accounts/login_form'
     else
       validate_password
