@@ -65,8 +65,8 @@ class AccountsController < ApplicationController
         if !@account.errors.empty?
           flash[:account_errors] = @account.errors.full_messages
         end
-	@user.destroy
-	@account.destroy
+        @user.destroy
+        @account.destroy
         @all_skills = Skill.find(:all)
         redirect_to new_account_path
         return
@@ -74,7 +74,7 @@ class AccountsController < ApplicationController
     else
       begin
         if @user.save and @account.save
-          sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name]")
+          sms_send(@user.phone_number, "Please reply to this text with the number: #{@account.id} followed by a space and your account name: [Account ID] [Account Name].")
           reset_session unless !Account.find_by_id(session[:account]).nil?
         else
           flash[:error] = 'There was a problem with creating your account'

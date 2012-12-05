@@ -304,6 +304,8 @@ class SmsController < ApplicationController
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       elsif problem.archived
         sms_error("Sorry, problem ID #{problem_id} has already been accepted by another provider. Please choose another problem.")
+      elsif !provider_acc.verified_skills.include? problem.skills
+        sms_error("Sorry, you do not have the skills that this problem requires.")
       else
         provider_acc.problems << problem
         if provider_acc.save

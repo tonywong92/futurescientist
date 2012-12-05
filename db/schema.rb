@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.string   "email"
     t.text     "skills"
     t.text     "verified_skills"
-    t.text     "accepted_problems"
     t.boolean  "verified",          :default => false
     t.integer  "user_id"
     t.datetime "created_at",                           :null => false
