@@ -8,6 +8,7 @@ class Account < ActiveRecord::Base
   @@PUBLIC_KEY = '1234'
   include ActiveModel::Dirty
 
+=begin
   before_create do
     self.password = Account.to_hmac password if attribute_present?("password")
   end
@@ -17,23 +18,24 @@ class Account < ActiveRecord::Base
       self.password = Account.to_hmac password
     end
   end
+=end
 
   attr_accessible :admin, :email, :account_name, :password, :skills, :verified_skills, :verified
 
-  serialize :skills
-  serialize :verified_skills
+  #serialize :skills
+  #serialize :verified_skills
 
   belongs_to :user
   has_many :problems
 
-  validates :email, :presence => true
-  validates :account_name, :presence => true
-  validates :password, :presence => true
-  validates_uniqueness_of :email
-  validates_uniqueness_of :account_name
-  validate :validate_password, :unless => :persisted?
-  validate :validate_password_for_update, :if => :persisted?
-  validates_length_of :password, :minimum => 6, :allow_blank => false
+  #validates :email, :presence => true
+  #validates :account_name, :presence => true
+  #validates :password, :presence => true
+  #validates_uniqueness_of :email
+  #validates_uniqueness_of :account_name
+  #validate :validate_password, :unless => :persisted?
+  #validate :validate_password_for_update, :if => :persisted?
+  #validates_length_of :password, :minimum => 6, :allow_blank => false
   after_initialize :init
 
   def validate_password
@@ -48,8 +50,8 @@ class Account < ActiveRecord::Base
   end
 
   def init
-    self.skills ||= []
-    self.verified_skills ||= []
+    #self.skills ||= []
+    #self.verified_skills ||= []
   end
 
   def has_password? string
