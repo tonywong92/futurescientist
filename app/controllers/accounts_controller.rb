@@ -11,6 +11,7 @@ class AccountsController < ApplicationController
   # Test numbers: When you create an account in rails server, you need to use one of these numbers. Otherwise it will try to send a text to confirm the number you are using and it will fail.
   TEST_NUMBERS = ["+11234567890", "+19994441111", "+10008882222", "+16667777888", "+12223334444"]
 
+  
   # Loads the account creation form
   def new
     @all_skills = Skill.find(:all)
