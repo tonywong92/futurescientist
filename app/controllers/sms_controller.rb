@@ -18,10 +18,13 @@ class SmsController < ApplicationController
     body = params[:Body]
     @problem_text = body.split
     action = sms_parsing(body).downcase
+    if action == "join"
+      sms_create_account
+    elsif User.find_by_phone_number(normalize_phone(params[:from])).nil?
+      sms_send(params[:From], "Please first create an account by texting the word 'join'.")
+    end
     if !@sms_error
       case action
-        when /^join$/
-          sms_create_account
         when /^add$/,/^insert$/
           sms_create
         when /^accept$/
