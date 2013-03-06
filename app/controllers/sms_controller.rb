@@ -20,6 +20,7 @@ class SmsController < ApplicationController
     action = sms_parsing(body).downcase
     if action == "join"
       sms_create_account
+      return
     elsif User.find_by_phone_number(normalize_phone(params[:from])).nil?
       sms_send(params[:From], "Please first create an account by texting the word 'join'.")
     end
@@ -151,22 +152,22 @@ class SmsController < ApplicationController
     phone_number = normalize_phone params[:From]
     begin
       if phone_number
-        user = User.new({:phone_number=>phone_number})
-        account = Account.new(:user=>user)
-        account.admin = false
+        @user = User.new({:phone_number=>phone_number})
+        @account = Account.new(:user=>user)
+        @account.admin = false
       end
-      user.account = account
+      @user.account = account
       if user.save and account.save
         sms_send(user.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
       else
         sms_send(user.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
-        user.destroy
-        account.destroy
+        @user.destroy
+        @account.destroy
         return
       end
     rescue Twilio::REST::RequestError
-      user.destroy
-      account.destroy
+      @user.destroy
+      @account.destroy
       return
     end
   end
