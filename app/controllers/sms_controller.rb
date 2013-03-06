@@ -20,6 +20,8 @@ class SmsController < ApplicationController
     action = sms_parsing(body).downcase
     if !@sms_error
       case action
+        when /^join$/
+          sms_create_account
         when /^add$/,/^insert$/
           sms_create
         when /^accept$/
@@ -55,11 +57,6 @@ class SmsController < ApplicationController
           sms_explain
         else
           if is_num?(action)
-            puts "SMS CONFIRMATION IS CALLED"
-            puts "SMS CONFIRMATION IS CALLED"
-            puts "SMS CONFIRMATION IS CALLED"
-            puts "SMS CONFIRMATION IS CALLED"
-            puts "SMS CONFIRMATION IS CALLED"
             session[:received_confirmation] = action
             sms_confirm_acc
           else
@@ -72,12 +69,12 @@ class SmsController < ApplicationController
 
   #call this to do all the logic to parse the incomming text
   #returns the action that the text wants
-  #sets @sms_location if there's a "@location"
-  #sets @sms_skills if there's a !skills
-  #sets @sms_summary if there's a #summary
-  #sets @sms_wage if there's a $wage
-  #sets @sms_limit if there's a LIMIT #
-  #sets @sms_error to true if there's a specific error that cannot allow the text to continue processing
+  #sets @sms_location if present
+  #sets @sms_skills if present
+  #sets @sms_summary if present
+  #sets @sms_wage if present
+  #sets @sms_limit if applicable
+  #sets @sms_error to true if there is a specific error that cannot allow the text to continue processing
   #add more parsing logic here if there's more.
   def sms_parsing(text_body)
     words = text_body.split
@@ -145,6 +142,30 @@ class SmsController < ApplicationController
       @sms_skills = @sms_skills.downcase.strip
     end
     return action
+  end
+  
+  def sms_create_account()
+    phone_number = normalize_phone params[:From]
+    begin
+      if phone_number
+        user = User.new({:phone_number=>phone_number})
+        account = Account.new(:user=>user)
+        account.admin = false
+      end
+      user.account = account
+      if user.save and account.save
+        sms_send(user.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
+      else
+        sms_send(user.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
+        user.destroy
+        account.destroy
+        return
+      end
+    rescue Twilio::REST::RequestError
+      user.destroy
+      account.destroy
+      return
+    end
   end
 
   def sms_get(offset)
