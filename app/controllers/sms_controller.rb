@@ -153,14 +153,14 @@ class SmsController < ApplicationController
     begin
       if phone_number
         @user = User.new({:phone_number=>phone_number})
-        @account = Account.new(:user=>user)
+        @account = Account.new(:user=>@user)
         @account.admin = false
       end
-      @user.account = account
-      if user.save and account.save
-        sms_send(user.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
+      @user.account = @account
+      if @user.save and @account.save
+        sms_send(@user.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
       else
-        sms_send(user.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
+        sms_send(@user.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
         @user.destroy
         @account.destroy
         return
