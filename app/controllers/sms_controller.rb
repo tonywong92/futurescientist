@@ -156,8 +156,7 @@ class SmsController < ApplicationController
         @acc = Account.new({:phone_number=>phone_number})
         @acc.admin = false
       end
-      @acc.account = @acc
-      if @acc.save and @acc.save
+      if @acc.save
         sms_send(@acc.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
       else
         sms_send(@acc.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
