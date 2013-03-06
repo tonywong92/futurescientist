@@ -1,34 +1,35 @@
 =render :partial => 'layouts/header'
 %br
-	.span8.offset1
-		.well
-			.container
-				.span8
-				-# in app/views/show.html.haml
-				- if flash[:notice] != nil
-					= flash[:notice]
-				%h3 Details about #{@problem.summary}
-				%ul
-					- if !@user.name.nil? and @user.name.strip != ""
-						- if @problem.archived == true
-							%li Requested by: #{@user.name + " (" + @user.phone_number + ")"}
-						- else 
-							%li Requested by: #{@user.name}
-					- else
-						%li Requested by: #{@user.phone_number}
-					%li Location: #{@problem.location}
-					%li Skills: #{@problem.skills}
-					%li Wage: $#{@problem.wage}
-					%li Description: #{@problem.description}
-					- if @problem.archived == true
-						%li Accepted by: #{@problem.account.account_name + " (" + @problem.account.user.phone_number + ")"}
-				%p
-				- if @qualified_provider and !@problem.archived
-					= link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id}, :id => 'accept_problem'
-				%p
-				- if @verifiedUser or @is_admin
-					= link_to 'Edit', edit_problem_path(@problem)
-					%p
-					= button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
-				%br
-				= link_to 'Back to problems list', problems_path
+  .span8.offset1
+    .well
+      .container
+        .span8
+        -# in app/views/show.html.haml
+        - if flash[:notice] != nil
+          = flash[:notice]
+        %h3 Details about #{@problem.summary}
+        %ul
+          - if !@acc.name.nil? and @acc.name.strip != ""
+            - if @problem.archived == true
+              %li Requested by: #{@acc.name + " (" + @acc.phone_number + ")"}
+            - else 
+              %li Requested by: #{@acc.name}
+          - else
+            %li Requested by: #{@acc.phone_number}
+          %li Location: #{@problem.location}
+          -# %li Skills: #{@problem.skills}
+          %li Wage: $#{@problem.wage}
+          %li Description: #{@problem.description}
+          - if @problem.archived == true
+            %li Accepted by: #{@problem.account.account_name + " (" + @problem.account.phone_number + ")"}
+        %p
+        -# - if @qualified_provider and !@problem.archived
+        - if !@problem.archived
+          = link_to "Accept this problem", {:action => 'accept_problem', :problem_id => @id, :provider_id => @account.id}, :id => 'accept_problem'
+        %p
+        - if @verifiedUser or @is_admin
+          = link_to 'Edit', edit_problem_path(@problem)
+          %p
+          = button_to 'Delete', problem_path(@problem), :method => :delete, :confirm => 'Are you sure?'
+        %br
+        = link_to 'Back to problems list', problems_path

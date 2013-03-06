@@ -5,55 +5,55 @@
 			.container			
 				%h3.dashboard THE DASHBOARD
 				.span3
-					- if Account.find(:all).empty? or (!@user.account.nil? and @user.account.admin)
-						%legend Admin - #{@user.account.account_name}
+					- if Account.find(:all).empty? or (!@acc.nil? and @acc.admin)
+						%legend Admin - #{@acc.account_name}
 						%ul.no-bullets
-							%li= link_to "Edit Profile", edit_account_path(@user.account.id)
-							%li
-								%a#profile{:href => "/accounts/skills_verification"} Skills Verification
+							%li= link_to "Edit Profile", edit_account_path(@acc.id)
+							-# %li
+								-# %a#profile{:href => "/accounts/skills_verification"} Skills Verification
 							%li
 								%a#profile{:href => new_account_path} Add Admin Account
-							%li
-								%a#profile{:href => new_skill_path} Add a New Skill
+							-# %li
+								-# %a#profile{:href => new_skill_path} Add a New Skill
 					- else
-						%h4 User - #{@user.account.account_name}
+						%h4 User - #{@acc.account_name}
 						%ul.no-bullets
-							%li= link_to "Edit Profile", edit_account_path(@user.account.id)
+							%li= link_to "Edit Profile", edit_account_path(@acc.id)
 				.span7
 					%h5 My profile:
 					%ul.no-bullets
-						%li Name: #{@user.name}
-						%li Location: #{@user.location}
-						%li Email: #{@user.account.email}
-						%li Phone number: #{@user.phone_number}
-					%h5 My verified skills:
-					%ul.no-bullets
-						- if not @user.account.verified_skills.empty?
-							- @user.account.verified_skills.each do |skill|
-								%li #{skill}
-						- else
+						%li Name: #{@acc.name}
+						%li Location: #{@acc.location}
+						%li Email: #{@acc.email}
+						%li Phone number: #{@acc.phone_number}
+					-# %h5 My verified skills:
+					-# %ul.no-bullets
+						-# - if not @acc.verified_skills.empty?
+							-# - @acc.verified_skills.each do |skill|
+								-# %li #{skill}
+						-# - else
 							%p You have no verified skills.
 					%h5 My submitted problems:
-					- if @user.problems.empty?
+					- if @acc.problems.empty?
 						%p You have not submitted any problems.
 					- else
 						%table#listings_table.table.table-striped.table-bordered
 							%thead
 								%tr
 									%th Problem Summary
-									%th Skills
+									-# %th Skills
 									%th Location
 									%th Wage
 									%th Accepted?
 							%tbody
-								- @user.problems.each do |problem|
+								- @acc.problems.each do |problem|
 									%tr
 										%td= link_to "#{problem.summary}", problem_path(problem.id)
-										%td= problem.skills
+										-# %td= problem.skills
 										%td= problem.location
 										%td= problem.wage
 										- if problem.archived == true
-											%td.yes= problem.account.account_name + " (" + problem.account.user.phone_number + ")"
+											%td.yes= problem.account.account_name + " (" + problem.account.phone_number + ")"
 										- else
 											%td.no= "No"
 					%h5 My accepted problems:
@@ -64,7 +64,7 @@
 							%thead
 								%tr
 									%th Problem Summary
-									%th Skills
+									-# %th Skills
 									%th Location
 									%th Wage
 									%th Problem owner
@@ -73,13 +73,13 @@
 									%tr
 										- problem = Problem.find_by_id(problem_id)
 										%td= link_to "#{problem.summary}", problem_path(problem_id)
-										%td= problem.skills
+										-# %td= problem.skills
 										%td= problem.location
 										%td= problem.wage
-										- if problem.user.account.nil?
-											%td= problem.user.phone_number
+										- if problem.account.nil?
+											%td= problem.account.phone_number
 										- else
-											%td= problem.user.account.account_name + " (" + problem.user.phone_number + ")"
+											%td= problem.account_name + " (" + problem.account.phone_number + ")"
 
 
 

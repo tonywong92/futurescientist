@@ -8,14 +8,14 @@
 
           = form_tag problem_path(@problem), :method => :put  do
 
-            = label :user, :name, 'Name'
-            = text_field :user, :name
+            = label :account, :name, 'Name'
+            = text_field :account, :name
 
             = label :problem, :location, 'Location'
             = text_field :problem, :location
 
-            = label :problem, :skills, 'Skills Required'
-            = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name', {:selected => [@curr_skills]}))
+            -# = label :problem, :skills, 'Skills Required'
+            -# = select_tag('skills', options_from_collection_for_select(@all_skills, 'skill_name', 'skill_name', {:selected => [@curr_skills]}))
 
             = label :problem, :wage, 'Wage'
             = text_field :problem, :wage

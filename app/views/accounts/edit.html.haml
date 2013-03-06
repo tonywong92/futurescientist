@@ -41,18 +41,18 @@
             Max: #{Problem.SUMMARY_LIMIT} Characters
             %br
             = submit_tag 'Change Location', :class=>"btn btn-primary span2"
+-#
+  %h3 Add More Skills
+  - @account.verified_skills.each do |skill|
+    - @skills_array.push(skill)
+  = form_tag account_path(session[:account]), :method => :put  do
+    = hidden_field_tag :type, "edit_skills"
 
-          %h3 Add More Skills
-          - @user.account.verified_skills.each do |skill|
-            - @skills_array.push(skill)
-          = form_tag account_path(session[:account]), :method => :put  do
-            = hidden_field_tag :type, "edit_skills"
-
-            - @all_skills.each do |skill|
-              - if not @skills_array.include?(skill.skill_name)
-                = label :skill, skill.skill_name, :style => 'display: inline;'
-                = check_box_tag "skills[]", skill.skill_name, false, :id => skill.skill_name
-                %br    
-            %p NOTE: Skills will be verified by an admin
-            = submit_tag 'Change Skills', :class=>"btn btn-primary span2"
+    - @all_skills.each do |skill|
+      - if not @skills_array.include?(skill.skill_name)
+        = label :skill, skill.skill_name, :style => 'display: inline;'
+        = check_box_tag "skills[]", skill.skill_name, false, :id => skill.skill_name
+        %br    
+    %p NOTE: Skills will be verified by an admin
+    = submit_tag 'Change Skills', :class=>"btn btn-primary span2"
 

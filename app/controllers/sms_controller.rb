@@ -22,7 +22,7 @@ class SmsController < ApplicationController
     if action == "join"
       sms_create_account
       return
-    elsif User.find_by_phone_number(phone_number) == nil
+    elsif Account.find_by_phone_number(phone_number) == nil
       sms_send(params[:From], "Please first create an account by texting the word 'join'.")
     end
     if !@sms_error
@@ -153,22 +153,19 @@ class SmsController < ApplicationController
     phone_number = normalize_phone params[:From]
     begin
       if phone_number
-        @user = User.new({:phone_number=>phone_number})
-        @account = Account.new(:user=>@user)
-        @account.admin = false
+        @acc = Account.new({:phone_number=>phone_number})
+        @acc.admin = false
       end
-      @user.account = @account
-      if @user.save and @account.save
-        sms_send(@user.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
+      @acc.account = @acc
+      if @acc.save and @acc.save
+        sms_send(@acc.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
       else
-        sms_send(@user.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
-        @user.destroy
-        @account.destroy
+        sms_send(@acc.phone_number, "We're sorry, something seems to have gone wrong. Your account has not been created at this time.")
+        @acc.destroy
         return
       end
     rescue Twilio::REST::RequestError
-      @user.destroy
-      @account.destroy
+      @acc.destroy
       return
     end
   end
@@ -255,15 +252,15 @@ class SmsController < ApplicationController
   end
 
   def add_problem_to_user_sms
-    @user = User.find_by_phone_number(params[:From])
-    if @user.nil?
-      @user = User.new(:phone_number => params[:From])
+    @acc = Account.find_by_phone_number(params[:From])
+    if @acc.nil?
+      @acc = Account.new(:phone_number => params[:From])
     end
-    @user.problems << @problem
+    @acc.problems << @problem
   end
 
   def sms_save_problem
-    if @user.save
+    if @acc.save
       return true
     else
       return false
@@ -276,7 +273,7 @@ class SmsController < ApplicationController
     phone_number = params[:From]
     begin
       problem = Problem.find(problem_id)
-      if problem.user.phone_number == phone_number
+      if problem.account.phone_number == phone_number
         summary = @sms_summary || problem.summary
         location = @sms_location || problem.location
         skills = @sms_skills || problem.skills
@@ -303,7 +300,7 @@ class SmsController < ApplicationController
     phone_number = params[:From]
     begin
       problem = Problem.find(problem_id)
-      if problem.user.phone_number == phone_number
+      if problem.account.phone_number == phone_number
           problem.destroy
           sms_send("Your problem has successfully been deleted.")
       else
@@ -318,29 +315,26 @@ class SmsController < ApplicationController
   def sms_accept_problem
     problem_id = @problem_text[1]
     password = @problem_text[2]
-    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    if !provider_user.nil?
-      provider_acc = provider_user.account
-    end
-    if provider_acc.nil?
+    provider = Account.find_by_phone_number(normalize_phone(params[:From]))
+    if provider.nil?
       sms_error("There is no verified account for #{params[:From]}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
-    elsif provider_acc.password == Account.to_hmac(password)
+    elsif provider.password == Account.to_hmac(password)
       problem = Problem.find_by_id(problem_id)
       if problem.nil?
         sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
       elsif problem.archived
         sms_error("Sorry, problem ID #{problem_id} has already been accepted by another provider. Please choose another problem.")
-      elsif !provider_acc.verified_skills.include? problem.skills
+      elsif !provider.verified_skills.include? problem.skills
         sms_error("Sorry, you do not have the skills that this problem requires.")
       else
-        provider_acc.problems << problem
-        if provider_acc.save
+        provider.problems << problem
+        if provider.save
           problem.archived = true
           problem.save
-          requester = problem.user
+          requester = problem.account
           sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
           #send a notification to the requester saying that a provider will be contacting shortly
-          requester_msg = "Your #{problem.summary} problem has been accepted by #{provider_acc.account_name}, whom you can contact at #{provider_user.phone_number}."
+          requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.phone_number}."
           sms_send(requester.phone_number, requester_msg)
         end
       end
@@ -351,8 +345,7 @@ class SmsController < ApplicationController
 
   def sms_confirm_acc
     acc = Account.find_by_id(@problem_text[0])
-    acc_name = @problem_text[1]
-    if !acc.nil? and acc_name == acc.account_name
+    if !acc.nil?
       acc.verified = true
       acc.save
       sms_send("We have received your confirmation. Thank you for creating an account with Emplify!")
@@ -374,14 +367,11 @@ class SmsController < ApplicationController
   end
 
   def forgot_password
-    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    if !provider_user.nil?
-      provider_acc = provider_user.account
-    end
-    if provider_acc.nil?
+    provider = Account.find_by_phone_number(normalize_phone(params[:From]))
+    if provider.nil?
       sms_error("There is no account associated with this number.")
     else
-      session[:change_account] = provider_acc.id
+      session[:change_account] = provider.id
       sms_send("Please text back 'change [new password]' Please keep in mind that your password must be at least 6 characters with 1 capital letter.")
     end
   end
@@ -408,14 +398,11 @@ class SmsController < ApplicationController
   end
 
   def forgot_acc
-    provider_user = User.find_by_phone_number(normalize_phone(params[:From]))
-    if !provider_user.nil?
-      provider_acc = provider_user.account
-    end
-    if provider_acc.nil?
+    provider = Account.find_by_phone_number(normalize_phone(params[:From]))
+    if provider.nil?
       sms_error("There is no account associated with this number.")
     else
-      sms_send("Your account name is #{provider_acc.account_name}")
+      sms_send("Your account name is #{provider.account_name}")
     end
   end
 

@@ -10,21 +10,15 @@
             %ul
               - flash[:account_errors].each do |error|
                 %li= error
-          - if flash[:user_errors]
+          - if flash[:account_errors]
             The following errors occurred:
             %ul
-              - flash[:user_errors].each do |error|
+              - flash[:account_errors].each do |error|
                 %li= error
           - unless @account.nil? or @account.errors.empty? or flash[:account_errors].empty?
             The following errors occurred:
             %ul
               - @account.errors.full_messages.each do |error|
-                %li= error
-        
-          - unless @user.nil? or @user.errors.empty?
-            The following fields were missing:
-            %ul
-              - @user.errors.full_messages.each do |error|
                 %li= error
 
           = form_tag '/accounts' do
@@ -38,21 +32,21 @@
             = label :account, :password, 'Password (6 chars w/ at least 1 uppercase)', :class => 'category'
             = text_field :account, :password, :id => 'password', :type=>"password", :pattern=>"^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$"
 
-            = label :user, :name, 'Name', :class => 'category'
-            = text_field :user, :name, :id => 'name'
+            = label :account, :name, 'Name', :class => 'category'
+            = text_field :account, :name, :id => 'name'
 
-            = label :user, :phone_number, 'Phone Number', :class => 'category'
-            = text_field :user, :phone_number, :id => 'phone_number'
+            = label :account, :phone_number, 'Phone Number', :class => 'category'
+            = text_field :account, :phone_number, :id => 'phone_number'
   
-            = label :user, :location, 'Location', :class => 'category'
-            = text_field :user, :location, :id => 'location', :placeholder=>'Zip code', :pattern => "(\\d{5}([\\-]\\d{4})?)"
+            = label :account, :location, 'Location', :class => 'category'
+            = text_field :account, :location, :id => 'location', :placeholder=>'Zip code', :pattern => "(\\d{5}([\\-]\\d{4})?)"
             Max: #{Problem.LOCATION_LIMIT} Characters
 
-            = label :account, :skills, 'Skills', :class => 'category'
-            - @all_skills.each do |skill|
-              = label :skill, skill.skill_name + ': ', :style => 'display: inline;'
-              = check_box_tag "skills[]", skill.skill_name, false, :id => skill.skill_name
-              %br
+            -# = label :account, :skills, 'Skills', :class => 'category'
+            -# - @all_skills.each do |skill|
+              -# = label :skill, skill.skill_name + ': ', :style => 'display: inline;'
+              -# = check_box_tag "skills[]", skill.skill_name, false, :id => skill.skill_name
+              -# %br
             
             - account = Account.find_by_id(session[:account])
             - if Account.find(:all).empty? or (!account.nil? and account.admin)
@@ -60,6 +54,6 @@
               = check_box_tag "Admin", 1, true, :id => 'admin'
               %br
     
-            %p NOTE: Skills will be verified by an admin
+            -# %p NOTE: Skills will be verified by an admin
     
             = submit_tag 'Create Account', :class=>"btn btn-primary span3"

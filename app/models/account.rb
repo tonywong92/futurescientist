@@ -7,8 +7,12 @@ require 'hmac-sha1'
 class Account < ActiveRecord::Base
   @@PUBLIC_KEY = '1234'
   include ActiveModel::Dirty
+  
+  USA_PHONE_NUMBER_LENGTH = 12
+  before_validation do
+    self.phone_number = sanitize phone_number if attribute_present?("phone_number")
+  end
 
-=begin
   before_create do
     self.password = Account.to_hmac password if attribute_present?("password")
   end
@@ -18,14 +22,14 @@ class Account < ActiveRecord::Base
       self.password = Account.to_hmac password
     end
   end
-=end
 
-  attr_accessible :admin, :email, :account_name, :password, :skills, :verified_skills, :verified
+  # only phone number is a required field. verified and admin can be set to true
+  attr_accessible :phone_number, :account_name, :name, :location, :password, :admin, :email, :verified
+  #:skills, :verified_skills
 
   #serialize :skills
   #serialize :verified_skills
 
-  belongs_to :user
   has_many :problems
 
   #validates :email, :presence => true
@@ -36,8 +40,24 @@ class Account < ActiveRecord::Base
   #validate :validate_password, :unless => :persisted?
   #validate :validate_password_for_update, :if => :persisted?
   #validates_length_of :password, :minimum => 6, :allow_blank => false
+
+  validates :phone_number, :presence => true
+  validate :validate_phone_number
+  validates_uniqueness_of :phone_number
+  validates_length_of :location, :maximum => Problem.LOCATION_LIMIT, :allow_blank => true
   after_initialize :init
 
+  def init
+    #self.skills ||= []
+    #self.verified_skills ||= []
+  end
+
+  def validate_phone_number
+    if phone_number.length != USA_PHONE_NUMBER_LENGTH
+      errors.add(:phone_number, "is invalid")
+    end
+  end
+  
   def validate_password
     bool = (password =~ /[A-Z]{1}/) != nil
     if !bool
@@ -48,10 +68,11 @@ class Account < ActiveRecord::Base
   def validate_password_for_update
   #TODO: need a way to be able to validate the password when    doing an update. Right now, the encryption is a one way hash,     thus there's not a way I can check for a capital letter, when     it's already in the database, since we only save encrypted    passwords, and hmac only is a one way hash. Currently self-   checking...
   end
-
-  def init
-    #self.skills ||= []
-    #self.verified_skills ||= []
+  
+  def sanitize number
+    number = number.gsub(/^\+1/,"").gsub("+","").gsub("-","").gsub(/\D/,"")
+    number.insert(0,"+1")
+    number
   end
 
   def has_password? string

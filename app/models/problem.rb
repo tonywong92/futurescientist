@@ -1,6 +1,6 @@
 class Problem < ActiveRecord::Base
 before_validation do
-    self.skills = skills.strip.downcase if attribute_present?("skills")
+    #self.skills = skills.strip.downcase if attribute_present?("skills")
     self.location = location.strip.downcase if attribute_present?("location")
 end
   @@TEXTLENGTH = 160
@@ -8,20 +8,20 @@ end
   @@LOCATION_LIMIT = @@TEXTLENGTH/4
   @@SUMMARY_LIMIT = @@TEXTLENGTH/2
 
-  attr_accessible :description, :location, :skills, :summary, :archived, :wage
+  attr_accessible :description, :location, :summary, :archived, :wage
+  #:skills
 
-  belongs_to :user
   belongs_to :account
 
   validates :location, :presence => true
-  validates :skills, :presence => true
+  #validates :skills, :presence => true
   validates :summary, :presence => true
   validates :wage, :presence => true
 
   validates_length_of :description, :maximum => @@DESCRIPTION_LIMIT, :allow_blank => true
   validates_length_of :location, :maximum => @@LOCATION_LIMIT, :allow_blank => false
   validates_length_of :summary, :maximum => @@SUMMARY_LIMIT, :allow_blank => false
- validate :validate_skill
+  #validate :validate_skill
 
   def validate_skill
     skill = Skill.find_by_skill_name(skills)

@@ -14,16 +14,16 @@
 ActiveRecord::Schema.define(:version => 20121118082645) do
 
   create_table "accounts", :force => true do |t|
+    t.string   "phone_number"
     t.string   "account_name"
+    t.string   "name"
+    t.string   "location"
     t.string   "password"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",        :default => false
     t.string   "email"
-    t.text     "skills"
-    t.text     "verified_skills"
-    t.boolean  "verified",        :default => false
-    t.integer  "user_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.boolean  "verified",     :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "problems", :force => true do |t|
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.string   "summary"
     t.text     "description"
     t.float    "wage"
-    t.integer  "user_id"
     t.integer  "account_id"
     t.boolean  "archived",    :default => false
     t.datetime "created_at",                     :null => false
@@ -49,14 +48,6 @@ ActiveRecord::Schema.define(:version => 20121118082645) do
     t.string   "skill_name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "name"
-    t.string   "phone_number"
-    t.string   "location"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
   end
 
 end
