@@ -16,12 +16,13 @@ class SmsController < ApplicationController
   def receive_sms
     uninitialize_sms
     body = params[:Body]
+    phone_number = normalize_phone params[:from]
     @problem_text = body.split
     action = sms_parsing(body).downcase
     if action == "join"
       sms_create_account
       return
-    elsif User.find_by_phone_number(normalize_phone(params[:from])).nil?
+    elsif User.find_by_phone_number(phone_number) == nil
       sms_send(params[:From], "Please first create an account by texting the word 'join'.")
     end
     if !@sms_error
