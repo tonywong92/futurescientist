@@ -318,30 +318,24 @@ class SmsController < ApplicationController
     problem_id = @problem_text[1]
     password = @problem_text[2]
     provider = Account.find_by_phone_number(normalize_phone(params[:From]))
-    if provider.nil?
-      sms_error("There is no verified account for #{params[:From]}. Please reply in the following format: 'Accept [problem ID] [yourPassword]'")
-    elsif provider.password == Account.to_hmac(password)
-      problem = Problem.find_by_id(problem_id)
-      if problem.nil?
-        sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please reply in the following format: 'Accept [problem ID] [your_password]'")
-      elsif problem.archived
-        sms_error("Sorry, problem ID #{problem_id} has already been accepted by another provider. Please choose another problem.")
-      elsif !provider.verified_skills.include? problem.skills
-        sms_error("Sorry, you do not have the skills that this problem requires.")
-      else
-        provider.problems << problem
-        if provider.save
-          problem.archived = true
-          problem.save
-          requester = problem.account
-          sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
-          #send a notification to the requester saying that a provider will be contacting shortly
-          requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.phone_number}."
-          sms_send(requester.phone_number, requester_msg)
-        end
-      end
+    problem = Problem.find_by_id(problem_id)
+    if problem.nil?
+      sms_error("Sorry, there is no problem that matches ID #{problem_id}. Please accept problems in the following format: 'Accept [problem ID]'")
+    elsif problem.archived
+      sms_error("Sorry, problem ID #{problem_id} has already been accepted by another provider. Please choose another problem.")
+#    elsif !provider.verified_skills.include? problem.skills
+#      sms_error("Sorry, you do not have the skills that this problem requires.")
     else
-      sms_error("Sorry, incorrect password. Please reply in the following format: 'Accept [problem ID] [your_password]'")
+      provider.problems << problem
+      if provider.save
+        problem.archived = true
+        problem.save
+        requester = problem.account
+        sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
+        #send a notification to the requester saying that a provider will be contacting shortly
+        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.phone_number}."
+        sms_send(requester.phone_number, requester_msg)
+      end
     end
   end
 
