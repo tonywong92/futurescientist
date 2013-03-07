@@ -189,11 +189,11 @@ class SmsController < ApplicationController
         if !skills.nil? and !location.nil?
           problems = Problem.where(:skills => skills, :location => location, :archived => false).order("created_at DESC").limit(5).offset(offset)
         elsif !skills.nil?
-          problems = Problem.where(:skills => skills).order("created_at DESC").limit(5).offset(offset)
+          problems = Problem.where(:skills => skills, :archived => false).order("created_at DESC").limit(5).offset(offset)
         elsif !location.nil?
-          problems = Problem.where(:location => location).order("created_at DESC").limit(5).offset(offset)
+          problems = Problem.where(:location => location, :archived => false).order("created_at DESC").limit(5).offset(offset)
         else
-          problems = Problem.find(:all, :order => "created_at DESC", :limit => 5, :offset => offset)
+          problems = Problem.where(:archived => false).order("created_at DESC").limit(5).offset(offset)
         end
         problems.each do |problem|
         tmpbody = body +  problem.to_s + " "
@@ -333,7 +333,7 @@ class SmsController < ApplicationController
         requester = problem.account
         sms_send("You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
         #send a notification to the requester saying that a provider will be contacting shortly
-        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.phone_number}."
+        requester_msg = "Your #{problem.summary} problem has been accepted. You can contact your provider at #{provider.phone_number}."
         sms_send(requester.phone_number, requester_msg)
       end
     end
