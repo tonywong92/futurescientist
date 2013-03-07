@@ -120,10 +120,20 @@ class ProblemsController < ApplicationController
         problem.archived = true
         problem.save
         requester = problem.account
-        sms_send(provider.phone_number, "You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
-        #send a notification to the requester saying that a provider will be contacting shortly
-        requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.phone_number}."
-        sms_send(requester.phone_number, requester_msg)
+        begin
+          sms_send(provider.phone_number, "You have accepted problem ##{problem_id}. Please contact your requester at #{requester.phone_number} as soon as possible.")
+          #send a notification to the requester saying that a provider will be contacting shortly
+          requester_msg = "Your #{problem.summary} problem has been accepted by #{provider.account_name}, whom you can contact at #{provider.phone_number}."
+          sms_send(requester.phone_number, requester_msg)
+        rescue Twilio::REST::RequestError
+          flash[:notice] = 'We seem to be having difficulties sending a text to your phone number. Please try again later'
+          redirect_to problems_path
+          return
+        end
+      else
+        flash[:notice] = 'Something went wrong. Please try again at a later time.'
+        redirect_to problems_path
+        return
       end
     else
       flash[:notice] = 'You are not currently logged in. Please log in before accepting problems.'

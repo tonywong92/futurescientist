@@ -90,7 +90,7 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @account = Account.find_by_id(session[:account])
+    @acc = Account.find_by_id(session[:account])
   end
 
   def skills_verification
