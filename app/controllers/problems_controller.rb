@@ -101,6 +101,10 @@ class ProblemsController < ApplicationController
       if @account.phone_number == @acc.phone_number
         @verifiedUser = true
       end
+      return
+    else
+      flash[:notice] = "You are not yet logged in. Please log in first or create an account before viewing any problems."
+      redirect_to problems_path
     end
   end
 
