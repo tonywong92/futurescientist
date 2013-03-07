@@ -57,7 +57,7 @@
 										- else
 											%td.no= "No"
 					%h5 My accepted problems:
-					- if @account.problems.empty?
+					- if @acc.problems.empty?
 						%p You have not accepted any problems.
 					- else
 						%table#listings_table.table.table-striped.table-bordered
@@ -69,7 +69,7 @@
 									%th Wage
 									%th Problem owner
 							%tbody
-								- @account.problems.each do |problem_id|
+								- @acc.problems.each do |problem_id|
 									%tr
 										- problem = Problem.find_by_id(problem_id)
 										%td= link_to "#{problem.summary}", problem_path(problem_id)
