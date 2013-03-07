@@ -7,7 +7,7 @@ class SmsController < ApplicationController
     @sms_skills = nil
     @sms_summary = nil
     @sms_wage = nil
-    @sms_limit = nil
+    @sms_limit = 3
     @client = nil
     @sms_error = false
   end
@@ -55,8 +55,8 @@ class SmsController < ApplicationController
           sms_change_password
         when /^password$/
           forgot_password
-        when /^skill$/, /^skills$/
-          sms_skill
+#        when /^skill$/, /^skills$/
+#          sms_skill
         when /^keywords$/, /^key$/, /^keys$/, /^help$/
           sms_keywords
         when /^explain$/
@@ -84,20 +84,19 @@ class SmsController < ApplicationController
   #add more parsing logic here if there's more.
   def sms_parsing(text_body)
     words = text_body.split
-    action = words[0]
-    words.slice!(0)
-    symbol_hashset = Set.new ["!", "@", "#", "$"] #all symbols to check for
-    word_hashset = Set.new ["limit"]
+    action = words.slice!(0)
+    symbol_set = Set.new ["!", "@", "#", "$"] #all symbols to check for
+    word_set = Set.new ["limit"]
     while !words.empty?
       nextWord = words[0]
       symbol = nextWord[0]
-      if symbol_hashset.member? symbol
+      if symbol_set.member? symbol
         nextWord.slice!(0)
         case symbol #all symbols to check for here
           when "!"
             @sms_skills = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word
+            while !words.empty? and !symbol_set.member? words[0][0] and !word_set.member? words[0].downcase #checks if nextWord is a symboled word
               @sms_skills = @sms_skills + words[0] + " "
               words.slice!(0)
             end
@@ -105,7 +104,7 @@ class SmsController < ApplicationController
           when "@"
             @sms_location = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word
+            while !words.empty? and !symbol_set.member? words[0][0] and !word_set.member? words[0].downcase #checks if nextWord is a symboled word
               @sms_location = @sms_location + words[0] + " "
               words.slice!(0)
             end
@@ -113,7 +112,7 @@ class SmsController < ApplicationController
           when "#"
             @sms_summary = nextWord + " "
             words.slice!(0)
-            while !words.empty? and !symbol_hashset.member? words[0][0] and !word_hashset.member? words[0].downcase #checks if nextWord is a symboled word or key word
+            while !words.empty? and !symbol_set.member? words[0][0] and !word_set.member? words[0].downcase #checks if nextWord is a symboled word or key word
               @sms_summary = @sms_summary + words[0] + " "
               words.slice!(0)
             end
@@ -123,7 +122,7 @@ class SmsController < ApplicationController
             words.slice!(0)
         end
       else
-        if word_hashset.member? nextWord.downcase
+        if word_set.member? nextWord.downcase
           case nextWord.downcase
             when "limit"
               words.slice!(0)
@@ -148,6 +147,10 @@ class SmsController < ApplicationController
       @sms_skills = @sms_skills.downcase.strip
     end
     return action
+  end
+  
+  def set_field
+    
   end
   
   def sms_create_account
