@@ -16,7 +16,7 @@ class SmsController < ApplicationController
   def receive_sms
     uninitialize_sms
     body = params[:Body]
-    phone_number = normalize_phone params[:from]
+    phone_number = normalize_phone params[:From].strip
     @problem_text = body.split
     action = sms_parsing(body).downcase
     if action == "join"
@@ -24,6 +24,7 @@ class SmsController < ApplicationController
       return
     elsif Account.find_by_phone_number(phone_number) == nil
       sms_send(params[:From], "Please first create an account by texting the word 'join'.")
+      return
     end
     if !@sms_error
       case action
@@ -149,12 +150,11 @@ class SmsController < ApplicationController
     return action
   end
   
-  def sms_create_account()
+  def sms_create_account
     phone_number = normalize_phone params[:From]
     begin
       if phone_number
         @acc = Account.new({:phone_number=>phone_number})
-        @acc.admin = false
       end
       if @acc.save
         sms_send(@acc.phone_number, "You have created an account with Emplify. Thank you for joining our service!")
